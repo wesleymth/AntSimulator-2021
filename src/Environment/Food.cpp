@@ -2,6 +2,7 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 
+
 Food::Food(const Vec2d& pos, Quantity quant)
     :position(ToricPosition(pos).toVec2d()),quantity(quant)
 {
