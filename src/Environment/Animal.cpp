@@ -2,5 +2,7 @@
 
 Animal::Animal()
 {
-
+    //fini
 }
+
+
