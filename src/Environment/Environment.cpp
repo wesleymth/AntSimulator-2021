@@ -24,12 +24,12 @@ void Environment::drawOn(sf::RenderTarget& targetWindow) const
 {
    for(auto& food: foods)
    {
-       food->drawOn(targetWindow);
+       food->drawOn(targetWindow);  //################
    }
 
    for(auto& animal: animals)
    {
-       animal->drawOn(targetWindow);
+       animal->drawOn(targetWindow);    //################
    }
 }
 

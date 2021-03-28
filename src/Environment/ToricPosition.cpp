@@ -35,7 +35,7 @@ void ToricPosition::clamp(){
     coordinates = newcoords;
 }
 
-ToricPosition::ToricPosition(Vec2d coords, Vec2d dim)
+ToricPosition::ToricPosition(const Vec2d &coords, const Vec2d &dim)
     :coordinates(coords),worldDimensions(dim)
 {
     clamp(); //assures that the position is in the world

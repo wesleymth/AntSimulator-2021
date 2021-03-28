@@ -13,6 +13,9 @@ private:
    std::vector<Food*> foods;
    FoodGenerator foodGenerator;
 public:
+   /*!
+    *  @brief default constructor
+    */
    Environment();
 
    /*!
@@ -53,7 +56,7 @@ public:
     */
    Environment(Environment const&) = delete;
 
-   //manque affectattion
+   //MANQUE AFFECTATION ################
 };
 
 #endif // ENVIRONMENT_HPP

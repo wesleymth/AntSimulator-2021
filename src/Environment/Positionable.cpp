@@ -27,10 +27,10 @@ void Positionable::setPosition(const ToricPosition& pos){
 
 std::ostream& operator<<(std::ostream& out, Positionable const& P)
 {
-    return out << P.getPosition();
+    return out << P.getPosition(); //uses the operator<< of ToricPosition
 }
 
 std::ostream& Positionable::display(std::ostream& out){
-    return out << *this;
+    return out << *this; //uses the external operator<< above
 }
 

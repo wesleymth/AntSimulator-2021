@@ -22,13 +22,11 @@ public:
       */
      Positionable();
 
-     //Un constructeur initialisant la position à l'aide de la ToricPosition passée en paramètre.
      /*!
       * @brief constructor initialising the position using a given ToricPosition
       */
      Positionable(const ToricPosition& T);
 
-     //Une méthode publique getPosition() qui retourne la position.
      /*!
       * @brief gets the position
       *
@@ -46,13 +44,12 @@ public:
      void setPosition(const ToricPosition& pos);
 
      /*!
-      * @brief displays current Positionable using << operator
+      * @brief displays current Positionable using operator<<
       *
       * @return ostream& out
       *
-      * @note uses << operator
+      * @note uses external operator<<
       */
-     //Une méthode ostream& display(ostream& out) affichant les mêmes informations que l'opérateur <<.
      std::ostream& display(std::ostream& out);
 
 private:
@@ -60,11 +57,10 @@ private:
 };
 
 /*!
-* @brief << operator
+* @brief operator<<
 *
 * @return ostream& out
 *
-* @note uses << operator for ToricPosition
+* @note uses operator<< for ToricPosition
 */
-//Une surcharge de l'opérateur d'affichage <<
 std::ostream& operator<<(std::ostream& out, Positionable const& P);

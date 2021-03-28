@@ -13,6 +13,8 @@ public:
      *
      *  @param pos position of the food
      *  @param quant quantity of the food
+     *
+     *  @note calls the ToricPosition constructor with vector as parameter
      */
     Food(const Vec2d& pos, Quantity quant);
 
@@ -24,26 +26,24 @@ public:
      *  @return quantity taken
      *
      *  @note cannot take anything more than what is available
+     *  @note doesn't do anything for a negative wantTake
      */
-    //d'une méthode takeQuantity permettant de prélever une quantité donnée de nourriture de la source.
-    //Cette méthode retournera la quantité qui a pu être prélevée (on ne peut prélever que ce qui est disponible).
     Quantity takeQuantity(Quantity wantTake);
 
     /*!
-     *  @brief
+     *  @brief draw a food on a window
      *
-     *  @param
+     *  @param target window
      *
-     *  @return
-     *
-     *  @note
+     *  @note uses getAppConfig().food_texture for food texture
+     *  @note if debug mode on you can see the quantity attribute of the food
      */
-    //d'une méthode de dessin qui devra strictement adhérer au prototype suivant : void drawOn(sf::RenderTarget& target) const.
-    //Il vous est expliqué un peu plus bas comment implémenter cette méthode.
     void drawOn(sf::RenderTarget& target) const;
 
 private:
+
     Positionable position;
+
     Quantity quantity;
 };
 

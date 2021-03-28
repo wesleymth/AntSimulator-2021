@@ -24,7 +24,7 @@ public:
      *  @param coords the coordinates of the new ToricPosition
      *  @param dim the dimensions of the world
      */
-    ToricPosition(Vec2d coords, Vec2d dim);
+    ToricPosition(const Vec2d& coords, const Vec2d& dim);
 
     /*!
      *  @brief constructor using two specific values as coordinates
