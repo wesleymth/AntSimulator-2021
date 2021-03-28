@@ -27,7 +27,10 @@ void Environment::drawOn(sf::RenderTarget& targetWindow) const
        food->drawOn(targetWindow);
    }
 
-   //A FAIRE POUR ANIMALS
+   for(auto& animal: animals)
+   {
+       animal->drawOn(targetWindow);
+   }
 }
 
 void Environment::reset()
