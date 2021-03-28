@@ -2,7 +2,6 @@
 
 Animal::Animal()
 
-{   //done
+{
+    //done
 }
-
-
