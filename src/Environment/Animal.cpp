@@ -9,7 +9,7 @@ double Animal::getSpeed() const
 
 //[Question Q2.7] BESOIN DETRE REPONDU
 
-//cc
+//merge
 
 Angle Animal::getDirection() const
 {
