@@ -18,7 +18,9 @@ public:
 
     void drawOn(sf::RenderTarget& target) const;
 
-    Animal(const Positionable& pos, double LP, int LT);
+    Animal(const Positionable& pos, double LP, double LT);
+
+    Animal(const Vec2d& pos, double LP, double LT);
 
     Animal();
 
@@ -26,7 +28,7 @@ private:
     Positionable position;
     Angle direction;
     double lifePoints;
-    int lifetime;
+    double lifetime;
 };
 
 #endif // ANIMAL_HPP
