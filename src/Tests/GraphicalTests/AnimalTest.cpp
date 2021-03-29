@@ -39,12 +39,12 @@ void AnimalTest::onEvent(sf::Event event, sf::RenderWindow& window)
 	  {
                   case sf::Keyboard::A:
 			  // UNCOMMENT WHEN ANIMAL Ctor IS CODED
-              /*
+
               getAppEnv().addAnimal(new Animal(getCursorPositionInView(),
                                                1.0,
 											   getAppConfig().animal_default_lifespan
 											   ));
-              */
+
 			  break;
 		  default: /*nothing to do*/
 			  break;

@@ -60,7 +60,6 @@ file(GLOB SOURCES_GFX
 #add_executable (circularBodyTest  ${TEST_DIR}/UnitTests/CircularBodyTest.cpp ${CACHE_SOURCES})
 ############add_executable (ToricTest  ${TEST_DIR}/UnitTests/ToricTest.cpp ${CACHE_SOURCES})
 
-
 # Find any version 2.X of SFML, first trying 2.5 or above (for which CMake configuration changed)
 find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
     if(SFML_FOUND)
