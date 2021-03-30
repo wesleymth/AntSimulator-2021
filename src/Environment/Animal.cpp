@@ -32,10 +32,6 @@ bool Animal::isDead() const
 
 void Animal::drawOn(sf::RenderTarget& target) const
 {
-<<<<<<< HEAD
-
-=======
->>>>>>> 4522023046fed6e59c1fb05ecb00c6e303215ab5
     auto const animalSprite = buildSprite((getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture), directionAngle/DEG_TO_RAD);
         target.draw(animalSprite);
     if (isDebugOn()) //if debug on you can see the lifePoints
@@ -68,7 +64,14 @@ Animal::Animal()
 void Animal::move(sf::Time dt)
 {
     auto dx = (getSpeed()*Vec2d::fromAngle(directionAngle)) * dt.asSeconds();
-    Vec2d res;
     setPosition(getPosition().toVec2d() + dx);
     --lifetime;
+}
+
+RotationProbs Animal::computeRotationProbs()
+{
+    RotationProbs ret;
+    ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
+    ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
+    return ret;
 }

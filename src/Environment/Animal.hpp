@@ -21,6 +21,8 @@ public:
 
     void move(sf::Time dt);
 
+    RotationProbs computeRotationProbs();
+
 protected:
     void setDirection(Angle setAngle);
 
