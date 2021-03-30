@@ -64,7 +64,6 @@ Animal::Animal()
 void Animal::move(sf::Time dt)
 {
     auto dx = (getSpeed()*Vec2d::fromAngle(directionAngle)) * dt.asSeconds();
-    Vec2d res;
     setPosition(getPosition().toVec2d() + dx);
     --lifetime;
 
@@ -78,4 +77,12 @@ void Animal::move(sf::Time dt)
         directionAngle = dist(getRandomGenerator())*DEG_TO_RAD;
     }
 
+}
+
+RotationProbs Animal::computeRotationProbs()
+{
+    RotationProbs ret;
+    ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
+    ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
+    return ret;
 }
