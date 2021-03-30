@@ -34,7 +34,7 @@ void Animal::drawOn(sf::RenderTarget& target) const
 {
     auto const animalSprite = buildSprite((getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture));
         target.draw(animalSprite);
-    if (isDebugOn())
+    if (isDebugOn()) //if debug on you can see the lifePoints
     {
         sf::VertexArray ligne(sf::PrimitiveType::Lines, 2);
             ligne[0] = { getPosition().toVec2d(), sf::Color::Black };
