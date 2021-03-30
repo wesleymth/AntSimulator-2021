@@ -23,7 +23,7 @@ public:
     void drawOn(sf::RenderTarget& target) const;
 
 private:
-    Angle direction;
+    Angle directionAngle;
     double lifePoints;
     double lifetime;
 };

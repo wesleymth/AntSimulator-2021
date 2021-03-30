@@ -1,6 +1,7 @@
 #include "Animal.hpp"
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
+#include "Random/Random.hpp"
 
 double Animal::getSpeed() const
 {
@@ -11,12 +12,12 @@ double Animal::getSpeed() const
 
 Angle Animal::getDirection() const
 {
-    return direction;
+    return directionAngle;
 }
 
 void Animal::setDirection(Angle setAngle)
 {
-    direction = setAngle;
+    directionAngle = setAngle;
 }
 
 bool Animal::isDead() const
@@ -33,16 +34,25 @@ void Animal::drawOn(sf::RenderTarget& target) const
 {
     auto const animalSprite = buildSprite((getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture));
         target.draw(animalSprite);
+    if (isDebugOn()) //if debug on you can see the quantity of the food
+    {
+        sf::VertexArray ligne(sf::PrimitiveType::Lines, 2);
+            ligne[0] = { getPosition().toVec2d(), sf::Color::Black };
+            ligne[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(directionAngle), sf::Color::Black };
+            target.draw(ligne);  //draws line
+        auto const text = buildText(to_nice_string(lifePoints), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        target.draw(text); //shows lifePoints via a text
+    }
 }
 
 Animal::Animal(const Vec2d& pos, double LP, double LT)
-    :Positionable(pos), lifePoints(LP), lifetime(LT)
+    :Positionable(pos), directionAngle(uniform(0.0, TAU)), lifePoints(LP), lifetime(LT)
 {
     //Done
 }
 
 Animal::Animal()
-    :Positionable(), lifePoints(1.0), lifetime(1.0)
+    :Positionable(), directionAngle(uniform(0.0, TAU)), lifePoints(1.0), lifetime(1.0)
 {
     //Done
 }
