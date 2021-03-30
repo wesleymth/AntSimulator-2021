@@ -56,7 +56,10 @@ public:
     */
    Environment(Environment const&) = delete;
 
-   //MANQUE AFFECTATION ################
+   /*!
+    *  @brief in order to stop affectations of environment
+    */
+   void operator=(Environment const&) = delete;
 };
 
 #endif // ENVIRONMENT_HPP
