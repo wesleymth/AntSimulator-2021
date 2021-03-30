@@ -28,6 +28,11 @@ public:
      Positionable(const ToricPosition& T);
 
      /*!
+      * @brief constructor using a Vec2D
+      */
+     Positionable(const Vec2d& pos);
+
+     /*!
       * @brief gets the position
       *
       * @return position in ToricPosition form
@@ -35,13 +40,22 @@ public:
      ToricPosition getPosition() const;
 
      /*!
-      * @brief gets the position
+      * @brief sets the position using a ToricPosition
       *
       * @return position in ToricPosition form
       *
       * @note uses operator= for ToricPosition
       */
      void setPosition(const ToricPosition& pos);
+
+     /*!
+      * @brief sets the position using a Vec2d
+      *
+      * @return position in ToricPosition form
+      *
+      * @note uses operator= for ToricPosition
+      */
+     void setPosition(const Vec2d& pos);
 
      /*!
       * @brief displays current Positionable using operator<<

@@ -22,8 +22,10 @@ public:
 
     void drawOn(sf::RenderTarget& target) const;
 
+    void move(sf::Time dt);
+
 private:
-    Angle direction;
+    Angle directionAngle;
     double lifePoints;
     double lifetime;
 };

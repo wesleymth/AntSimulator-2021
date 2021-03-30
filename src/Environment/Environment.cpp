@@ -17,7 +17,17 @@ void Environment::addFood(Food* food)
 
 void Environment::update(sf::Time dt)
 {
-   foodGenerator.update(dt);        //######
+   foodGenerator.update(dt);       //######
+
+   for(auto& animal: animals)
+   {
+       animal->move(dt);
+       if (animal->isDead())
+       {
+           animal = nullptr;
+           animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
+       }
+   }
 }
 
 void Environment::drawOn(sf::RenderTarget& targetWindow) const
