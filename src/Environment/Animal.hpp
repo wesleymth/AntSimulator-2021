@@ -21,6 +21,8 @@ public:
 
     void move(sf::Time dt);
 
+    RotationProbs computeRotationProbs();
+
 protected:
     void setDirection(Angle setAngle);
 
@@ -28,6 +30,7 @@ private:
     Angle directionAngle;
     double lifePoints;
     double lifetime;
+    sf::Time timeLastRot;
 };
 
 #endif // ANIMAL_HPP
