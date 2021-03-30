@@ -6,11 +6,7 @@
 
 class Animal : public Positionable
 {
-protected:
-    void setDirection(Angle setAngle);
-
 public:
-
     Animal(const Vec2d& pos, double LP, double LT);
 
     Animal();
@@ -24,6 +20,9 @@ public:
     void drawOn(sf::RenderTarget& target) const;
 
     void move(sf::Time dt);
+
+protected:
+    void setDirection(Angle setAngle);
 
 private:
     Angle directionAngle;
