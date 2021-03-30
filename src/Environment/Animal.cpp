@@ -31,18 +31,24 @@ bool Animal::isDead() const
 
 void Animal::drawOn(sf::RenderTarget& target) const
 {
-    auto const animalSprite = buildSprite((position.getPosition()).toVec2d(), (lifePoints/2), getAppTexture(getAppConfig().animal_default_texture));
+    auto const animalSprite = buildSprite((position.getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture));
         target.draw(animalSprite);
 }
 
-Animal::Animal(const Positionable& pos, double LP, int LT)
+Animal::Animal(const Positionable& pos, double LP, double LT)
     :position(pos), lifePoints(LP), lifetime(LT)
 {
     //Done
 }
 
+Animal::Animal(const Vec2d& pos, double LP, double LT)
+    :position(Positionable(ToricPosition(pos))), lifePoints(LP), lifetime(LT)
+{
+    //Done
+}
+
 Animal::Animal()
-    :position(), lifePoints(1.0), lifetime(1)
+    :position(), lifePoints(1.0), lifetime(1.0)
 {
     //Done
 }

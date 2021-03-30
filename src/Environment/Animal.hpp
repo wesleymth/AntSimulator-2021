@@ -8,6 +8,12 @@ class Animal
 {
 public:
 
+    Animal(const Positionable& pos, double LP, double LT);
+
+    Animal(const Vec2d& pos, double LP, double LT);
+
+    Animal();
+
     double getSpeed() const;
 
     Angle getDirection() const;
@@ -18,15 +24,11 @@ public:
 
     void drawOn(sf::RenderTarget& target) const;
 
-    Animal(const Positionable& pos, double LP, int LT);
-
-    Animal();
-
 private:
     Positionable position;
     Angle direction;
     double lifePoints;
-    int lifetime;
+    double lifetime;
 };
 
 #endif // ANIMAL_HPP
