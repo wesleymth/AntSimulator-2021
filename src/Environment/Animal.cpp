@@ -60,3 +60,11 @@ Animal::Animal()
 //[Question Q2.8] BESOIN DETRE REPONDU
 
 //[Question Q2.9] BESOIN DETRE REPONDU
+
+void Animal::move(sf::Time dt)
+{
+    auto dx = (getSpeed()*Vec2d::fromAngle(directionAngle)) * dt.asSeconds();
+    Vec2d res;
+    setPosition(getPosition().toVec2d() + dx);
+    --lifetime;
+}

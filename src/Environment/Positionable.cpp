@@ -17,12 +17,23 @@ Positionable::Positionable(const ToricPosition& T)
     //Done
 }
 
+Positionable::Positionable(const Vec2d& pos)
+    :position(ToricPosition(pos))
+{
+    //Done
+}
+
 ToricPosition Positionable::getPosition() const{
     return position;
 }
 
 void Positionable::setPosition(const ToricPosition& pos){
     position=pos;
+}
+
+void Positionable::setPosition(const Vec2d& pos)
+{
+    position=ToricPosition(pos);
 }
 
 std::ostream& operator<<(std::ostream& out, Positionable const& P)
