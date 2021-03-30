@@ -6,9 +6,7 @@
 
 class Animal : public Positionable
 {
-
 public:
-
     Animal(const Vec2d& pos, double LP, double LT);
 
     Animal();

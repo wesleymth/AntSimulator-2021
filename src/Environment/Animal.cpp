@@ -32,7 +32,7 @@ bool Animal::isDead() const
 
 void Animal::drawOn(sf::RenderTarget& target) const
 {
-    auto const animalSprite = buildSprite((getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture),directionAngle/DEG_TO_RAD);
+    auto const animalSprite = buildSprite((getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture), directionAngle/DEG_TO_RAD);
         target.draw(animalSprite);
     if (isDebugOn()) //if debug on you can see the lifePoints
     {
