@@ -4,11 +4,9 @@
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 
-class Animal
+class Animal : public Positionable
 {
 public:
-
-    Animal(const Positionable& pos, double LP, double LT);
 
     Animal(const Vec2d& pos, double LP, double LT);
 
@@ -25,7 +23,6 @@ public:
     void drawOn(sf::RenderTarget& target) const;
 
 private:
-    Positionable position;
     Angle direction;
     double lifePoints;
     double lifetime;
