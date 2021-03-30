@@ -4,7 +4,7 @@
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 
-class Food
+class Food : public Positionable
 {
 public:
 
@@ -41,8 +41,6 @@ public:
     void drawOn(sf::RenderTarget& target) const;
 
 private:
-
-    Positionable position;
 
     Quantity quantity;
 };

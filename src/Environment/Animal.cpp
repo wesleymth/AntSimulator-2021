@@ -31,7 +31,9 @@ bool Animal::isDead() const
 
 void Animal::drawOn(sf::RenderTarget& target) const
 {
-    auto const animalSprite = buildSprite((position.getPosition()).toVec2d(), (lifePoints*20), getAppTexture(getAppConfig().animal_default_texture));
+    auto const animalSprite = buildSprite((position.getPosition()).toVec2d(),
+                                          (lifePoints*20),
+                                          getAppTexture(getAppConfig().animal_default_texture));
         target.draw(animalSprite);
 }
 
