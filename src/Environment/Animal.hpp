@@ -6,6 +6,9 @@
 
 class Animal : public Positionable
 {
+protected:
+    void setDirection(Angle setAngle);
+
 public:
 
     Animal(const Vec2d& pos, double LP, double LT);
@@ -15,8 +18,6 @@ public:
     double getSpeed() const;
 
     Angle getDirection() const;
-
-    void setDirection(Angle setAngle);
 
     bool isDead() const;
 
