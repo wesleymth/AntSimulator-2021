@@ -16,13 +16,14 @@ public:
 
     Angle getDirection() const;
 
-    void setDirection(Angle setAngle);
-
     bool isDead() const;
 
     void drawOn(sf::RenderTarget& target) const;
 
     void move(sf::Time dt);
+
+protected:
+    void setDirection(Angle setAngle);
 
 private:
     Angle directionAngle;
