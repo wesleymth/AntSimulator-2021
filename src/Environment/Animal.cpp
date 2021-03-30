@@ -66,15 +66,17 @@ void Animal::move(sf::Time dt)
     auto dx = (getSpeed()*Vec2d::fromAngle(directionAngle)) * dt.asSeconds();
     setPosition(getPosition().toVec2d() + dx);
     --lifetime;
+    timeLastRot += dt;
 
     if (timeLastRot >= sf::seconds(getAppConfig().animal_next_rotation_delay))
     {
+        timeLastRot=sf::Time::Zero;
         RotationProbs degProb(computeRotationProbs());
         std::piecewise_linear_distribution<> dist(degProb.first.begin(), degProb.first.end(), degProb.second.begin());
         //Le code fourni ci-dessus déclare-initialise un générateur aléatoire permettant de générer
         //une valeur aléatoire respectant une distribution linéaire par morceau selon les données des ensembles thetas et probas.
         //thetas et probas seraient ici l'ensemble des angles et l'ensemble des probabilités "retournés" par computeRotationProbs.
-        directionAngle = dist(getRandomGenerator())*DEG_TO_RAD;
+        directionAngle += dist(getRandomGenerator())*DEG_TO_RAD;
     }
 
 }
