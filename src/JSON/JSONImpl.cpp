@@ -53,7 +53,9 @@ namespace impl
         else if (isArray())
             return "Array";
         else
+			// should never happen
             assert(false);
+		return "Unknown type name";
     }
 
     String& AbstractValue::asString()

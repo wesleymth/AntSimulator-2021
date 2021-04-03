@@ -1,7 +1,7 @@
 /*
  * POOSV 2016-21
  * Marco Antognini & Jamila Sam
- * STEP2
+ * STEP3
  */
 
 #ifndef INFOSV_APPLICATION_HPP

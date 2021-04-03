@@ -764,11 +764,11 @@ void Application::drawControls(sf::RenderWindow& target) {
 	}
 }
 
-void Application::drawTitle(sf::RenderWindow& target
-								 , sf::Color color
-								 , size_t xcoord
-								 , size_t ycoord
-								 , size_t font_size
+void Application::drawTitle(sf::RenderWindow& /*target*/
+							,  sf::Color /*color*/
+							, size_t /* xcoord */
+							, size_t /* ycoord */
+							, size_t /* font_size */
 							) 
 {
 	//draw title here if needed
@@ -809,7 +809,7 @@ void Application::drawOneControl(sf::RenderWindow& target
 	target.draw(legend);
 }
 
-void Application::addGraph(std::string const& title, std::vector<std::string> const& series, double min, double max)
+void Application::addGraph(std::string const& /*title*/, std::vector<std::string> const& /*series*/, double /*min*/, double /*max*/)
 {
 /*	
     if (series.size() > 0){
@@ -825,7 +825,7 @@ void Application::addGraph(std::string const& title, std::vector<std::string> co
     return *mStats;
 	}*/
 
-void Application::setActiveGraph(int id)
+void Application::setActiveGraph(int /*id*/)
 {
 	//getStats().setActive(id);
 }

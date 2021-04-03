@@ -1,6 +1,7 @@
 /*
- * prjsv 2015-21
- * Marco Antognini & Jamila Sam
+ * prjsv 2015
+ * 2013, 2014
+ * Marco Antognini
  */
 
 #include <Random/Random.hpp>
@@ -164,6 +165,7 @@ double Vec2d::operator[](int axis) const
     default:
         // This should not happen
         assert(false);
+		return 0;
         break;
     }
 }
