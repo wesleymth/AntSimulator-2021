@@ -8,8 +8,6 @@ double Animal::getSpeed() const
     return getAppConfig().animal_default_speed;
 }
 
-//[Question Q2.7] BESOIN DETRE REPONDU
-
 Angle Animal::getDirection() const
 {
     return directionAngle;
@@ -22,7 +20,7 @@ void Animal::setDirection(Angle setAngle)
 
 bool Animal::isDead() const
 {
-    bool res(false);
+    bool res(false); //assumes to begin with that the animal isn't dead
     if ( (lifetime <= 0) or (lifePoints <= 0) )
     {
         res = true;
@@ -36,10 +34,10 @@ void Animal::drawOn(sf::RenderTarget& target) const
         target.draw(animalSprite);
     if (isDebugOn()) //if debug on you can see the lifePoints
     {
-        sf::VertexArray ligne(sf::PrimitiveType::Lines, 2);
-            ligne[0] = { getPosition().toVec2d(), sf::Color::Black };
-            ligne[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(directionAngle), sf::Color::Black };
-            target.draw(ligne);  //draws line
+        sf::VertexArray line(sf::PrimitiveType::Lines, 2);
+            line[0] = { getPosition().toVec2d(), sf::Color::Black };
+            line[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(directionAngle), sf::Color::Black };
+            target.draw(line);  //draws line
         auto const text = buildText(to_nice_string(lifePoints), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
         target.draw(text); //shows lifePoints via a text
     }
@@ -57,26 +55,21 @@ Animal::Animal()
     //Done
 }
 
-//[Question Q2.8] BESOIN DETRE REPONDU
-
-//[Question Q2.9] BESOIN DETRE REPONDU
-
 void Animal::move(sf::Time dt)
 {
     auto dx = (getSpeed()*Vec2d::fromAngle(directionAngle)) * dt.asSeconds();
-    setPosition(getPosition().toVec2d() + dx);
+    setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
     --lifetime;
     timeLastRot += dt;
 
     if (timeLastRot >= sf::seconds(getAppConfig().animal_next_rotation_delay))
     {
-        timeLastRot=sf::Time::Zero;
-        RotationProbs degProb(computeRotationProbs());
+        timeLastRot=sf::Time::Zero; //resets timeLastRot to 0
+        RotationProbs degProb(computeRotationProbs()); //gets rotation probabilities
         std::piecewise_linear_distribution<> dist(degProb.first.begin(), degProb.first.end(), degProb.second.begin());
-        //Le code fourni ci-dessus déclare-initialise un générateur aléatoire permettant de générer
-        //une valeur aléatoire respectant une distribution linéaire par morceau selon les données des ensembles thetas et probas.
-        //thetas et probas seraient ici l'ensemble des angles et l'ensemble des probabilités "retournés" par computeRotationProbs.
-        directionAngle += dist(getRandomGenerator())*DEG_TO_RAD;
+        //declares a random generator which generates a random value using a linear distribution by pieces depending
+        //on the vales of the set degProb
+        directionAngle += dist(getRandomGenerator())*DEG_TO_RAD; //changes directionAngle
     }
 
 }

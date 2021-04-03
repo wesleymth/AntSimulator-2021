@@ -21,28 +21,31 @@ public:
    /*!
     *  @brief adds animal to current environment
     *
-    *  @param pointer to animal to add
+    *  @param Animal* pointer to animal to add
     */
    void addAnimal(Animal*);
 
    /*!
     *  @brief adds food to current environment
     *
-    *  @param pointer to food to add
+    *  @param Food* pointer to food to add
     */
    void addFood(Food*);
 
    /*!
     *  @brief in charge of changing animals a a set time interval
     *
-    *  @param time interval
+    *  @param dt time interval
+    *
+    *  @note updates the generation of foods and the movement/life of animals
+    *  @note if animal is dead gets rid of it as well
     */
    void update(sf::Time dt);
 
    /*!
     *  @brief draws environment on application
     *
-    *  @param reference window to draw on
+    *  @param targetWindow reference
     */
    void drawOn(sf::RenderTarget& targetWindow) const;
 
