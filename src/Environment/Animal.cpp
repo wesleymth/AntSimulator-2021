@@ -49,8 +49,14 @@ Animal::Animal(const Vec2d& pos, double LP, double LT)
     //Done
 }
 
+Animal::Animal(const Vec2d& pos)
+    :Animal(pos, 1.0, 1.0) // calls different constructor
+{
+    //Done
+}
+
 Animal::Animal()
-    :Positionable(), directionAngle(uniform(0.0, TAU)), lifePoints(1.0), lifetime(1.0), timeLastRot(sf::Time::Zero)
+    :Animal(Vec2d(), 1.0, 1.0) //calls different constructor
 {
     //Done
 }
@@ -68,7 +74,7 @@ void Animal::move(sf::Time dt)
         RotationProbs degProb(computeRotationProbs()); //gets rotation probabilities
         std::piecewise_linear_distribution<> dist(degProb.first.begin(), degProb.first.end(), degProb.second.begin());
         //declares a random generator which generates a random value using a linear distribution by pieces depending
-        //on the vales of the set degProb
+        //on the values of the set degProb, the rotation probabilities
         directionAngle += dist(getRandomGenerator())*DEG_TO_RAD; //changes directionAngle
     }
 

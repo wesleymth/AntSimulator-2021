@@ -3,11 +3,12 @@
 #include "Positionable.hpp"
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
+#include "../Interface/Drawable.hpp"
+#include "../Interface/Updatable.hpp"
 
-class Food : public Positionable
+class Food : public Positionable //, public Drawable, public Updatable
 {
 public:
-
     /*!
      *  @brief constructor using a given positionable and quantity
      *

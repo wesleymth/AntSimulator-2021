@@ -3,14 +3,16 @@
 #include "Positionable.hpp"
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
+#include "../Interface/Drawable.hpp"
+#include "../Interface/Updatable.hpp"
 
-class Animal : public Positionable
+class Animal : public Positionable //, public Drawable, public Updatable
 {
 public:
     /*!
      *  @brief constructor using given position, life points, and lifetime
      *
-     *  @param pos in Vec2d form
+     *  @param pos position
      *  @param LP life points
      *  @param LT lifetime
      *
@@ -20,12 +22,18 @@ public:
     Animal(const Vec2d& pos, double LP, double LT);
 
     /*!
+     *  @brief constructor using only given position
+     *
+     *  @param pos position
+     *
+     *  @note calls constructor using 1.0 as LP and LT
+     */
+    Animal(const Vec2d& pos);
+
+    /*!
      *  @brief default constructor
      *
-     *  @note sets the direction angle using a uniform distribution uniform(0.0, TAU) from Random.hpp/cpp
-     *  @note sets life points to 1.0
-     *  @note sets lifetime to 1.0
-     *  @note sets the time it last spun to 0 seconds using sf::Time::Zero
+     *  @note calls constructor using Vec2d() as pos, 1.0 as LP and LT
      */
     Animal();
 
