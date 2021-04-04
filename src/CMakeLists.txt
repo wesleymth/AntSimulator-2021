@@ -83,8 +83,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
 #       add_executable (pheromoneTest  ${TEST_DIR}/GraphicalTests/PheromoneTest.cpp ${SOURCES_GFX})
 #       target_link_libraries(pheromoneTest sfml-graphics sfml-window sfml-system)
        
-#       add_executable (antTest  ${TEST_DIR}/GraphicalTests/AntTest.cpp ${SOURCES_GFX})
-#       target_link_libraries(antTest sfml-graphics sfml-window sfml-system)
+       add_executable (antTest  ${TEST_DIR}/GraphicalTests/AntTest.cpp ${SOURCES_GFX})
+       target_link_libraries(antTest sfml-graphics sfml-window sfml-system)
        
     else()
         set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
@@ -115,8 +115,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
 #	     add_executable(pheromoneTest ${TEST_DIR}/GraphicalTests/PheromoneTest.cpp ${SOURCES_GFX})
 #             target_link_libraries(pheromoneTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 
-#	     add_executable(antTest ${TEST_DIR}/GraphicalTests/AntTest.cpp ${SOURCES_GFX})
-#             target_link_libraries(antTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+             add_executable(antTest ${TEST_DIR}/GraphicalTests/AntTest.cpp ${SOURCES_GFX})
+             target_link_libraries(antTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
         else()
             message(STATUS "SFML NOT FOUND ! ")
         endif() ## SFML 2

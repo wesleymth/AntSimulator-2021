@@ -5,11 +5,18 @@
 class Ant : public Animal
 {
 public:
-    Ant(const Vec2d& pos, double LP, double LT, Uid id);
+    Ant(const Vec2d& pos, double HP, double LT, Uid id);
 
     Ant(const Vec2d& pos, Uid id);
 
-    Ant(); 
+    Ant();
+
+    /*!
+     *  @brief gets speed of ant
+     *
+     *  @note returns getAppConfig().ant_speed
+     */
+    virtual double getSpeed() const;
 private:
     Uid anthillID;
 };

@@ -5,8 +5,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "FoodGenerator.hpp"
+#include "../Interface/Updatable.hpp"
 
-class Environment
+class Environment : public Updatable
 {
 private:
    std::vector<Animal*> animals;

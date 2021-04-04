@@ -4,9 +4,8 @@
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
-#include "../Interface/Updatable.hpp"
 
-class Food : public Positionable //, public Drawable, public Updatable
+class Food : public Positionable, public Drawable
 {
 public:
     /*!

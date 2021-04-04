@@ -1,9 +1,9 @@
 #ifndef FOODGENERATOR_HPP
 #define FOODGENERATOR_HPP
 #include <SFML/Graphics.hpp>
+#include "../Interface/Updatable.hpp"
 
-
-class FoodGenerator
+class FoodGenerator : public Updatable
 {
 public:
 
