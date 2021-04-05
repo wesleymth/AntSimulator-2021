@@ -4,7 +4,7 @@
 
 
 AntSoldier::AntSoldier(const Vec2d& pos, Uid id)
-    :Ant::Ant(pos, getAppConfig().ant_worker_hp, getAppConfig().ant_worker_lifespan, id)
+    :Ant::Ant(pos, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan, id)
 {
     //Done
 }
