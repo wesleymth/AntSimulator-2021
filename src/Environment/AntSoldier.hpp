@@ -9,12 +9,7 @@ public:
 
     AntSoldier();
 
-    /*!
-     *  @brief draws AntSoldier
-     *
-     *  @note if debug on you can see a line representing the direction vector
-     */
-    void drawOn(sf::RenderTarget& target) const;
+    sf::Sprite getSprite() const;
 };
 
 #endif // ANTSOLDIER_HPP

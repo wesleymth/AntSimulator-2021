@@ -37,7 +37,7 @@ public:
     Animal();
 
     /*!
-     *  @brief gets speed of ant
+     *  @brief gets speed of animal
      */
     virtual double getSpeed() const = 0;
 
@@ -77,6 +77,15 @@ public:
      *  @note ?????????????
      */
     void setDirection(Angle setAngle);
+
+    virtual sf::Sprite getSprite() const;
+
+    /*!
+     *  @brief draws animal
+     *
+     *  @note if debug on you can see a line representing the direction vector and HP shown
+     */
+    void drawOn(sf::RenderTarget& target) const;
 
 protected:
     Angle directionAngle;

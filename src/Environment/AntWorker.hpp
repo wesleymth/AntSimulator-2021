@@ -9,12 +9,7 @@ public:
 
     AntWorker();
 
-    /*!
-     *  @brief draws AntWorker
-     *
-     *  @note if debug on you can see a line representing the direction vector
-     */
-    void drawOn(sf::RenderTarget& target) const;
+    sf::Sprite getSprite() const;
 };
 
 #endif // ANTWORKER_HPP

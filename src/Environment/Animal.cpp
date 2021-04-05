@@ -30,13 +30,13 @@ Animal::Animal(const Vec2d& pos, double HP, double LT)
 }
 
 Animal::Animal(const Vec2d& pos)
-    :Animal(pos, 1.0, 1.0) // calls different constructor
+    :Animal(pos, DEFAULT_ANIMAL_HP, DEFAULT_ANIMAL_LIFE) // calls different constructor
 {
     //Done
 }
 
 Animal::Animal()
-    :Animal(Vec2d(), 1.0, 1.0) //calls different constructor
+    :Animal(Vec2d()) //calls different constructor
 {
     //Done
 }
@@ -66,4 +66,24 @@ RotationProbs Animal::computeRotationProbs()
     ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
     ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
     return ret;
+}
+
+void Animal::drawOn(sf::RenderTarget& target) const
+{
+    auto const animalSprite = getSprite();
+        target.draw(animalSprite);
+    if (isDebugOn()) //if debug on you can see the healthPoints
+    {
+        sf::VertexArray line(sf::PrimitiveType::Lines, 2);
+            line[0] = { getPosition().toVec2d(), sf::Color::Black };
+            line[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(getDirection()), sf::Color::Black };
+            target.draw(line);  //draws line
+        auto const text = buildText(to_nice_string(healthPoints), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        target.draw(text); //shows healthPoints via a text
+    }
+}
+
+sf::Sprite Animal::getSprite() const
+{
+    return buildSprite((getPosition()).toVec2d(), (DEFAULT_ANT_SIZE), getAppTexture(getAppConfig().animal_default_texture), getDirection()/DEG_TO_RAD);
 }
