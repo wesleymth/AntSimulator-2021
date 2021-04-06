@@ -71,14 +71,7 @@ public:
      */
     RotationProbs computeRotationProbs();
 
-    /*!
-     *  @brief sets directionAngle
-     *
-     *  @note ?????????????
-     */
-    void setDirection(Angle setAngle);
-
-    virtual sf::Sprite getSprite() const;
+    virtual sf::Sprite getSprite() const = 0;
 
     /*!
      *  @brief draws animal
@@ -88,6 +81,15 @@ public:
     void drawOn(sf::RenderTarget& target) const;
 
 protected:
+    /*!
+     *  @brief sets directionAngle
+     *
+     *  @note in protected to restrict access only to sub-classes
+     *  @note ensures that angle is between 0 and 2pi using fmod
+     */
+    void setDirection(Angle setAngle);
+
+private:
     Angle directionAngle;
     double healthPoints;
     double lifetime;

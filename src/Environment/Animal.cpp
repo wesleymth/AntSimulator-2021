@@ -10,7 +10,7 @@ Angle Animal::getDirection() const
 
 void Animal::setDirection(Angle setAngle)
 {
-    directionAngle = setAngle;  //###################### do we need to check if taken between 0 and TAU??
+    directionAngle = fmod(setAngle,TAU); //ensures that angle is between 0 and 2pi in rad
 }
 
 bool Animal::isDead() const
@@ -81,9 +81,4 @@ void Animal::drawOn(sf::RenderTarget& target) const
         auto const text = buildText(to_nice_string(healthPoints), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
         target.draw(text); //shows healthPoints via a text
     }
-}
-
-sf::Sprite Animal::getSprite() const
-{
-    return buildSprite((getPosition()).toVec2d(), (DEFAULT_ANT_SIZE), getAppTexture(getAppConfig().animal_default_texture), getDirection()/DEG_TO_RAD);
 }
