@@ -10,7 +10,7 @@ Angle Animal::getDirection() const
 
 void Animal::setDirection(Angle setAngle)
 {
-    directionAngle = setAngle;  //###################### do we need to check if taken between 0 and TAU??
+    directionAngle = fmod(setAngle,TAU); //ensures that angle is between 0 and 2pi in rad
 }
 
 bool Animal::isDead() const
