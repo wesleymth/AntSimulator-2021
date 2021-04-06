@@ -82,8 +82,3 @@ void Animal::drawOn(sf::RenderTarget& target) const
         target.draw(text); //shows healthPoints via a text
     }
 }
-
-sf::Sprite Animal::getSprite() const //######## MAYBE CAN GET RID OF THIS
-{
-    return buildSprite((getPosition()).toVec2d(), (DEFAULT_ANT_SIZE), getAppTexture(getAppConfig().animal_default_texture), getDirection()/DEG_TO_RAD);
-}
