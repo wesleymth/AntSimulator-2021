@@ -83,7 +83,7 @@ void Animal::drawOn(sf::RenderTarget& target) const
     }
 }
 
-sf::Sprite Animal::getSprite() const
+sf::Sprite Animal::getSprite() const //######## MAYBE CAN GET RID OF THIS
 {
     return buildSprite((getPosition()).toVec2d(), (DEFAULT_ANT_SIZE), getAppTexture(getAppConfig().animal_default_texture), getDirection()/DEG_TO_RAD);
 }
