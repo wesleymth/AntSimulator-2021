@@ -4,8 +4,9 @@
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
+#include "../Interface/Updatable.hpp"
 
-class Animal : public Positionable, public Drawable
+class Animal : public Positionable, public Drawable, public Updatable
 {
 public:
     /*!
@@ -49,6 +50,16 @@ public:
     Angle getDirection() const;
 
     /*!
+     *  @brief
+     */
+    virtual sf::Sprite getSprite() const = 0;
+
+    /*!
+     *  @brief
+     */
+    double getHP() const;
+
+    /*!
      *  @brief checks if animal is dead
      *
      *  @return true if dead
@@ -65,24 +76,27 @@ public:
     void move(sf::Time dt);
 
     /*!
+     *  @brief
+     */
+    void update(sf::Time dt);
+
+    /*!
      *  @brief gives back the probalities of rotation
      *
      *  @return rotation probabilities
      */
     RotationProbs computeRotationProbs();
 
-    virtual sf::Sprite getSprite() const = 0;
-
     /*!
-     *  @brief draws animal
+     *  @brief draws animals
      *
-     *  @note if debug on you can see a line representing the direction vector and HP shown
+     *  @note if debug on might have special features
      */
-    void drawOn(sf::RenderTarget& target) const;
+    virtual void drawOn(sf::RenderTarget& target) const = 0;
 
 protected:
     /*!
-     *  @brief sets directionAngle
+     *  @brief sets direction angle
      *
      *  @note in protected to restrict access only to sub-classes
      *  @note ensures that angle is between 0 and 2pi using fmod
@@ -90,7 +104,7 @@ protected:
     void setDirection(Angle setAngle);
 
 private:
-    Angle directionAngle;
+    Angle dirAngle;
     double healthPoints;
     double lifetime;
     sf::Time timeLastRot;

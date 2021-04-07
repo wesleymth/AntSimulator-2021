@@ -17,6 +17,14 @@ public:
      *  @note returns getAppConfig().ant_speed
      */
     virtual double getSpeed() const;
+
+    /*!
+     *  @brief draws ant
+     *
+     *  @note if debug on you can see a line representing the direction vector and HP value
+     */
+    void drawOn(sf::RenderTarget& target) const;
+
 private:
     Uid anthillID;
 };

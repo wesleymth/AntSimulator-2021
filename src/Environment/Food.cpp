@@ -16,7 +16,6 @@ Quantity Food::takeQuantity(Quantity wantTake){
     }
     else
     {
-
         if (quantity>wantTake)
         {
             quantity -= wantTake;

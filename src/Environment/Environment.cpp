@@ -21,7 +21,7 @@ void Environment::update(sf::Time dt)
 
    for(auto& animal: animals)
    {
-       animal->move(dt); //makes the animal move automatically
+       animal->update(dt); //in charge of movement and incrementation of attributes
        if (animal->isDead()) //gets rid of the animal in the attribute of the environement
        {
            animal = nullptr;
