@@ -5,12 +5,17 @@
 
 Angle Animal::getDirection() const
 {
-    return directionAngle;
+    return dirAngle;
+}
+
+double Animal::getHP() const
+{
+    return healthPoints;
 }
 
 void Animal::setDirection(Angle setAngle)
 {
-    directionAngle = fmod(setAngle,TAU); //ensures that angle is between 0 and 2pi in rad
+    dirAngle = fmod(setAngle,TAU); //ensures that angle is between 0 and 2pi in rad
 }
 
 bool Animal::isDead() const
@@ -24,7 +29,7 @@ bool Animal::isDead() const
 }
 
 Animal::Animal(const Vec2d& pos, double HP, double LT)
-    :Positionable(pos), directionAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
+    :Positionable(pos), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
 {
     //Done
 }
@@ -43,10 +48,8 @@ Animal::Animal()
 
 void Animal::move(sf::Time dt)
 {
-    auto dx = (getSpeed()*Vec2d::fromAngle(directionAngle)) * dt.asSeconds();
+    auto dx = (getSpeed()*Vec2d::fromAngle(dirAngle)) * dt.asSeconds();
     setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
-    --lifetime;
-    timeLastRot += dt;
 
     if (timeLastRot >= sf::seconds(getAppConfig().animal_next_rotation_delay))
     {
@@ -55,9 +58,15 @@ void Animal::move(sf::Time dt)
         std::piecewise_linear_distribution<> dist(degProb.first.begin(), degProb.first.end(), degProb.second.begin());
         //declares a random generator which generates a random value using a linear distribution by pieces depending
         //on the values of the set degProb, the rotation probabilities
-        directionAngle += dist(getRandomGenerator())*DEG_TO_RAD; //changes directionAngle
+        dirAngle += dist(getRandomGenerator())*DEG_TO_RAD; //changes direction angle
     }
+}
 
+void Animal::update(sf::Time dt)
+{
+    --lifetime;
+    timeLastRot += dt;
+    move(dt);
 }
 
 RotationProbs Animal::computeRotationProbs()
@@ -66,19 +75,4 @@ RotationProbs Animal::computeRotationProbs()
     ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
     ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
     return ret;
-}
-
-void Animal::drawOn(sf::RenderTarget& target) const
-{
-    auto const animalSprite = getSprite();
-        target.draw(animalSprite);
-    if (isDebugOn()) //if debug on you can see the healthPoints
-    {
-        sf::VertexArray line(sf::PrimitiveType::Lines, 2);
-            line[0] = { getPosition().toVec2d(), sf::Color::Black };
-            line[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(getDirection()), sf::Color::Black };
-            target.draw(line);  //draws line
-        auto const text = buildText(to_nice_string(healthPoints), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
-        target.draw(text); //shows healthPoints via a text
-    }
 }
