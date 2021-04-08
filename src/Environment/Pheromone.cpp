@@ -17,7 +17,7 @@ void Pheromone::drawOn(sf::RenderTarget &target) const
     }
 }
 
-bool Pheromone::isNegligeable
+bool Pheromone::isNegligeable()
 {
     return quantity<getAppConfig().pheromone_threshold;
 }
