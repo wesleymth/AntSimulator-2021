@@ -10,6 +10,8 @@ public:
     AntWorker();
 
     sf::Sprite getSprite() const;
+private:
+    Quantity carriedFood;
 };
 
 #endif // ANTWORKER_HPP

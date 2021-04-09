@@ -23,6 +23,8 @@ public:
 
     double getWorkerProb() const;
 
+    bool uidIsEqual(Uid checkId) const;
+
 private:
     Uid uid;
     Quantity foodStock;

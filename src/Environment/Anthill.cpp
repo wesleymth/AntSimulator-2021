@@ -69,3 +69,8 @@ double Anthill::getWorkerProb() const
 {
     return getAppConfig().anthill_worker_prob_default;
 }
+
+bool Anthill::uidIsEqual(Uid checkId) const
+{
+    return (uid == checkId);
+}

@@ -4,7 +4,7 @@
 
 
 AntWorker::AntWorker(const Vec2d& pos, Uid id)
-    :Ant::Ant(pos, getAppConfig().ant_worker_hp, getAppConfig().ant_worker_lifespan, id)
+    :Ant::Ant(pos, getAppConfig().ant_worker_hp, getAppConfig().ant_worker_lifespan, id), carriedFood(0)
 {
     //Done
 }
@@ -22,3 +22,4 @@ sf::Sprite AntWorker::getSprite() const
                        getAppTexture(getAppConfig().ant_worker_texture),
                        getDirection()/DEG_TO_RAD);
 }
+
