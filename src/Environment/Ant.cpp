@@ -27,7 +27,7 @@ double Ant::getSpeed() const
 
 void Ant::drawOn(sf::RenderTarget& target) const
 {
-    auto const animalSprite = getSprite();
+    auto const animalSprite = getSprite(); //calls a virtual method for each specific ant
         target.draw(animalSprite);
     if (isDebugOn()) //if debug on you can see the healthPoints
     {

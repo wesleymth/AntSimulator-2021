@@ -17,5 +17,8 @@ AntSoldier::AntSoldier()
 
 sf::Sprite AntSoldier::getSprite() const
 {
-    return buildSprite((getPosition()).toVec2d(), (DEFAULT_ANT_SIZE), getAppTexture(getAppConfig().ant_soldier_texture), getDirection()/DEG_TO_RAD);
+    return buildSprite((getPosition()).toVec2d(),
+                       DEFAULT_ANT_SIZE,
+                       getAppTexture(getAppConfig().ant_soldier_texture),
+                       getDirection()/DEG_TO_RAD);
 }

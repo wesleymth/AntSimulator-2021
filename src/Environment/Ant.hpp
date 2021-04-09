@@ -25,6 +25,11 @@ public:
      */
     void drawOn(sf::RenderTarget& target) const;
 
+    /*!
+     *  @brief
+     */
+    virtual sf::Sprite getSprite() const = 0;
+
 private:
     Uid anthillID;
 };

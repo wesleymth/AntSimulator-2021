@@ -15,6 +15,11 @@ void Environment::addFood(Food* food)
    foods.push_back(food);
 }
 
+void Environment::addAnthill(Anthill* anthill)
+{
+   anthills.push_back(anthill);
+}
+
 void Environment::update(sf::Time dt)
 {
    foodGenerator.update(dt); //operator overload: uses update method of FoodGenerator class
@@ -27,6 +32,11 @@ void Environment::update(sf::Time dt)
            animal = nullptr;
            animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
        }
+   }
+
+   for(auto& anthill: anthills)
+   {
+       anthill->update(dt); //in charge of updating the anthills
    }
 }
 
@@ -41,22 +51,41 @@ void Environment::drawOn(sf::RenderTarget& targetWindow) const
    {
        animal->drawOn(targetWindow); //operator overload: uses drawOn method of Animal class
    }
+
+   for(auto& anthill: anthills)
+   {
+       anthill->drawOn(targetWindow); //operator overload: uses drawOn method of Anthill class
+   }
 }
 
 void Environment::reset()
 {
-   for(auto& animal: animals) //desaloccation of memeory
+   for(auto& animal: animals) //desaloccation of memory
    {
        delete animal;
        animal = nullptr;
    }
-   for(auto& food: foods) //desaloccation of memeory
+   for(auto& food: foods) //desaloccation of memory
    {
        delete food;
        food = nullptr;
    }
+   for(auto& anthill: anthills) //desaloccation of memory
+   {
+       delete anthill;
+       anthill = nullptr;
+   }
    animals.clear();
    foods.clear();
+   anthills.clear();
 }
 
+Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
+{
 
+}
+
+Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillId)
+{
+
+}

@@ -52,11 +52,6 @@ public:
     /*!
      *  @brief
      */
-    virtual sf::Sprite getSprite() const = 0;
-
-    /*!
-     *  @brief
-     */
     double getHP() const;
 
     /*!

@@ -17,5 +17,8 @@ AntWorker::AntWorker()
 
 sf::Sprite AntWorker::getSprite() const
 {
-    return buildSprite((getPosition()).toVec2d(), (DEFAULT_ANT_SIZE), getAppTexture(getAppConfig().ant_worker_texture), getDirection()/DEG_TO_RAD);
+    return buildSprite((getPosition()).toVec2d(),
+                       DEFAULT_ANT_SIZE,
+                       getAppTexture(getAppConfig().ant_worker_texture),
+                       getDirection()/DEG_TO_RAD);
 }
