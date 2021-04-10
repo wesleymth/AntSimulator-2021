@@ -25,10 +25,18 @@ public:
 
     bool uidIsEqual(Uid checkId) const;
 
+
+
 private:
     Uid uid;
     Quantity foodStock;
     sf::Time timeLastSpawn;
+
+    void generateAntWorker() const;
+
+    void generateAntSoldier() const;
+
+    void generateAnt() const;
 
 };
 

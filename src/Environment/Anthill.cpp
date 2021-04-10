@@ -14,7 +14,8 @@ Anthill::Anthill()
 Anthill::Anthill(const ToricPosition& TP)
     :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero)
 {
-
+    //Generates an ant at the creation of an anthill
+    generateAnt();
 }
 
 Anthill::Anthill(const Vec2d& pos)
@@ -49,25 +50,49 @@ void Anthill::drawOn(sf::RenderTarget& target) const
 
 void Anthill::update(sf::Time dt)
 {
+
     timeLastSpawn+=dt;
-    /*if (timeLastSpawn >= getAppConfig().anthill_spawn_delay)
+    if (timeLastSpawn >= sf::seconds(getAppConfig().anthill_spawn_delay))
     {
         timeLastSpawn = sf::Time::Zero;
-        double theta(uniform(0,1));
-        if ( (0 <= theta) and (theta <= getWorkerProb()) )
-        {
-            getAppEnv().addAnimal(new AntWorker(getPosition().toVec2d(),uid));
-        }
-        else
-        {
-            getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid));
-        }
-    }*/
+        generateAnt();
+    }
 }
 
 double Anthill::getWorkerProb() const
 {
     return getAppConfig().anthill_worker_prob_default;
+}
+
+void Anthill::generateAntWorker() const
+{
+    getAppEnv().addAnimal(new AntWorker(getPosition().toVec2d(),uid));
+}
+
+void Anthill::generateAntSoldier() const
+{
+    getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid));
+}
+
+void Anthill::generateAnt() const
+{
+    double theta(uniform(0,1)); //                  #################### NE MARCHE PAS DEMANDER A COLIN
+    //if prob = 0 que des soldats mais si prob = 1, si theta = 1 il vas y avoir une soldate
+    if (getWorkerProb() != 1)
+    {
+        if ( (theta < getWorkerProb()) and (theta >= 0))
+        {
+            generateAntWorker();
+        }
+        else
+        {
+            generateAntSoldier();
+        }
+    }
+    else
+    {
+        generateAntWorker();
+    }
 }
 
 bool Anthill::uidIsEqual(Uid checkId) const
