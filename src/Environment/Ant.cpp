@@ -1,6 +1,7 @@
 #include "Ant.hpp"
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
+#include "Pheromone.hpp"
 
 Ant::Ant(const Vec2d& pos, double HP, double LT, Uid id)
     :Animal::Animal(pos, HP, LT), anthillID(id)
@@ -38,4 +39,20 @@ void Ant::drawOn(sf::RenderTarget& target) const
         auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
         target.draw(text); //shows healthPoints via a text
     }
+}
+
+void Ant::spreadPheromones() // je pense qu'il faudra rajouter un attribut "last pheromone placed" a Ant.
+{
+    double dist(toricDistance(getPosition(),lastPheromone));
+    Vec2d vect(getPosition().toricVector(lastPheromone));
+    for(int i(0); i<=dist; ++i)
+    {
+        Pheromone phero(getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect/dist, getAppConfig().ant_pheromone_energy);
+    }
+}
+
+void Ant::move(sf::Time dt)
+{
+    Animal::move(dt);
+    spreadPheromones();
 }

@@ -26,12 +26,25 @@ public:
     void drawOn(sf::RenderTarget& target) const;
 
     /*!
-     *  @brief
+
+     *  @brief places pheromones from last placed pheromone to current position
+     *
+     *  @note
      */
+    void spreadPheromones();
+
+    /*!
+     *  @brief makes ants move
+     *
+     *  @note calls Animal::Move and spreads pheromones
+     */
+    virtual void move(sf::Time dt);
+
     virtual sf::Sprite getSprite() const = 0;
 
 protected:
     Uid anthillID;
+    ToricPosition lastPheromone;
 };
 
 #endif // ANT_HPP
