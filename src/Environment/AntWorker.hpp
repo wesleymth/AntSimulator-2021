@@ -10,6 +10,10 @@ public:
     AntWorker();
 
     sf::Sprite getSprite() const;
+
+    void turnAround();
+
+    void update(sf::Time dt);
 private:
     Quantity carriedFood;
 };

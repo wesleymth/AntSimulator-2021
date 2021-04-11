@@ -73,7 +73,7 @@ public:
     /*!
      *  @brief
      */
-    void update(sf::Time dt);
+    virtual void update(sf::Time dt);
 
     /*!
      *  @brief gives back the probalities of rotation

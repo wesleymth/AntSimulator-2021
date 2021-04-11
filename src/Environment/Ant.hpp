@@ -30,7 +30,7 @@ public:
      */
     virtual sf::Sprite getSprite() const = 0;
 
-private:
+protected:
     Uid anthillID;
 };
 

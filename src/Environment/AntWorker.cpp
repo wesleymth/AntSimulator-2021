@@ -23,3 +23,18 @@ sf::Sprite AntWorker::getSprite() const
                        getDirection()/DEG_TO_RAD);
 }
 
+void AntWorker::turnAround()
+{
+    if (getAppEnv().getAnthillForAnt(getPosition(),anthillID) == nullptr)
+    {
+        setDirection(getDirection()+PI); //adds PI in radians to the direction angle
+    }
+}
+
+void AntWorker::update(sf::Time dt)
+{
+    Animal::update(dt);
+    turnAround();
+
+
+}
