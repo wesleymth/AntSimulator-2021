@@ -30,7 +30,7 @@ Quantity Food::takeQuantity(Quantity wantTake){
 }
 
 void Food::drawOn(sf::RenderTarget& target) const{
-    auto const foodSprite = buildSprite((getPosition()).toVec2d(), (quantity/2), getAppTexture(getAppConfig().food_texture));
+    auto const foodSprite = buildSprite((getPosition()).toVec2d(), DEFAULT_FOOD_SIZE, getAppTexture(getAppConfig().food_texture));
         target.draw(foodSprite); //draws a food
 
         if (isDebugOn()) //if debug on you can see the quantity of the food

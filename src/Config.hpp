@@ -96,7 +96,7 @@ public:
 	const double pheromone_temperature_threshold;
 	
 	// anthills
-	const double anthill_spawn_delay;
+    const double anthill_spawn_delay;
 	const double anthill_worker_prob_default;
 	const std::string anthill_texture;
 

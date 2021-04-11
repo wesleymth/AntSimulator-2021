@@ -12,7 +12,7 @@ class Pheromone: public Positionable, public Drawable
 {
 public:
     Pheromone();
-    Pheromone(double quant, const Vec2d& vect);
+    Pheromone( const Vec2d& vect, Quantity quant);
     void drawOn(sf::RenderTarget &target) const override;
     bool isNegligeable();
 private:

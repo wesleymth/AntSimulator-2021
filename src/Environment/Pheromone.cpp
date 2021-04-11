@@ -7,7 +7,7 @@ Pheromone::Pheromone()
     //Done
 }
 
-Pheromone::Pheromone(Quantity quant,const Vec2d& vect)
+Pheromone::Pheromone(const Vec2d& vect, Quantity quant)
     :Positionable(vect), quantity(quant)
 {
     //Done

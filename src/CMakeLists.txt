@@ -74,8 +74,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
        target_link_libraries(vec2dTest sfml-graphics sfml-window sfml-system)
 
       #Graphical tests:
-#       add_executable (anthillTest  ${TEST_DIR}/GraphicalTests/AnthillTest.cpp ${SOURCES_GFX})
-#       target_link_libraries(anthillTest sfml-graphics sfml-window sfml-system)
+       add_executable (anthillTest  ${TEST_DIR}/GraphicalTests/AnthillTest.cpp ${SOURCES_GFX})
+       target_link_libraries(anthillTest sfml-graphics sfml-window sfml-system)
 
        add_executable (foodTest  ${TEST_DIR}/GraphicalTests/FoodTest.cpp ${SOURCES_GFX})
        target_link_libraries(foodTest sfml-graphics sfml-window sfml-system)
@@ -106,8 +106,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
              target_link_libraries(vec2dTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 	    
 	    #Graphical tests:
-#	     add_executable(anthillTest ${TEST_DIR}/GraphicalTests/AnthillTest.cpp ${SOURCES_GFX})
-#             target_link_libraries(anthillTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+             add_executable(anthillTest ${TEST_DIR}/GraphicalTests/AnthillTest.cpp ${SOURCES_GFX})
+             target_link_libraries(anthillTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 
 	     add_executable(foodTest ${TEST_DIR}/GraphicalTests/FoodTest.cpp ${SOURCES_GFX})
              target_link_libraries(foodTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

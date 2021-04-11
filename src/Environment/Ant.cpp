@@ -28,7 +28,7 @@ double Ant::getSpeed() const
 
 void Ant::drawOn(sf::RenderTarget& target) const
 {
-    auto const animalSprite = getSprite();
+    auto const animalSprite = getSprite(); //calls a virtual method for each specific ant
         target.draw(animalSprite);
     if (isDebugOn()) //if debug on you can see the healthPoints
     {
@@ -47,9 +47,10 @@ void Ant::spreadPheromones() // je pense qu'il faudra rajouter un attribut "last
     Vec2d vect(getPosition().toricVector(lastPheromone));
     for(int i(0); i<=dist; ++i)
     {
-        Pheromone phero(getAppConfig().ant_pheromone_energy, getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect/dist);
+        Pheromone phero(getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect/dist, getAppConfig().ant_pheromone_energy);
     }
 }
+
 void Ant::move(sf::Time dt)
 {
     Animal::move(dt);
