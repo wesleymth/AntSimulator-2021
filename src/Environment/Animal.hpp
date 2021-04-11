@@ -73,7 +73,7 @@ public:
      *
      *  @note gives the angle of direction a chance to change periodically based on RotationProbs
      */
-    void move(sf::Time dt);
+    virtual void move(sf::Time dt);
 
     /*!
      *  @brief

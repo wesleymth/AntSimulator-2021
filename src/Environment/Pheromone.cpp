@@ -4,7 +4,13 @@
 
 Pheromone::Pheromone()
 {
+    //Done
+}
 
+Pheromone::Pheromone(Quantity quant,const Vec2d& vect)
+    :Positionable(vect), quantity(quant)
+{
+    //Done
 }
 
 void Pheromone::drawOn(sf::RenderTarget &target) const

@@ -1,6 +1,7 @@
 #ifndef PHEROMONE_HPP
 #define PHEROMONE_HPP
 #include "Positionable.hpp"
+#include "./Interface/Updatable.hpp"
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
@@ -11,10 +12,11 @@ class Pheromone: public Positionable, public Drawable
 {
 public:
     Pheromone();
+    Pheromone(double quant, const Vec2d& vect);
     void drawOn(sf::RenderTarget &target) const override;
     bool isNegligeable();
 private:
-    double quantity;
+    Quantity quantity;
 };
 
 #endif // PHEROMONE_HPP
