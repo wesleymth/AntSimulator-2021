@@ -80,7 +80,7 @@ public:
      *
      *  @return rotation probabilities
      */
-    RotationProbs computeRotationProbs();
+    RotationProbs computeRotationProbs() const;
 
     /*!
      *  @brief draws animals

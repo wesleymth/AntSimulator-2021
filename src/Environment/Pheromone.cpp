@@ -37,3 +37,8 @@ bool Pheromone::isNegligeable()
 {
     return quantity<getAppConfig().pheromone_threshold;
 }
+
+Quantity Pheromone::getQuantity()
+{
+    return quantity;
+}

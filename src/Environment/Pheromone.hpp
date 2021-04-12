@@ -49,6 +49,8 @@ public:
      *  @note uses getAppConfig().pheromone_threshold for food threshold
      */
     bool isNegligeable();
+
+    Quantity getQuantity();
 private:
     Quantity quantity;
 };

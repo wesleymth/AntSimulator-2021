@@ -103,8 +103,11 @@ public:
    void operator=(Environment const&) = delete;
 
 
-
    bool togglePheromoneDisplay();
+
+   Quantities getPheromoneQuantitiesPerIntervalForAnt(const ToricPosition &position,
+                                                      Angle direction_rad,
+                                                      const Intervals &angles);
 };
 
 #endif // ENVIRONMENT_HPP
