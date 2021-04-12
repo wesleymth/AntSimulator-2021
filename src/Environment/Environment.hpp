@@ -3,6 +3,7 @@
 #include "Animal.hpp"
 #include "Food.hpp"
 #include "Anthill.hpp"
+#include "Pheromone.hpp"
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "FoodGenerator.hpp"
@@ -15,7 +16,9 @@ private:
    std::vector<Animal*> animals;
    std::vector<Food*> foods;
    std::vector<Anthill*> anthills;
+   std::vector<Pheromone*> pheromones;
    FoodGenerator foodGenerator;
+   bool showPheromones;
 public:
    /*!
     *  @brief default constructor
@@ -42,6 +45,13 @@ public:
     *  @param anthill pointer to add
     */
    void addAnthill(Anthill* anthill);
+
+   /*!
+    *  @brief adds pheromone to current environment
+    *
+    *  @param pheromone pointer to add
+    */
+   void addPheromone(Pheromone *phero);
 
    /*!
     *  @brief in charge of changing animals a a set time interval
@@ -84,6 +94,10 @@ public:
     *  @brief in order to stop affectations of environment
     */
    void operator=(Environment const&) = delete;
+
+
+
+   bool togglePheromoneDisplay();
 };
 
 #endif // ENVIRONMENT_HPP

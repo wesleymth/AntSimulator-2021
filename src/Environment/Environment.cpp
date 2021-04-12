@@ -57,6 +57,14 @@ void Environment::drawOn(sf::RenderTarget& targetWindow) const
    {
        anthill->drawOn(targetWindow); //operator overload: uses drawOn method of Anthill class
    }
+
+   if(showPheromones)
+   {
+       for(auto& pheromone: pheromones)
+       {
+           pheromone->drawOn(targetWindow); //operator overload: uses drawOn method of Pheromone class
+       }
+   }
 }
 
 void Environment::reset()
@@ -76,9 +84,15 @@ void Environment::reset()
        delete anthill;
        anthill = nullptr;
    }
+   for(auto& pheromone: pheromones) //desaloccation of memory
+   {
+       delete pheromone;
+       pheromone = nullptr;
+   }
    animals.clear();
    foods.clear();
    anthills.clear();
+   pheromones.clear();
 }
 
 Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
@@ -113,4 +127,14 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
         }
     }
     return anthillptr;
+}
+
+void Environment::addPheromone(Pheromone* phero)
+{
+   pheromones.push_back(phero);
+}
+
+bool Environment::togglePheromoneDisplay()
+{
+    return showPheromones=not showPheromones;
 }

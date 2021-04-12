@@ -45,9 +45,10 @@ void Ant::spreadPheromones() // je pense qu'il faudra rajouter un attribut "last
 {
     double dist(toricDistance(getPosition(),lastPheromone));
     Vec2d vect(getPosition().toricVector(lastPheromone));
-    for(int i(0); i<=dist; ++i)
+    for(int i(0); i<=dist*getAppConfig().ant_pheromone_density; ++i)
     {
-        Pheromone phero(getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect/dist, getAppConfig().ant_pheromone_energy);
+        getAppEnv().addPheromone(new Pheromone(getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect, getAppConfig().ant_pheromone_energy));
+        lastPheromone=getPosition();
     }
 }
 
