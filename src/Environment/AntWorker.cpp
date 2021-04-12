@@ -60,3 +60,16 @@ void AntWorker::update(sf::Time dt)
     }
 
 }
+
+void AntWorker::drawOn(sf::RenderTarget& target) const
+{
+    Ant::drawOn(target);
+    if (isDebugOn()) //if debug on you can see the current foodStock in black and the uid in magenta
+    {
+        auto const food = buildText(to_nice_string(carriedFood), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Black);
+        target.draw(food); //shows quantity of carried food via a text
+
+        auto const id = buildText(to_nice_string(anthillID), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(id); //shows anthill uid via a text
+    }
+}

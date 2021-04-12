@@ -40,11 +40,11 @@ void Anthill::drawOn(sf::RenderTarget& target) const
         target.draw(anthillSprite);
     if (isDebugOn()) //if debug on you can see the current foodStock in black and the uid in magenta
     {
-        auto const text = buildText(to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
-        target.draw(text); //shows quantity of foodStock via a text
+        auto const food = buildText(to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        target.draw(food); //shows quantity of foodStock via a text
 
-        auto const txt = buildText(to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
-        target.draw(txt); //shows anthill uid via a text
+        auto const id = buildText(to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(id); //shows anthill uid via a text
     }
 }
 

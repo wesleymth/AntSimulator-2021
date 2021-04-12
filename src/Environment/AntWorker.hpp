@@ -14,6 +14,9 @@ public:
     void turnAround();
 
     void update(sf::Time dt);
+
+    void drawOn(sf::RenderTarget& target) const;
+
 private:
     Quantity carriedFood;
 };
