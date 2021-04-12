@@ -5,6 +5,10 @@ Environment::Environment()
 {
     //Done
 }
+Environment::~Environment(void)
+{
+    reset();
+}
 
 void Environment::addAnimal(Animal* animal)
 {
@@ -31,13 +35,23 @@ void Environment::update(sf::Time dt)
        if (animal->isDead()) //gets rid of the animal in the attribute of the environement
        {
            animal = nullptr;
-           animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
        }
+       animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
    }
 
    for(auto& anthill: anthills)
    {
        anthill->update(dt); //in charge of updating the anthills
+   }
+
+   for(auto& phero: pheromones)
+   {
+       phero->update(dt); //in charge of movement and incrementation of attributes
+       if (phero->isNegligeable()) //gets rid of the animal in the attribute of the environement
+       {
+           phero = nullptr;
+       }
+       pheromones.erase(std::remove(pheromones.begin(), pheromones.end(), nullptr), pheromones.end());
    }
 }
 

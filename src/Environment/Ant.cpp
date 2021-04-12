@@ -41,14 +41,18 @@ void Ant::drawOn(sf::RenderTarget& target) const
     }
 }
 
-void Ant::spreadPheromones() // je pense qu'il faudra rajouter un attribut "last pheromone placed" a Ant.
+void Ant::spreadPheromones()
 {
     double dist(toricDistance(getPosition(),lastPheromone));
     Vec2d vect(getPosition().toricVector(lastPheromone));
+    if(dist*getAppConfig().ant_pheromone_density>=1)
+    {
     for(int i(0); i<=dist*getAppConfig().ant_pheromone_density; ++i)
     {
-        getAppEnv().addPheromone(new Pheromone(getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect, getAppConfig().ant_pheromone_energy));
+        getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
+                                               getAppConfig().ant_pheromone_energy));
         lastPheromone=getPosition();
+    }
     }
 }
 
