@@ -23,6 +23,8 @@ public:
      *
      *  @param coords the coordinates of the new ToricPosition
      *  @param dim the dimensions of the world
+     *
+     *  @note uses clamp
      */
     ToricPosition(const Vec2d& coords, const Vec2d& dim);
 
@@ -31,6 +33,8 @@ public:
      *
      *  @param x the coordinate on the x-axis
      *  @param y the coordinate on the y-axis
+     *
+     *  @note uses clamp and getAppConfig().simulation_size for world dimensions
      */
     ToricPosition(double x, double y);
 
@@ -39,7 +43,7 @@ public:
      *
      *  @param coords a vector for coordiantes
      *
-     *  @note uses the constructor with two doubles as parameters
+     *  @note uses the constructor with two doubles as parameters and uses clamp
      */
     ToricPosition(const Vec2d& coords);
 
@@ -113,6 +117,8 @@ public:
      *  @param index which gets desired coordinate; 0 gives x-coordinate, 1 gives y-coordinate
      *
      *  @return desired coordinate in double form
+     *
+     *  @note uses clamp();
      */
     double operator[](int index) const;
 
@@ -122,6 +128,8 @@ public:
      *  @param that ToricPosiotion instance by constant reference
      *
      *  @return smallest vector in vec2d form
+     *
+     *  @note uses indexation from vec2d
      */
     Vec2d toricVector(ToricPosition const& that) const;
 
@@ -133,6 +141,8 @@ private:
 
     /*!
      *  @brief assures that the position is in the world
+     *
+     *  @note uses fmod and x,y "getters" for vec2d
      */
     void clamp();
 };
@@ -167,7 +177,7 @@ std::ostream& operator<<(std::ostream& out, ToricPosition const& T);
  *
  *  @return distance in double form
  *
- *  @note calls upon the method toricVector
+ *  @note calls upon the method toricVector and length() of Vec2d class
  */
 double toricDistance(ToricPosition const& from, ToricPosition const& to);
 

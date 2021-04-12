@@ -66,44 +66,47 @@ ToricPosition::ToricPosition(ToricPosition const& other)
     //Done
 }
 
-//[Q1.1] answered
-
-ToricPosition& ToricPosition::operator=(const ToricPosition& other){
+ToricPosition& ToricPosition::operator=(const ToricPosition& other)
+{
     worldDimensions=other.worldDimensions;
     coordinates=other.coordinates;
     clamp(); //assures that the coordinates are clamped
     return *this; //returns the reference of a ToricPosition instance
 }
 
-Vec2d const& ToricPosition::toVec2d() const{
+Vec2d const& ToricPosition::toVec2d() const
+{
     return coordinates;
 }
 
-double ToricPosition::x() const{
+double ToricPosition::x() const
+{
     return coordinates.x();
 }
 
-double ToricPosition::y() const{
+double ToricPosition::y() const
+{
     return coordinates.y();
 }
 
-bool ToricPosition::operator==(const ToricPosition& other) const{
-    return ((isEqual(other.x(),this->x()))and(isEqual(other.y(),this->y())));
+bool ToricPosition::operator==(const ToricPosition& other) const
+{
+    return ((isEqual(other.x(),x()))and(isEqual(other.y(),y())));
 }
 
-ToricPosition& ToricPosition::operator+=(const ToricPosition& other){
+ToricPosition& ToricPosition::operator+=(const ToricPosition& other)
+{
     coordinates=coordinates+other.coordinates; //"+" is defined for Vec2ds
     clamp(); //assures that the position is in the world
     return *this;
 }
 
-const ToricPosition operator+(const ToricPosition& other1, const ToricPosition& other2){
+const ToricPosition operator+(const ToricPosition& other1, const ToricPosition& other2)
+{
     ToricPosition res(other1);
     res += other2;
     return  res;
 }
-
-//[Q1.2] answered
 
 std::ostream& operator<<(std::ostream& out, ToricPosition const& T)
 {
@@ -113,8 +116,6 @@ std::ostream& operator<<(std::ostream& out, ToricPosition const& T)
 double ToricPosition::operator[](int index) const{
     return coordinates[index]; //uses the indexation method of Vec2ds
 }
-
-//[Q1.3] answered
 
 Vec2d ToricPosition::toricVector(ToricPosition const& that) const
 {
@@ -134,8 +135,6 @@ Vec2d ToricPosition::toricVector(ToricPosition const& that) const
    }
    return to;
 }
-
-//[Q1.5] answered
 
 double toricDistance(ToricPosition const& from, ToricPosition const& to)
 {
