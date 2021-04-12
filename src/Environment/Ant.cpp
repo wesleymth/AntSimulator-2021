@@ -39,16 +39,24 @@ void Ant::drawOn(sf::RenderTarget& target) const
         auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
         target.draw(text); //shows healthPoints via a text
     }
+    if(getAppConfig().getProbaDebug())
+    {
+        drawPheromoneAngles(target);
+    }
 }
 
-void Ant::spreadPheromones() // je pense qu'il faudra rajouter un attribut "last pheromone placed" a Ant.
+void Ant::spreadPheromones()
 {
     double dist(toricDistance(getPosition(),lastPheromone));
     Vec2d vect(getPosition().toricVector(lastPheromone));
+    if(dist*getAppConfig().ant_pheromone_density>=1)
+    {
     for(int i(0); i<=dist*getAppConfig().ant_pheromone_density; ++i)
     {
-        getAppEnv().addPheromone(new Pheromone(getPosition().toVec2d()+i*getAppConfig().ant_pheromone_density*vect, getAppConfig().ant_pheromone_energy));
+        getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
+                                               getAppConfig().ant_pheromone_energy));
         lastPheromone=getPosition();
+    }
     }
 }
 
@@ -56,4 +64,30 @@ void Ant::move(sf::Time dt)
 {
     Animal::move(dt);
     spreadPheromones();
+}
+
+void Ant::drawPheromoneAngles(sf::RenderTarget &target) const
+{
+    Intervals intervals = {   -180,   -100,    -55,    -25,    -10,      0,     10,     25,     55,    100,    180 };
+    auto const intervalProbs = computeRotationProbs();
+        // pour intervalProbs (first désigne l'ensemble des angles)
+        for (std::size_t i = 0; i < intervalProbs.first.size(); ++i) {
+            // "second" designe l'ensemble des probabilités
+            auto const msg = std::to_string(intervalProbs.second[i]).substr(2, 4);
+            auto const angle = intervalProbs.first[i];
+            auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 250;
+
+            auto const text = buildText(msg, getPosition().toVec2d() + local, getAppFont(), 15, sf::Color::Black);
+            target.draw(text);
+        }
+
+        auto const quantities = getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), intervals);
+        for (std::size_t i = 0; i < quantities.size(); ++i) {
+            auto const msg = std::to_string(quantities[i]).substr(0, 4);
+            auto const angle = intervals[i];
+            auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 200;
+
+            auto const text = buildText(msg, getPosition().toVec2d() + local, getAppFont(), 15, sf::Color::Red);
+            target.draw(text);
+        }
 }

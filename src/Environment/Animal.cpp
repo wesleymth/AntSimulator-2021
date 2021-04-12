@@ -69,7 +69,7 @@ void Animal::update(sf::Time dt)
     move(dt);
 }
 
-RotationProbs Animal::computeRotationProbs()
+RotationProbs Animal::computeRotationProbs() const
 {
     RotationProbs ret;
     ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};

@@ -34,12 +34,12 @@ void AntWorker::update(sf::Time dt)
 
 
 //##########################
-    /*if ( (getAppEnv().getClosestFoodForAnt(getPosition()) != nullptr)  and (carriedFood == 0.0) )
+  /*  if ( (getAppEnv().getClosestFoodForAnt(getPosition()) != nullptr)  and (carriedFood == 0.0) )
     {
         carriedFood += getAppEnv().getClosestFoodForAnt(getPosition())->takeQuantity(getAppConfig().ant_max_food);
         //if the ant can see a food close to itself and if the ant doesn't carry anything...
         //...then the ant takes a quantity ant_max_food from the food
-    }*/
+    } */
 //##########################
 
 

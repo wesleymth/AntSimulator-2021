@@ -13,6 +13,11 @@ Pheromone::Pheromone(const Vec2d& vect, Quantity quant)
     //Done
 }
 
+void Pheromone::update(sf::Time dt)
+{
+    quantity*=getAppConfig().pheromone_evaporation_rate;
+}
+
 void Pheromone::drawOn(sf::RenderTarget &target) const
 {
     sf::Color couleur(sf::Color::Green);
@@ -31,4 +36,9 @@ void Pheromone::drawOn(sf::RenderTarget &target) const
 bool Pheromone::isNegligeable()
 {
     return quantity<getAppConfig().pheromone_threshold;
+}
+
+Quantity Pheromone::getQuantity()
+{
+    return quantity;
 }

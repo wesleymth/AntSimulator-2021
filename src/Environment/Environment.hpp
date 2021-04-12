@@ -26,6 +26,13 @@ public:
    Environment();
 
    /*!
+    *  @brief destructor that frees memory
+    *
+    *  @note uses reset()
+    */
+   ~Environment(void);
+
+   /*!
     *  @brief adds animal to current environment
     *
     *  @param animal pointer to add
@@ -54,12 +61,12 @@ public:
    void addPheromone(Pheromone *phero);
 
    /*!
-    *  @brief in charge of changing animals a a set time interval
+    *  @brief in charge of changing all udatable entities at a set time interval
     *
     *  @param dt time interval
     *
     *  @note updates the generation of foods and the movement/life of animals
-    *  @note if animal is dead gets rid of it as well
+    *  @note if entity is dead or no longer useful, gets rid of it as well
     */
    void update(sf::Time dt);
 
@@ -96,8 +103,11 @@ public:
    void operator=(Environment const&) = delete;
 
 
-
    bool togglePheromoneDisplay();
+
+   Quantities getPheromoneQuantitiesPerIntervalForAnt(const ToricPosition &position,
+                                                      Angle direction_rad,
+                                                      const Intervals &angles);
 };
 
 #endif // ENVIRONMENT_HPP

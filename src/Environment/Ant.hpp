@@ -42,6 +42,7 @@ public:
 
     virtual sf::Sprite getSprite() const = 0;
 
+    void drawPheromoneAngles(sf::RenderTarget& target) const;
 protected:
     Uid anthillID;
     ToricPosition lastPheromone;

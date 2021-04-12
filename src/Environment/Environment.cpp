@@ -5,6 +5,10 @@ Environment::Environment()
 {
     //Done
 }
+Environment::~Environment(void)
+{
+    reset();
+}
 
 void Environment::addAnimal(Animal* animal)
 {
@@ -31,13 +35,23 @@ void Environment::update(sf::Time dt)
        if (animal->isDead()) //gets rid of the animal in the attribute of the environement
        {
            animal = nullptr;
-           animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
        }
+       animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
    }
 
    for(auto& anthill: anthills)
    {
        anthill->update(dt); //in charge of updating the anthills
+   }
+
+   for(auto& phero: pheromones)
+   {
+       phero->update(dt); //in charge of movement and incrementation of attributes
+       if (phero->isNegligeable()) //gets rid of the animal in the attribute of the environement
+       {
+           phero = nullptr;
+       }
+       pheromones.erase(std::remove(pheromones.begin(), pheromones.end(), nullptr), pheromones.end());
    }
 }
 
@@ -143,4 +157,45 @@ void Environment::addPheromone(Pheromone* phero)
 bool Environment::togglePheromoneDisplay()
 {
     return showPheromones=not showPheromones;
+}
+
+Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosition &position,
+                                                   Angle direction_rad,
+                                                   const Intervals &angles)
+{
+    Quantities Q(11,0);
+    for(auto phero: pheromones)
+    {
+        if(toricDistance(position, phero->getPosition())<=getAppConfig().ant_smell_max_distance)
+        {
+            Angle beta((position.toricVector(phero->getPosition()).angle() - direction_rad) / DEG_TO_RAD);
+            beta=fmod(beta,2*PI);
+            if(beta<0)
+            {
+                beta+=360;
+            }
+            /*while(0>beta or beta>360)
+            {
+                if(beta>360)
+                {
+                    beta-=360;
+                }
+
+            }
+            */
+            Angle betaPrime(angles[0]);
+            int indice(0);
+            for(size_t i(1); i<angles.size(); ++i)
+            {
+                if(abs(angles[i]-beta)<abs(betaPrime-beta))
+                {
+                    betaPrime=angles[i];
+                    indice=i;
+                }
+            }
+            Q[indice]=phero->getQuantity();
+
+        }
+    }
+    return Q;
 }

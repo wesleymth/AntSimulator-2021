@@ -80,8 +80,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
        add_executable (foodTest  ${TEST_DIR}/GraphicalTests/FoodTest.cpp ${SOURCES_GFX})
        target_link_libraries(foodTest sfml-graphics sfml-window sfml-system)
        
-#       add_executable (pheromoneTest  ${TEST_DIR}/GraphicalTests/PheromoneTest.cpp ${SOURCES_GFX})
-#       target_link_libraries(pheromoneTest sfml-graphics sfml-window sfml-system)
+       add_executable (pheromoneTest  ${TEST_DIR}/GraphicalTests/PheromoneTest.cpp ${SOURCES_GFX})
+       target_link_libraries(pheromoneTest sfml-graphics sfml-window sfml-system)
        
        add_executable (antTest  ${TEST_DIR}/GraphicalTests/AntTest.cpp ${SOURCES_GFX})
        target_link_libraries(antTest sfml-graphics sfml-window sfml-system)
