@@ -36,7 +36,7 @@ void Ant::drawOn(sf::RenderTarget& target) const
             line[0] = { getPosition().toVec2d(), sf::Color::Black };
             line[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(getDirection()), sf::Color::Black };
             target.draw(line);  //draws line
-        auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
         target.draw(text); //shows healthPoints via a text
     }
 }

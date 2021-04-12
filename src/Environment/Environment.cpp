@@ -114,20 +114,20 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
     double distance(toricDistance(position, foods[0]->getPosition()));
-    //if (foods.size() != 0)
-    //{
-        for(auto& food: foods)
+    if (foods.size() != 0)
+    {
+        for(size_t i(1); i < foods.size(); ++i)
         {
-            if (toricDistance(position, food->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
+            if (toricDistance(position, foods[i]->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
             {
-                distance = toricDistance(position, food->getPosition());
-                if (distance < getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
+                distance = toricDistance(position, foods[i]->getPosition());
+                if (distance <= getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
                 {
-                    foodptr = food;
+                    foodptr = foods[i];
                 }
             }
         }
-    //}
+    }
     return foodptr;
 }
 
@@ -137,15 +137,14 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
     //if (anthills.size() != 0)
     //{
     for(auto& anthill: anthills)
+    {
+        if ((anthill->uidIsEqual(anthillId)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) )
+        //checks if the uids are equal and if the anthill is in the radius of perception of the ant
         {
-            if (anthill->uidIsEqual(anthillId)) //checks if the uids are equal
-            {
-                if (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) //if the anthill is in the radius of perception of the ant
-                {
-                    anthillptr = anthill;
-                }
-            }
+            anthillptr = anthill;
         }
+
+    }
     //}
     return anthillptr;
 }
