@@ -9,6 +9,12 @@ AntSoldier::AntSoldier(const Vec2d& pos, Uid id)
     //Done
 }
 
+AntSoldier::AntSoldier(const ToricPosition& pos, Uid id)
+    :AntSoldier(pos.toVec2d(),id)
+{
+    //Done
+}
+
 AntSoldier::AntSoldier()
     :AntSoldier(Vec2d(), Uid()) //calls constructor above using default Vec2d and default Uid
 {

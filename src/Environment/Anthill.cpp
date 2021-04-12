@@ -8,14 +8,13 @@
 
 Anthill::Anthill()
 {
-
+    //Done
 }
 
 Anthill::Anthill(const ToricPosition& TP)
     :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero)
 {
-    //Generates an ant at the creation of an anthill
-    generateAnt();
+    generateAnt(); //Generates an ant at the creation of an anthill
 }
 
 Anthill::Anthill(const Vec2d& pos)

@@ -9,6 +9,12 @@ AntWorker::AntWorker(const Vec2d& pos, Uid id)
     //Done
 }
 
+AntWorker::AntWorker(const ToricPosition& pos, Uid id)
+    :AntWorker(pos.toVec2d(),id)
+{
+    //Done
+}
+
 AntWorker::AntWorker()
     :AntWorker(Vec2d(), Uid())
 {

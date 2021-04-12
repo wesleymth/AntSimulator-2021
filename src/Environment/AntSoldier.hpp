@@ -7,6 +7,8 @@ class AntSoldier : public Ant
 public:
     AntSoldier(const Vec2d& pos, Uid id);
 
+    AntSoldier(const ToricPosition& pos, Uid id);
+
     AntSoldier();
 
     sf::Sprite getSprite() const;

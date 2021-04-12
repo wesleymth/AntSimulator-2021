@@ -7,6 +7,8 @@ class AntWorker : public Ant
 public:
     AntWorker(const Vec2d& pos, Uid id);
 
+    AntWorker(const ToricPosition& pos, Uid id);
+
     AntWorker();
 
     sf::Sprite getSprite() const;
