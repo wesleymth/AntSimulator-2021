@@ -81,36 +81,43 @@ void Environment::reset()
    anthills.clear();
 }
 
+//###PEUT FAIRE CRASHER???
 Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
     double distance(toricDistance(position, foods[0]->getPosition()));
-    for(auto& food: foods)
-    {
-        if (toricDistance(position, food->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
+    //if (foods.size() != 0)
+    //{
+        for(auto& food: foods)
         {
-            distance = toricDistance(position, food->getPosition());
-            if (distance < getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
+            if (toricDistance(position, food->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
             {
-                foodptr = food;
+                distance = toricDistance(position, food->getPosition());
+                if (distance < getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
+                {
+                    foodptr = food;
+                }
             }
         }
-    }
+    //}
     return foodptr;
 }
 
 Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillId)
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
+    //if (anthills.size() != 0)
+    //{
     for(auto& anthill: anthills)
-    {
-        if (anthill->uidIsEqual(anthillId)) //checks if the uids are equal
         {
-            if (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) //if the anthill is in the radius of perception of the ant
+            if (anthill->uidIsEqual(anthillId)) //checks if the uids are equal
             {
-                anthillptr = anthill;
+                if (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) //if the anthill is in the radius of perception of the ant
+                {
+                    anthillptr = anthill;
+                }
             }
         }
-    }
+    //}
     return anthillptr;
 }
