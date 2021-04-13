@@ -75,23 +75,25 @@ void Anthill::generateAntSoldier() const
 
 void Anthill::generateAnt() const
 {
-    double theta(uniform(0,1)); //                  #################### NE MARCHE PAS DEMANDER A COLIN
+    double theta(uniform(0.0,1.0)); //                  #################### NE MARCHE PAS DEMANDER A COLIN
     //if prob = 0 que des soldats mais si prob = 1, si theta = 1 il vas y avoir une soldate
-    if (getWorkerProb() != 1)
-    {
-        if ( (theta < getWorkerProb()) and (theta >= 0))
+    //if (getWorkerProb() != 1)
+    //{
+    //std::cout << theta << std::endl;
+        if ( (theta <= getWorkerProb()) and (theta >= 0))
         {
             generateAntWorker();
+
         }
         else
         {
             generateAntSoldier();
         }
-    }
-    else
-    {
-        generateAntWorker();
-    }
+    //}
+    //else
+    //{
+      //  generateAntWorker();
+    //}
 }
 
 bool Anthill::uidIsEqual(Uid checkId) const

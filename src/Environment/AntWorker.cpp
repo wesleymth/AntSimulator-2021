@@ -40,23 +40,24 @@ void AntWorker::update(sf::Time dt)
 
 
 //##########################
-  /*  if ( (getAppEnv().getClosestFoodForAnt(getPosition()) != nullptr)  and (carriedFood == 0.0) )
+    if ( (getAppEnv().getClosestFoodForAnt(getPosition()) != nullptr) and (carriedFood == 0.0) )
     {
-        carriedFood += getAppEnv().getClosestFoodForAnt(getPosition())->takeQuantity(getAppConfig().ant_max_food);
+        carriedFood += getAppEnv().getClosestFoodForAnt(getPosition())->takeQuantity(getAppConfig().ant_max_food); //###### PEUT FAIRE CRASHER
         //if the ant can see a food close to itself and if the ant doesn't carry anything...
         //...then the ant takes a quantity ant_max_food from the food
-    } */
+        if (getAppEnv().getAnthillForAnt(getPosition(),anthillID) == nullptr)
+        {
+            turnAround();
+            //once it carries food, if the ant doesn't see it's anthill, it will turn around
+        }
+    }
 //##########################
 
 
-    //### NE FAIT PAS CRASHER:
-    if ( (getAppEnv().getAnthillForAnt(getPosition(),anthillID) == nullptr) and (carriedFood != 0.0) )
-    {
-        turnAround();
-        //once it carries food, if the ant doesn't see it's anthill, it will turn around
-    }
+    //### NE FAIT PAS CRASHER
 
-    //### NE FAIT PAS CRASHER:
+
+    //### NE FAIT PAS CRASHER
     if (getAppEnv().getAnthillForAnt(getPosition(),anthillID) != nullptr)
     {
         getAppEnv().getAnthillForAnt(getPosition(),anthillID)->receiveFood(carriedFood);

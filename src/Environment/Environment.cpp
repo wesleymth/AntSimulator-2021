@@ -109,26 +109,30 @@ void Environment::reset()
    pheromones.clear();
 }
 
-//###PEUT FAIRE CRASHER???
+//###PROBLEME
 Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
-    double distance(toricDistance(position, foods[0]->getPosition()));
+    double distance(getAppConfig().world_size);
     if (foods.size() != 0)
     {
-        for(size_t i(1); i < foods.size(); ++i)
+        distance = (toricDistance(position, foods[0]->getPosition()));
+    }
+        for(auto& food: foods) //size_t i(0); i < foods.size(); ++i //foods[i]
         {
-            if (toricDistance(position, foods[i]->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
+            if (toricDistance(position, food->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
             {
-                distance = toricDistance(position, foods[i]->getPosition());
-                if (distance <= getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
-                {
-                    foodptr = foods[i];
-                }
+                distance = toricDistance(position, food->getPosition()); //distance is then equal to the distance of the new food
+            }
+            if (distance <= getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
+            {
+                foodptr = nullptr;
+                foodptr = food;
             }
         }
-    }
+
     return foodptr;
+    //###TEST return nullptr;
 }
 
 Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillId)
@@ -143,7 +147,6 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
         {
             anthillptr = anthill;
         }
-
     }
     //}
     return anthillptr;
