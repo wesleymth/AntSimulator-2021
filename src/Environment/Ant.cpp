@@ -2,6 +2,7 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 #include "Pheromone.hpp"
+#include "Environment.hpp"
 
 Ant::Ant(const Vec2d& pos, double HP, double LT, Uid id)
     :Animal::Animal(pos, HP, LT), anthillID(id)
@@ -38,6 +39,7 @@ void Ant::drawOn(sf::RenderTarget& target) const
             target.draw(line);  //draws line
         auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
         target.draw(text); //shows healthPoints via a text
+        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5));
     }
     if(getAppConfig().getProbaDebug())
     {
@@ -51,12 +53,12 @@ void Ant::spreadPheromones()
     Vec2d vect(getPosition().toricVector(lastPheromone));
     if(dist*getAppConfig().ant_pheromone_density>=1)
     {
-    for(int i(0); i<=dist*getAppConfig().ant_pheromone_density; ++i)
-    {
-        getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
-                                               getAppConfig().ant_pheromone_energy));
-        lastPheromone=getPosition();
-    }
+        for(int i(0); i<=dist*getAppConfig().ant_pheromone_density; ++i)
+        {
+            getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
+                                                   getAppConfig().ant_pheromone_energy));
+            lastPheromone=getPosition();
+        }
     }
 }
 
@@ -92,11 +94,26 @@ void Ant::drawPheromoneAngles(sf::RenderTarget &target) const
         }
 }
 
-RotationProbs Animal::computeRotationProbs() const
+RotationProbs Ant::computeRotationProbs() const
 {
-    RotationProbs ret;
-    ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
-    ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
-    return ret;
+    RotationProbs rotProb;
+    rotProb.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
+    rotProb.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
+    Quantities Q(getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), {-180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180}));
+    Probs Pphi;
+    double z(0);
+    for(size_t i(0); i<Q.size(); ++i)
+    {
+        Pphi.push_back(1/(1+exp(-getAppConfig().beta_d*(Q[i]-getAppConfig().q_zero))));
+    }
+    for(size_t n(0); n<Q.size(); ++n)
+    {
+        z+=rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
+    }
+    for(size_t n(0); n<rotProb.second.size(); ++n)
+    {
+        rotProb.second[n]=(1/z)*rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
+    }
+    return rotProb;
 }
 

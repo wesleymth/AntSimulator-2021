@@ -44,7 +44,7 @@ public:
 
     void drawPheromoneAngles(sf::RenderTarget& target) const;
 
-    RotationProbs computeRotationProbs() const
+    RotationProbs computeRotationProbs() const;
 protected:
     Uid anthillID;
     ToricPosition lastPheromone;
