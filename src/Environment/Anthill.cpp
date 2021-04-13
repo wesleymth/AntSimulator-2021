@@ -23,9 +23,14 @@ Anthill::Anthill(const Vec2d& pos)
     //Done
 }
 
+double Anthill::getWorkerProb() const
+{
+    return getAppConfig().anthill_worker_prob_default;
+}
+
 void Anthill::receiveFood(Quantity received)
 {
-    if (received > 0)
+    if (received > 0) //doesn't do anything for negative received
     {
         foodStock += received;
     }
@@ -39,38 +44,37 @@ void Anthill::drawOn(sf::RenderTarget& target) const
         target.draw(anthillSprite);
     if (isDebugOn()) //if debug on you can see the current foodStock in black and the uid in magenta
     {
-        auto const food = buildText(to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
-        target.draw(food); //shows quantity of foodStock via a text
+        auto const foodStockText = buildText(to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        target.draw(foodStockText); //shows quantity of foodStock via a text
 
-        auto const id = buildText(to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
-        target.draw(id); //shows anthill uid via a text
+        auto const uidText = buildText(to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(uidText); //shows anthill's uid via a text
     }
 }
 
 void Anthill::update(sf::Time dt)
 {
-
     timeLastSpawn+=dt;
     if (timeLastSpawn >= sf::seconds(getAppConfig().anthill_spawn_delay))
     {
         timeLastSpawn = sf::Time::Zero;
-        generateAnt();
+        generateAnt(); //randomly generates ant every anthill_spawn_delay
     }
 }
 
-double Anthill::getWorkerProb() const
+bool Anthill::uidIsEqual(Uid checkId) const
 {
-    return getAppConfig().anthill_worker_prob_default;
+    return (uid == checkId);
 }
 
 void Anthill::generateAntWorker() const
 {
-    getAppEnv().addAnimal(new AntWorker(getPosition().toVec2d(),uid));
+    getAppEnv().addAnimal(new AntWorker(getPosition().toVec2d(),uid)); //adds an ant worker to the current environment
 }
 
 void Anthill::generateAntSoldier() const
 {
-    getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid));
+    getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid)); //adds an ant soldir to the current environment
 }
 
 void Anthill::generateAnt() const
@@ -79,15 +83,9 @@ void Anthill::generateAnt() const
     if ( (0 <= theta) and (theta <= getWorkerProb()))
     {
         generateAntWorker();
-
     }
     else
     {
         generateAntSoldier();
     }
-}
-
-bool Anthill::uidIsEqual(Uid checkId) const
-{
-    return (uid == checkId);
 }

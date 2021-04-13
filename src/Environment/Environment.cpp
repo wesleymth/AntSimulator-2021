@@ -32,7 +32,7 @@ void Environment::update(sf::Time dt)
    for(auto& animal: animals)
    {
        animal->update(dt); //in charge of movement and incrementation of attributes
-       if (animal->isDead()) //gets rid of the animal in the attribute of the environement
+       if (animal->isDead()) //gets rid of the animal in the attribute of the environement if the animal is dead
        {
            animal = nullptr;
        }
@@ -56,7 +56,7 @@ void Environment::update(sf::Time dt)
 
    for(auto& food: foods)
    {
-       if (food->zeroQuantity()) //gets rid of the food in the attribute of the environement
+       if (food->zeroQuantity()) //gets rid of the food in the attribute of the environement if its quantity equals 0
        {
            food = nullptr;
        }
@@ -124,8 +124,7 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
     if (foods.size() != 0)
     {
-        compareDistance = (toricDistance(position, foods[0]->getPosition()));
-        //sets the comparing distance to the distance between the first food and the position of the ant worker
+        compareDistance = (toricDistance(position, foods[0]->getPosition())); //sets the comparing distance to the distance between the first food and the position of the ant worker
     }
     for(auto& food: foods)
     {
@@ -141,12 +140,12 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
     return foodptr;
 }
 
-Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillId)
+Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillUid)
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
     for(auto& anthill: anthills)
     {
-        if ((anthill->uidIsEqual(anthillId)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) )
+        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) )
         //checks if the uids are equal and if the anthill is in the radius of perception of the ant
         {
             anthillptr = anthill;

@@ -38,7 +38,7 @@ public:
      *  @note uses getAppConfig().food_texture for food texture
      *  @note if debug mode on you can see the quantity attribute of the food
      */
-    void drawOn(sf::RenderTarget& target) const;
+    void drawOn(sf::RenderTarget& target) const override;
 
     /*!
      *  @brief checks if the food has no more quantity

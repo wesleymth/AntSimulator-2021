@@ -4,20 +4,31 @@
 #include "Pheromone.hpp"
 #include "Environment.hpp"
 
-Ant::Ant(const Vec2d& pos, double HP, double LT, Uid id)
-    :Animal::Animal(pos, HP, LT), anthillID(id), lastPheromone(pos)
-{
-    //Done
-}
-
-Ant::Ant(const Vec2d& pos, Uid id)
-    :Animal::Animal(pos), anthillID(id), lastPheromone(pos) //calls constructor of Animal using only a position
-{
-    //Done
-}
-
 Ant::Ant()
-    :Animal::Animal(), anthillID(), lastPheromone() //calls default constructor of Animal
+{
+    //Done
+}
+
+Ant::Ant(const Vec2d& pos, double HP, double LT, Uid uid)
+    :Animal::Animal(pos, HP, LT), anthillUid(uid), lastPheromone(pos)
+{
+    //Done
+}
+
+Ant::Ant(const ToricPosition& TP, double HP, double LT, Uid uid)
+    :Ant(TP.toVec2d(), HP, LT, uid)
+{
+    //Done
+}
+
+Ant::Ant(const Vec2d& pos, Uid uid)
+    :Animal::Animal(pos), anthillUid(uid), lastPheromone(pos)
+{
+    //Done
+}
+
+Ant::Ant(const ToricPosition& TP, Uid uid)
+    :Ant(TP.toVec2d(),uid)
 {
     //Done
 }
@@ -25,6 +36,11 @@ Ant::Ant()
 double Ant::getSpeed() const
 {
     return getAppConfig().ant_speed;
+}
+
+Uid Ant::getAnthillUid() const
+{
+    return anthillUid;
 }
 
 void Ant::drawOn(sf::RenderTarget& target) const
@@ -39,7 +55,7 @@ void Ant::drawOn(sf::RenderTarget& target) const
             target.draw(line);  //draws line
         auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
         target.draw(text); //shows healthPoints via a text
-        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5));
+        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around ant representing the perception distance
     }
     if(getAppConfig().getProbaDebug())
     {

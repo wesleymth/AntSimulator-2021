@@ -2,21 +2,19 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 
-
-AntSoldier::AntSoldier(const Vec2d& pos, Uid id)
-    :Ant::Ant(pos, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan, id)
-{
-    //Done
-}
-
-AntSoldier::AntSoldier(const ToricPosition& pos, Uid id)
-    :AntSoldier(pos.toVec2d(),id)
-{
-    //Done
-}
-
 AntSoldier::AntSoldier()
-    :AntSoldier(Vec2d(), Uid()) //calls constructor above using default Vec2d and default Uid
+{
+    //Done
+}
+
+AntSoldier::AntSoldier(const Vec2d& pos, Uid uid)
+    :Ant::Ant(pos, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan, uid)
+{
+    //Done
+}
+
+AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid)
+    :AntSoldier(TP.toVec2d(),uid)
 {
     //Done
 }

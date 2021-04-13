@@ -3,6 +3,35 @@
 #include "../Utility/Utility.hpp"
 #include "Random/Random.hpp"
 
+Animal::Animal()
+{
+    //Done
+}
+
+Animal::Animal(const Vec2d& pos, double HP, double LT)
+    :Positionable(pos), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
+{
+    //Done
+}
+
+Animal::Animal(const ToricPosition& TP, double HP, double LT)
+    :Animal(TP.toVec2d(),HP,LT)
+{
+    //Done
+}
+
+Animal::Animal(const Vec2d& pos)
+    :Animal(pos, DEFAULT_ANIMAL_HP, DEFAULT_ANIMAL_LIFE)
+{
+    //Done
+}
+
+Animal::Animal(const ToricPosition& TP)
+    :Animal(TP.toVec2d())
+{
+    //Done
+}
+
 Angle Animal::getDirection() const
 {
     return dirAngle;
@@ -28,24 +57,6 @@ bool Animal::isDead() const
     return res;
 }
 
-Animal::Animal(const Vec2d& pos, double HP, double LT)
-    :Positionable(pos), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
-{
-    //Done
-}
-
-Animal::Animal(const Vec2d& pos)
-    :Animal(pos, DEFAULT_ANIMAL_HP, DEFAULT_ANIMAL_LIFE) // calls different constructor
-{
-    //Done
-}
-
-Animal::Animal()
-    :Animal(Vec2d()) //calls different constructor
-{
-    //Done
-}
-
 void Animal::move(sf::Time dt)
 {
     auto dx = (getSpeed()*Vec2d::fromAngle(dirAngle)) * dt.asSeconds();
@@ -56,8 +67,7 @@ void Animal::move(sf::Time dt)
         timeLastRot=sf::Time::Zero; //resets timeLastRot to 0
         RotationProbs degProb(computeRotationProbs()); //gets rotation probabilities
         std::piecewise_linear_distribution<> dist(degProb.first.begin(), degProb.first.end(), degProb.second.begin());
-        //declares a random generator which generates a random value using a linear distribution by pieces depending
-        //on the values of the set degProb, the rotation probabilities
+        //declares a random generator which generates a random value using a linear distribution by pieces depending on the values of the set degProb, the rotation probabilities
         dirAngle += dist(getRandomGenerator())*DEG_TO_RAD; //changes direction angle
     }
 }
@@ -66,7 +76,7 @@ void Animal::update(sf::Time dt)
 {
     --lifetime;
     timeLastRot += dt;
-    move(dt);
+    move(dt); //makes animal move
 }
 
 RotationProbs Animal::computeRotationProbs() const

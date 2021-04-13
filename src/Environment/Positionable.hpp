@@ -14,7 +14,6 @@
 class Positionable
 {
 public:
-
      /*!
       * @brief default constructor
       *

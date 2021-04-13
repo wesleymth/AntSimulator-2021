@@ -33,6 +33,16 @@ public:
    ~Environment();
 
    /*!
+    *  @brief returns pointer on closest food if it is in the perception radius
+    */
+   Food* getClosestFoodForAnt(ToricPosition const& position);
+
+   /*!
+    *  @brief returns pointer on anthill with the specific uid if it is in the perception radius
+    */
+   Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillUid);
+
+   /*!
     *  @brief adds animal to current environment
     *
     *  @param animal pointer to add
@@ -68,29 +78,19 @@ public:
     *  @note updates the generation of foods and the movement/life of animals
     *  @note if entity is dead or no longer useful, gets rid of it as well
     */
-   void update(sf::Time dt);
+   void update(sf::Time dt) override;
 
    /*!
     *  @brief draws environment on application
     *
     *  @param targetWindow reference
     */
-   void drawOn(sf::RenderTarget& targetWindow) const;
+   void drawOn(sf::RenderTarget& targetWindow) const override;
 
    /*!
     *  @brief resets all food and animals in environement
     */
    void reset();
-
-   /*!
-    *  @brief
-    */
-   Food* getClosestFoodForAnt(ToricPosition const& position);
-
-   /*!
-    *  @brief
-    */
-   Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillId);
 
    /*!
     *  @brief in order to stop copies of environmnet

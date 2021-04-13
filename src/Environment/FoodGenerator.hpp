@@ -22,7 +22,7 @@ public:
      * @note memory allocation of food pointer
      * @note uses getAppEnv() to tap into the current environment and add the pointer to its foods
      */
-    void update(sf::Time dt);
+    void update(sf::Time dt) override;
 
 private:
     sf::Time timeLastFood;

@@ -10,6 +10,11 @@ class Animal : public Positionable, public Drawable, public Updatable
 {
 public:
     /*!
+     *  @brief default constructor
+     */
+    Animal();
+
+    /*!
      *  @brief constructor using given position, life points, and lifetime
      *
      *  @param pos position
@@ -22,20 +27,27 @@ public:
     Animal(const Vec2d& pos, double HP, double LT);
 
     /*!
-     *  @brief constructor using only given position
+     *  @brief constructor using a ToricPosition and specific HP and LT
+     *
+     *  @note calls constructor using a Vec2d with TP.toVec2d, HP and LT
+     */
+    Animal(const ToricPosition& TP, double HP, double LT);
+
+    /*!
+     *  @brief constructor using Vec2d
      *
      *  @param pos position
      *
-     *  @note calls constructor using 1.0 as LP and LT
+     *  @note calls constructor using a vec2d, DEFAULT_ANIMAL_HP as HP and DEFAULT_ANIMAL_LIFE as LT
      */
     Animal(const Vec2d& pos);
 
     /*!
-     *  @brief default constructor
+     *  @brief constructor using a ToricPosition
      *
-     *  @note calls constructor using Vec2d() as pos, 1.0 as HP and LT
+     *  @note calls constructor using a Vec2d with TP.toVec2d
      */
-    Animal();
+    Animal(const ToricPosition& TP);
 
     /*!
      *  @brief gets speed of animal
@@ -59,7 +71,7 @@ public:
      *
      *  @return true if dead
      *
-     *  @note animal is considered dead if HP and LT <= 0
+     *  @note animal is considered dead if HP or LT <= 0
      */
     bool isDead() const;
 
@@ -71,9 +83,9 @@ public:
     virtual void move(sf::Time dt);
 
     /*!
-     *  @brief
+     *  @brief updates the animal by making it move, decrements its lifetime and adds dt to the time it last spun
      */
-    virtual void update(sf::Time dt);
+    virtual void update(sf::Time dt) override;
 
     /*!
      *  @brief gives back the probalities of rotation
@@ -82,19 +94,12 @@ public:
      */
     virtual RotationProbs computeRotationProbs() const;
 
-    /*!
-     *  @brief draws animals
-     *
-     *  @note if debug on might have special features
-     */
-    virtual void drawOn(sf::RenderTarget& target) const = 0;
-
 protected:
     /*!
      *  @brief sets direction angle
      *
      *  @note in protected to restrict access only to sub-classes
-     *  @note ensures that angle is between 0 and 2pi using fmod
+     *  @note ensures that angle is between 0 and 2pi using fmod to avoid having huge angles
      */
     void setDirection(Angle setAngle);
 
