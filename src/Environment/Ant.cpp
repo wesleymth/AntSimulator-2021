@@ -5,19 +5,19 @@
 #include "Environment.hpp"
 
 Ant::Ant(const Vec2d& pos, double HP, double LT, Uid id)
-    :Animal::Animal(pos, HP, LT), anthillID(id)
+    :Animal::Animal(pos, HP, LT), anthillID(id), lastPheromone(pos)
 {
     //Done
 }
 
 Ant::Ant(const Vec2d& pos, Uid id)
-    :Animal::Animal(pos), anthillID(id) //calls constructor of Animal using only a position
+    :Animal::Animal(pos), anthillID(id), lastPheromone(pos) //calls constructor of Animal using only a position
 {
     //Done
 }
 
 Ant::Ant()
-    :Animal::Animal(), anthillID() //calls default constructor of Animal
+    :Animal::Animal(), anthillID(), lastPheromone() //calls default constructor of Animal
 {
     //Done
 }
@@ -53,7 +53,7 @@ void Ant::spreadPheromones()
     Vec2d vect(getPosition().toricVector(lastPheromone));
     if(dist*getAppConfig().ant_pheromone_density>=1)
     {
-        for(int i(0); i<=dist*getAppConfig().ant_pheromone_density; ++i)
+        for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i)
         {
             getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
                                                    getAppConfig().ant_pheromone_energy));

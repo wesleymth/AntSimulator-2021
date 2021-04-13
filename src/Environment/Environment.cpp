@@ -177,9 +177,9 @@ Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosit
             {
                 beta+=360;
             }*/
-            while(0>beta or beta>360)
+            while(-180>beta or beta>180)
             {
-                if(beta>360)
+                if(beta>180)
                 {
                     beta-=360;
                 }
