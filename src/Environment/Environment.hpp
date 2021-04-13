@@ -30,7 +30,7 @@ public:
     *
     *  @note uses reset()
     */
-   ~Environment(void);
+   ~Environment();
 
    /*!
     *  @brief adds animal to current environment

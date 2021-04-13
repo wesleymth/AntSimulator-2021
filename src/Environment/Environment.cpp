@@ -5,7 +5,7 @@ Environment::Environment()
 {
     //Done
 }
-Environment::~Environment(void)
+Environment::~Environment()
 {
     reset();
 }
