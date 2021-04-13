@@ -11,7 +11,7 @@ public:
 
     AntSoldier();
 
-    sf::Sprite getSprite() const;
+    sf::Sprite getSprite() const override;
 };
 
 #endif // ANTSOLDIER_HPP

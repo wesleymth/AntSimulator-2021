@@ -13,11 +13,14 @@ double const DEG_TO_RAD = 0.0174532925; ///< Degree to Radian conversion constan
 double const TAU = 6.283185307;         ///< TAU constant (= 2 * PI)
 double const PI = 3.141592654;          ///< PI constant
 double const EPSILON = 1e-8;            ///< a small epsilon value
+
+//
 double const DEFAULT_ANT_SIZE = 20.0;   ///< drawing constant for ants
 double const DEFAULT_ANIMAL_HP = 1.0;   ///< drawing constant for animals   ###ASK IF YOU CAN PUT IT IN APP.JSON INSTEAD###
 double const DEFAULT_ANIMAL_LIFE = 1.0; ///< drawing constant for animals
 double const DEFAULT_ANTHILL_SIZE = 50;
 double const DEFAULT_FOOD_SIZE = 8;
+
 // Define resources location
 std::string const RES_LOCATION = "../res/";
 

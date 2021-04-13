@@ -38,7 +38,6 @@ void AntWorker::update(sf::Time dt)
 {
     Animal::update(dt);
 
-//##########################
     Food* closestFood(getAppEnv().getClosestFoodForAnt(getPosition()));
     if ( ( closestFood != nullptr) and (carriedFood == 0.0) )
     {
@@ -49,7 +48,6 @@ void AntWorker::update(sf::Time dt)
             turnAround(); //once it carries food, if the ant doesn't see it's anthill, it will turn around
         }
     }
-//##########################
 
     if (getAppEnv().getAnthillForAnt(getPosition(),anthillID) != nullptr)
     {
