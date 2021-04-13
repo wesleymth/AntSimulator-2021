@@ -5,7 +5,7 @@ Environment::Environment()
 {
     //Done
 }
-Environment::~Environment(void)
+Environment::~Environment()
 {
     reset();
 }
@@ -144,8 +144,6 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillId)
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
-    //if (anthills.size() != 0)
-    //{
     for(auto& anthill: anthills)
     {
         if ((anthill->uidIsEqual(anthillId)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) )
@@ -154,7 +152,6 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
             anthillptr = anthill;
         }
     }
-    //}
     return anthillptr;
 }
 
