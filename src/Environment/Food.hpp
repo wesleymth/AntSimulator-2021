@@ -40,6 +40,15 @@ public:
      */
     void drawOn(sf::RenderTarget& target) const;
 
+    /*!
+     *  @brief checks if the food has no more quantity
+     *
+     *  @return true if quantity == 0
+     *
+     *  @note used in Environment.cpp to delete the foods with no more quantity
+     */
+    bool zeroQuantity() const;
+
 private:
 
     Quantity quantity;

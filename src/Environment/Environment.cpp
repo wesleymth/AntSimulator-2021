@@ -47,11 +47,20 @@ void Environment::update(sf::Time dt)
    for(auto& phero: pheromones)
    {
        phero->update(dt); //in charge of movement and incrementation of attributes
-       if (phero->isNegligeable()) //gets rid of the animal in the attribute of the environement
+       if (phero->isNegligeable()) //gets rid of the pheromone in the attribute of the environement
        {
            phero = nullptr;
        }
        pheromones.erase(std::remove(pheromones.begin(), pheromones.end(), nullptr), pheromones.end());
+   }
+
+   for(auto& food: foods)
+   {
+       if (food->zeroQuantity()) //gets rid of the food in the attribute of the environement
+       {
+           food = nullptr;
+       }
+       foods.erase(std::remove(foods.begin(), foods.end(), nullptr), foods.end());
    }
 }
 
@@ -109,30 +118,27 @@ void Environment::reset()
    pheromones.clear();
 }
 
-//###PROBLEME
 Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
-    double distance(getAppConfig().world_size);
+    double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
     if (foods.size() != 0)
     {
-        distance = (toricDistance(position, foods[0]->getPosition()));
+        compareDistance = (toricDistance(position, foods[0]->getPosition()));
+        //sets the comparing distance to the distance between the first food and the position of the ant worker
     }
-        for(auto& food: foods) //size_t i(0); i < foods.size(); ++i //foods[i]
+    for(auto& food: foods)
+    {
+        if (toricDistance(position, food->getPosition()) < compareDistance) //if the distance of the next food is lower than the distance of the last food
         {
-            if (toricDistance(position, food->getPosition()) < distance) //if the distance of the next food is lower than the distance of the last food
+            compareDistance = toricDistance(position, food->getPosition()); //distance is then equal to the distance of the new food
+            if (compareDistance <= getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
             {
-                distance = toricDistance(position, food->getPosition()); //distance is then equal to the distance of the new food
-            }
-            if (distance <= getAppConfig().ant_max_perception_distance) //if the food is in the radius of perception of the ant
-            {
-                foodptr = nullptr;
                 foodptr = food;
             }
         }
-
+    }
     return foodptr;
-    //###TEST return nullptr;
 }
 
 Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillId)

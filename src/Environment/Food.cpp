@@ -8,7 +8,8 @@ Food::Food(const Vec2d& pos, Quantity quant)
     //Done
 }
 
-Quantity Food::takeQuantity(Quantity wantTake){
+Quantity Food::takeQuantity(Quantity wantTake)
+{
     Quantity taken(quantity);
     if (wantTake < 0)
     {
@@ -29,7 +30,8 @@ Quantity Food::takeQuantity(Quantity wantTake){
     return taken;
 }
 
-void Food::drawOn(sf::RenderTarget& target) const{
+void Food::drawOn(sf::RenderTarget& target) const
+{
     auto const foodSprite = buildSprite((getPosition()).toVec2d(), quantity/5, getAppTexture(getAppConfig().food_texture));
         target.draw(foodSprite); //draws a food
 
@@ -38,4 +40,9 @@ void Food::drawOn(sf::RenderTarget& target) const{
             auto const text = buildText(to_nice_string(quantity), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
             target.draw(text); //shows quantity via a text
         }
+}
+
+bool Food::zeroQuantity() const
+{
+    return (quantity == 0);
 }
