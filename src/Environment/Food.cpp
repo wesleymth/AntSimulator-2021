@@ -2,8 +2,14 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 
+Food::Food(const ToricPosition& TP, Quantity quant)
+    :Positionable(TP),quantity(quant)
+{
+    //Done
+}
+
 Food::Food(const Vec2d& pos, Quantity quant)
-    :Positionable(pos),quantity(quant)
+    :Food(ToricPosition(pos),quant)
 {
     //Done
 }

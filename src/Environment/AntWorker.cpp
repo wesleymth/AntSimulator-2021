@@ -7,14 +7,14 @@ AntWorker::AntWorker()
     //Done
 }
 
-AntWorker::AntWorker(const Vec2d& pos, Uid uid)
-    :Ant::Ant(pos, getAppConfig().ant_worker_hp, getAppConfig().ant_worker_lifespan, uid), carriedFood(0.0)
+AntWorker::AntWorker(const ToricPosition& TP, Uid uid)
+    :Ant::Ant(TP, getAppConfig().ant_worker_hp, getAppConfig().ant_worker_lifespan, uid), carriedFood(0.0)
 {
     //Done
 }
 
-AntWorker::AntWorker(const ToricPosition& TP, Uid id)
-    :AntWorker(TP.toVec2d(),id)
+AntWorker::AntWorker(const Vec2d& pos, Uid id)
+    :AntWorker(ToricPosition(pos),id)
 {
     //Done
 }

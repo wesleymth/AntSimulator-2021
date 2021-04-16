@@ -9,26 +9,26 @@ Ant::Ant()
     //Done
 }
 
-Ant::Ant(const Vec2d& pos, double HP, double LT, Uid uid)
-    :Animal::Animal(pos, HP, LT), anthillUid(uid), lastPheromone(pos)
-{
-    //Done
-}
-
 Ant::Ant(const ToricPosition& TP, double HP, double LT, Uid uid)
-    :Ant(TP.toVec2d(), HP, LT, uid)
+    :Animal::Animal(TP, HP, LT), anthillUid(uid), lastPheromone(TP)
 {
     //Done
 }
 
-Ant::Ant(const Vec2d& pos, Uid uid)
-    :Animal::Animal(pos), anthillUid(uid), lastPheromone(pos)
+Ant::Ant(const Vec2d& pos, double HP, double LT, Uid uid)
+    :Ant(ToricPosition(pos), HP, LT, uid)
 {
     //Done
 }
 
 Ant::Ant(const ToricPosition& TP, Uid uid)
-    :Ant(TP.toVec2d(),uid)
+    :Animal::Animal(TP), anthillUid(uid), lastPheromone(TP)
+{
+    //Done
+}
+
+Ant::Ant(const Vec2d& pos, Uid uid)
+    :Ant(ToricPosition(pos),uid)
 {
     //Done
 }

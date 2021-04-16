@@ -17,22 +17,22 @@ public:
     /*!
      *  @brief constructor with specific position
      *
-     *  @param pos position in Vec2d form
+     *  @param TP position in ToricPosition form
      *
      *  @note creates a uid using creatUid() from Utility.hpp
      *  @note sets foodStock and timeLastSpawn to 0
      *  @note generates an ant when created using generateAnt()
      */
-    Anthill(const Vec2d& pos);
+    Anthill(const ToricPosition& TP);
 
     /*!
      *  @brief constructor with specific position
      *
      *  @param TP position in ToricPosition form
      *
-     *  @note calls Anthill constructor using TP.toVec2d as pos
+     *  @note calls Anthill constructor using ToricPosition(pos)
      */
-    Anthill(const ToricPosition& TP);
+    Anthill(const Vec2d& pos);
 
     /*!
      *  @brief gets the probability of generating an ant worker

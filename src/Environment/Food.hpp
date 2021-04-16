@@ -11,10 +11,18 @@ public:
     /*!
      *  @brief constructor using a given positionable and quantity
      *
+     *  @param TP ToricPosition of the food
+     *  @param quant quantity of the food
+     */
+    Food(const ToricPosition& TP, Quantity quant);
+
+    /*!
+     *  @brief constructor using a given positionable and quantity
+     *
      *  @param pos position of the food
      *  @param quant quantity of the food
      *
-     *  @note calls the ToricPosition constructor with vector as parameter
+     *  @note calls other constructor using ToricPosition(pos) and quant
      */
     Food(const Vec2d& pos, Quantity quant);
 

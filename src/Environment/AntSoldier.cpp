@@ -7,14 +7,14 @@ AntSoldier::AntSoldier()
     //Done
 }
 
-AntSoldier::AntSoldier(const Vec2d& pos, Uid uid)
-    :Ant::Ant(pos, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan, uid)
+AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid)
+    :Ant::Ant(TP, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan, uid)
 {
     //Done
 }
 
-AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid)
-    :AntSoldier(TP.toVec2d(),uid)
+AntSoldier::AntSoldier(const Vec2d& pos, Uid uid)
+    :AntSoldier(ToricPosition(pos),uid)
 {
     //Done
 }

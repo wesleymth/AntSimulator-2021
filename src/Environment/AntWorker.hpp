@@ -13,22 +13,22 @@ public:
     /*!
      *  @brief constructor with specific attributes
      *
-     *  @param pos position in Vec2d form
+     *  @param TP position in ToricPosition form
      *  @param uid the anthill it belongs to's uid
      *
      *  @note calls constructor of Ant
      */
-    AntWorker(const Vec2d& pos, Uid uid);
+    AntWorker(const ToricPosition& TP, Uid uid);
 
     /*!
      *  @brief constructor with specific attributes
      *
-     *  @param TP position in ToricPosition form
+     *  @param pos position in Vec2d form
      *  @param uid the anthill it belongs to's uid
      *
      *  @note calls constructor of AntWorker using TP.toVec2d() as pos
      */
-    AntWorker(const ToricPosition& TP, Uid id);
+    AntWorker(const Vec2d& pos, Uid id);
 
     /*!
      *  @brief gets sprite of an ant worker

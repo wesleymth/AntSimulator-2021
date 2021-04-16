@@ -8,26 +8,26 @@ Animal::Animal()
     //Done
 }
 
-Animal::Animal(const Vec2d& pos, double HP, double LT)
-    :Positionable(pos), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
-{
-    //Done
-}
-
 Animal::Animal(const ToricPosition& TP, double HP, double LT)
-    :Animal(TP.toVec2d(),HP,LT)
+    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
 {
     //Done
 }
 
-Animal::Animal(const Vec2d& pos)
-    :Animal(pos, DEFAULT_ANIMAL_HP, DEFAULT_ANIMAL_LIFE)
+Animal::Animal(const Vec2d& pos, double HP, double LT)
+    :Animal(ToricPosition(pos),HP,LT)
 {
     //Done
 }
 
 Animal::Animal(const ToricPosition& TP)
-    :Animal(TP.toVec2d())
+    :Animal(TP, DEFAULT_ANIMAL_HP, DEFAULT_ANIMAL_LIFE)
+{
+    //Done
+}
+
+Animal::Animal(const Vec2d& pos)
+    :Animal(ToricPosition(pos))
 {
     //Done
 }

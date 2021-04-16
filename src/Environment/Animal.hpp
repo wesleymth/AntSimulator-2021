@@ -15,7 +15,7 @@ public:
     Animal();
 
     /*!
-     *  @brief constructor using given position, life points, and lifetime
+     *  @brief constructor using a ToricPosition and specific HP and LT
      *
      *  @param pos position
      *  @param HP health points
@@ -24,30 +24,36 @@ public:
      *  @note sets the direction angle using a uniform distribution uniform(0.0, TAU) from Random.hpp/cpp
      *  @note sets the time it last spun to 0 seconds using sf::Time::Zero
      */
+    Animal(const ToricPosition& TP, double HP, double LT);
+
+    /*!
+     *  @brief constructor using given position, life points, and lifetime
+     *
+     *  @param pos position
+     *  @param HP health points
+     *  @param LT lifetime
+     *
+     *  @note calls constructor using a ToricPosition with ToricPosition(pos), HP and LT
+     */
     Animal(const Vec2d& pos, double HP, double LT);
 
     /*!
-     *  @brief constructor using a ToricPosition and specific HP and LT
+     *  @brief constructor using a ToricPosition
      *
-     *  @note calls constructor using a Vec2d with TP.toVec2d, HP and LT
+     *  @param TP ToricPosition
+     *
+     *  @note calls constructor using a TP, DEFAULT_ANIMAL_HP as HP and DEFAULT_ANIMAL_LIFE as LT
      */
-    Animal(const ToricPosition& TP, double HP, double LT);
+    Animal(const ToricPosition& TP);
 
     /*!
      *  @brief constructor using Vec2d
      *
      *  @param pos position
      *
-     *  @note calls constructor using a vec2d, DEFAULT_ANIMAL_HP as HP and DEFAULT_ANIMAL_LIFE as LT
+     *  @note calls other constructor using ToricPosition(pos)
      */
     Animal(const Vec2d& pos);
-
-    /*!
-     *  @brief constructor using a ToricPosition
-     *
-     *  @note calls constructor using a Vec2d with TP.toVec2d
-     */
-    Animal(const ToricPosition& TP);
 
     /*!
      *  @brief gets speed of animal
