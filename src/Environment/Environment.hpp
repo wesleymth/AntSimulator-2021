@@ -39,6 +39,8 @@ public:
 
    /*!
     *  @brief returns pointer on anthill with the specific uid if it is in the perception radius
+    *
+    *  @return pointer on food
     */
    Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillUid);
 
@@ -46,6 +48,8 @@ public:
     *  @brief adds animal to current environment
     *
     *  @param animal pointer to add
+    *
+    *  @return pointer on Anthill
     */
    void addAnimal(Animal* animal);
 
@@ -84,11 +88,13 @@ public:
     *  @brief draws environment on application
     *
     *  @param targetWindow reference
+    *
+    *  @note calls on drawOn function of all elements
     */
    void drawOn(sf::RenderTarget& targetWindow) const override;
 
    /*!
-    *  @brief resets all food and animals in environement
+    *  @brief resets all food, pheromones and animals in environement
     */
    void reset();
 
@@ -102,9 +108,20 @@ public:
     */
    void operator=(Environment const&) = delete;
 
-
+   /*!
+    *  @brief toggles display of pheromones
+    */
    bool togglePheromoneDisplay();
 
+   /*!
+    *  @brief determines quantity of pheromones in each interval within smell distance
+    *
+    *  @param position constant ToricPosition reference
+    *  @param direction_angle Angle
+    *  @param angles constant Intervals reference
+    *
+    *  @return Quantities of pheromones
+    */
    Quantities getPheromoneQuantitiesPerIntervalForAnt(const ToricPosition &position,
                                                       Angle direction_rad,
                                                       const Intervals &angles);

@@ -8,9 +8,15 @@ Pheromone::Pheromone()
 }
 
 Pheromone::Pheromone(const Vec2d& vect, Quantity quant)
-    :Positionable(vect), quantity(quant)
+    :Pheromone(ToricPosition(vect), quant)
 {
     //Done
+}
+
+Pheromone::Pheromone( const ToricPosition& TP, Quantity quant)
+    :Positionable(TP), quantity(quant)
+{
+ //Done
 }
 
 void Pheromone::update(sf::Time dt)
@@ -21,7 +27,7 @@ void Pheromone::update(sf::Time dt)
 void Pheromone::drawOn(sf::RenderTarget &target) const
 {
     sf::Color couleur(sf::Color::Green);
-    couleur.a/=4;
+    couleur.a=couleur.a/4;
     auto const pheroCircle = buildCircle((getPosition()).toVec2d(), 5, couleur);
     target.draw(pheroCircle);
     /*
@@ -33,12 +39,12 @@ void Pheromone::drawOn(sf::RenderTarget &target) const
     */
 }
 
-bool Pheromone::isNegligeable()
+bool Pheromone::isNegligeable() const
 {
     return quantity<getAppConfig().pheromone_threshold;
 }
 
-Quantity Pheromone::getQuantity()
+Quantity Pheromone::getQuantity() const
 {
     return quantity;
 }

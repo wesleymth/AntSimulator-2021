@@ -174,11 +174,6 @@ Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosit
         if(toricDistance(position, phero->getPosition())<=getAppConfig().ant_smell_max_distance)
         {
             Angle beta((position.toricVector(phero->getPosition()).angle() - direction_rad) / DEG_TO_RAD);
-            /*beta=fmod(beta,2*PI);
-            if(beta<0)
-            {
-                beta+=360;
-            }*/
             while(-180>beta or beta>180)
             {
                 if(beta>180)

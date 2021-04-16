@@ -96,12 +96,24 @@ public:
     /*!
      *  @brief make ants move
      *
+     *  @param target window
+     *
      *  @note calls Animal::Move and spreads pheromones
      */
     virtual void move(sf::Time dt) override;
 
+    /*!
+     *  @brief draws quantity of pheromones
+     *
+     *  @param target window
+     *
+     *  @note code given by  step 3.2
+     */
     void drawPheromoneAngles(sf::RenderTarget& target) const;
 
+    /*!
+     *  @brief override of computeRotationProbs() to add effect of pheromones
+     */
     RotationProbs computeRotationProbs() const override;
 
 private:

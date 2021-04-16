@@ -26,6 +26,14 @@ public:
     Pheromone( const Vec2d& vect, Quantity quant);
 
     /*!
+     *  @brief constructor that initialises position and quantity
+     *
+     *  @param vect const ToricPosition&
+     *  @param quant Quantity
+     */
+    Pheromone(const ToricPosition &vect, Quantity quant);
+
+    /*!
      *  @brief in charge of decreasing quatity of pheromones at a set interval
      *
      *  @param dt time interval
@@ -48,9 +56,14 @@ public:
      *
      *  @note uses getAppConfig().pheromone_threshold for food threshold
      */
-    bool isNegligeable();
+    bool isNegligeable() const;
 
-    Quantity getQuantity();
+    /*!
+     * @brief gets the quatity
+     *
+     * @return quantity in Quantity form
+     */
+    Quantity getQuantity() const;
 private:
     Quantity quantity;
 };
