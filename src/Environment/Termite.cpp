@@ -44,17 +44,17 @@ sf::Sprite Termite::getSprite() const
                        getDirection()/DEG_TO_RAD);
 }
 
-bool Termite::isEnemy(Animal const* animal)
+bool Termite::isEnemy(Animal const* animal) const
 {
     return !isDead() && !animal->isDead() && animal->isEnemyDispatch(this);
 }
 
-bool Termite::isEnemyDispatch(Termite const* other)
+bool Termite::isEnemyDispatch(Termite const* other) const
 {
     return false;
 }
 
- bool Termite::isEnemyDispatch(Ant const* other)
+ bool Termite::isEnemyDispatch(Ant const* other) const
 {
     return true;
 }

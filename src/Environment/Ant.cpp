@@ -127,15 +127,15 @@ RotationProbs Ant::computeRotationProbs() const
     return rotProb;
 }
 
-bool Ant::isEnemy(Animal const* animal)
+bool Ant::isEnemy(Animal const* animal) const
 {
 
 }
-bool Ant::isEnemyDispatch(Termite const* other)
+bool Ant::isEnemyDispatch(Termite const* other) const
 {
 
 }
-bool Ant::isEnemyDispatch(Ant const* other)
+bool Ant::isEnemyDispatch(Ant const* other) const
 {
 
 }
