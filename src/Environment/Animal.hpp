@@ -105,7 +105,13 @@ public:
      */
     virtual RotationProbs computeRotationProbs() const;
 
+
+
     virtual double getStrength() const = 0;
+
+    virtual double getAttackDelay() const = 0;
+
+
 
     /*!
      *  @brief draw elements that are common to all animals
