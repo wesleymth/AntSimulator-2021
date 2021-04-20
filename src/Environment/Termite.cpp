@@ -54,11 +54,8 @@ bool Termite::isEnemyDispatch(Termite const* other) const
     return false;
 }
 
-<<<<<<< HEAD
+
 bool Termite::isEnemyDispatch(Ant const* other) const
-=======
- bool Termite::isEnemyDispatch(Ant const* other) const
->>>>>>> e79984bb904b9a3e426ce90fc03c18e3c7ac47a9
 {
     return true;
 }
