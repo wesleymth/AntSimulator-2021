@@ -62,6 +62,10 @@ public:
      */
     virtual double getSpeed() const override;
 
+
+    double getAttackDelay() const override;
+
+
     /*!
      *  @brief gets anthillUid
      *
