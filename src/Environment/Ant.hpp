@@ -60,7 +60,7 @@ public:
      *
      *  @note returns getAppConfig().ant_speed
      */
-    virtual double getSpeed() const override;
+    double getSpeed() const override;
 
 
     double getAttackDelay() const override;

@@ -4,9 +4,9 @@
 #include "Environment.hpp"
 
 Termite::Termite()
-
+    :Termite(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2))
 {
-
+    //Done
 }
 
 Termite::Termite(const ToricPosition& pos)
@@ -54,7 +54,8 @@ bool Termite::isEnemyDispatch(Termite const* other) const
     return false;
 }
 
- bool Termite::isEnemyDispatch(Ant const* other) const
+
+bool Termite::isEnemyDispatch(Ant const* other) const
 {
     return true;
 }

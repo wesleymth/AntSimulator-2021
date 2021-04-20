@@ -5,6 +5,7 @@
 #include "Environment.hpp"
 
 Ant::Ant()
+    :Animal(Vec2d(getAppConfig().world_size/2, getAppConfig().world_size/2))
 {
     //Done
 }
@@ -129,14 +130,14 @@ RotationProbs Ant::computeRotationProbs() const
 
 bool Ant::isEnemy(Animal const* animal) const
 {
-
+    return !isDead() && !animal->isDead() && animal->isEnemyDispatch(this);
 }
 bool Ant::isEnemyDispatch(Termite const* other) const
 {
-
+    return true;
 }
 bool Ant::isEnemyDispatch(Ant const* other) const
 {
-
+    return getAnthillUid()!=other->getAnthillUid();
 }
 

@@ -4,6 +4,7 @@
 #include "Random/Random.hpp"
 
 Animal::Animal()
+    :Animal(Vec2d(getAppConfig().world_size/2, getAppConfig().world_size/2))
 {
     //Done
 }

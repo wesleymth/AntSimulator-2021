@@ -14,9 +14,11 @@ public:
     double getAttackDelay() const override;
 
     sf::Sprite getSprite() const override;
+
     bool isEnemy(Animal const* animal) const override;
     bool isEnemyDispatch(Termite const* other) const override;
     bool isEnemyDispatch(Ant const* other) const override;
+
 };
 
 #endif // TERMITE_HPP
