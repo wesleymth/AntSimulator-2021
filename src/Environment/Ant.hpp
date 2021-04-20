@@ -107,6 +107,9 @@ public:
      */
     RotationProbs computeRotationProbs() const override;
 
+    virtual bool isEnemy(Animal const* animal);
+    virtual bool isEnemyDispatch(Termite const* other);
+    virtual bool isEnemyDispatch(Ant const* other);
 private:
     Uid anthillUid;
     ToricPosition lastPheromone;

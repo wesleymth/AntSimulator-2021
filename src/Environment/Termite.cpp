@@ -38,3 +38,13 @@ bool Termite::isEnemy(Animal const* animal)
 {
     return !isDead() && !animal->isDead() && animal->isEnemyDispatch(this);
 }
+
+bool Termite::isEnemyDispatch(Termite const* other)
+{
+    return false;
+}
+
+ bool Termite::isEnemyDispatch(Ant const* other)
+{
+    return true;
+}
