@@ -7,6 +7,8 @@
 #include "../Interface/Updatable.hpp"
 
 enum State {Idle,Attack,Escape};
+class Ant;
+class Termite;
 
 class Animal : public Positionable, public Drawable, public Updatable
 {
@@ -104,6 +106,36 @@ public:
     virtual RotationProbs computeRotationProbs() const;
 
     virtual double getStrength() const = 0;
+
+    /*!
+     *  @brief draw elements that are common to all animals
+     *
+     *  @note if debug on you can see a line representing the direction vector and HP value in red
+     *  and the ant's perception distance reprenseted by a blue ring
+     */
+    virtual void drawOn(sf::RenderTarget& target) const override;
+
+    /*!
+     *  @brief gets sprite of an animal
+     *
+     *  @return sf::Sprite
+     *
+     *  @note to be defined for specific animal sub-classes
+     */
+    virtual sf::Sprite getSprite() const = 0;
+
+    /*!
+     *  @brief returns true if animal is ennemy
+     *
+     *  @param other Animal*
+     *
+     *  @return bool
+     *
+     *  @note to be defined for specific animal sub-classes
+     */
+    virtual bool isEnemy(Animal const* entity) const = 0;
+    virtual bool isEnemyDispatch(Termite const* other) const = 0;
+    virtual bool isEnemyDispatch(Ant const* other) const = 0;
 
 protected:
     /*!
