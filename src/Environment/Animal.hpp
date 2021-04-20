@@ -6,6 +6,8 @@
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
 
+enum State {Idle,Attack,Escape};
+
 class Animal : public Positionable, public Drawable, public Updatable
 {
 public:
@@ -23,6 +25,7 @@ public:
      *
      *  @note sets the direction angle using a uniform distribution uniform(0.0, TAU) from Random.hpp/cpp
      *  @note sets the time it last spun to 0 seconds using sf::Time::Zero
+     *  @note sets state to idle
      */
     Animal(const ToricPosition& TP, double HP, double LT);
 
@@ -100,6 +103,8 @@ public:
      */
     virtual RotationProbs computeRotationProbs() const;
 
+    virtual double getStrength() const = 0;
+
 protected:
     /*!
      *  @brief sets direction angle
@@ -114,6 +119,11 @@ private:
     double healthPoints;
     double lifetime;
     sf::Time timeLastRot;
+    State state;
+
+    bool isInAttackState() const;
+
+    void setState(State S);
 };
 
 #endif // ANIMAL_HPP

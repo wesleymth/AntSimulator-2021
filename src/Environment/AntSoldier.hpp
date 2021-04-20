@@ -34,6 +34,8 @@ public:
      *  @brief gets sprite of an ant soldier
      */
     sf::Sprite getSprite() const override;
+
+    double getStrength() const override;
 };
 
 #endif // ANTSOLDIER_HPP

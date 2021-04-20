@@ -34,13 +34,22 @@ public:
 
    /*!
     *  @brief returns pointer on closest food if it is in the perception radius
+    *
+    *  @return pointer on closest food
     */
    Food* getClosestFoodForAnt(ToricPosition const& position);
 
    /*!
+    *  @brief returns pointer on closest animal if it is in the sight radius
+    *
+    *  @return pointer on closest animal
+    */
+   Animal* getClosestAnimalForAnimal(ToricPosition const& position);
+
+   /*!
     *  @brief returns pointer on anthill with the specific uid if it is in the perception radius
     *
-    *  @return pointer on food
+    *  @return pointer on anthill
     */
    Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillUid);
 
