@@ -38,6 +38,11 @@ double Ant::getSpeed() const
     return getAppConfig().ant_speed;
 }
 
+double Ant::getAttackDelay() const
+{
+    return getAppConfig().ant_attack_delay;
+}
+
 Uid Ant::getAnthillUid() const
 {
     return anthillUid;
