@@ -140,6 +140,28 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
     return foodptr;
 }
 
+Animal* Environment::getClosestAnimalForAnimal(ToricPosition const& position)
+{
+    Animal* animalptr(nullptr);
+    double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
+    if (animals.size() != 0)
+    {
+        compareDistance = (toricDistance(position, animals[0]->getPosition())); //sets the comparing distance to the distance between the first aniaml and the position of the given animal
+    }
+    for(auto& animal: animals)
+    {
+        if (toricDistance(position, animal->getPosition()) < compareDistance) //if the distance of the next animal is lower than the distance of the last animal
+        {
+            compareDistance = toricDistance(position, animal->getPosition()); //distance is then equal to the distance of the new animal
+            if (compareDistance <= getAppConfig().animal_sight_distance) //if the animal is in the sight distance of the given animal
+            {
+                animalptr = animal;
+            }
+        }
+    }
+    return animalptr;
+}
+
 Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillUid)
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr

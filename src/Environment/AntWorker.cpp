@@ -27,6 +27,11 @@ sf::Sprite AntWorker::getSprite() const
                        getDirection()/DEG_TO_RAD);
 }
 
+double AntWorker::getStrength() const
+{
+    return getAppConfig().ant_worker_strength;
+}
+
 void AntWorker::turnAround()
 {
         setDirection(getDirection()+PI); //adds PI in radians to the direction angle

@@ -26,6 +26,16 @@ double Termite::getSpeed() const
     return getAppConfig().termite_speed;
 }
 
+double Termite::getStrength() const
+{
+    return getAppConfig().termite_strength;
+}
+
+double Termite::getAttackDelay() const
+{
+    return getAppConfig().termite_attack_delay;
+}
+
 sf::Sprite Termite::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),

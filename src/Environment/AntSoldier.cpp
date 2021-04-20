@@ -26,3 +26,8 @@ sf::Sprite AntSoldier::getSprite() const
                        getAppTexture(getAppConfig().ant_soldier_texture),
                        getDirection()/DEG_TO_RAD);
 }
+
+double AntSoldier::getStrength() const
+{
+    return getAppConfig().ant_soldier_strength;
+}

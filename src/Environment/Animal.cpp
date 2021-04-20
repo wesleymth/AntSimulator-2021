@@ -9,7 +9,7 @@ Animal::Animal()
 }
 
 Animal::Animal(const ToricPosition& TP, double HP, double LT)
-    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero)
+    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle)
 {
     //Done
 }
@@ -75,6 +75,9 @@ void Animal::move(sf::Time dt)
 void Animal::update(sf::Time dt)
 {
     --lifetime;
+
+    //AJOUTER GESTION COMBAT
+
     timeLastRot += dt;
     move(dt); //makes animal move
 }
@@ -85,6 +88,16 @@ RotationProbs Animal::computeRotationProbs() const
     ret.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
     ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
     return ret;
+}
+
+bool Animal::isInAttackState() const
+{
+    return (state == Attack);
+}
+
+void Animal::setState(State S)
+{
+    state = S;
 }
 
 void Animal::drawOn(sf::RenderTarget& target) const
