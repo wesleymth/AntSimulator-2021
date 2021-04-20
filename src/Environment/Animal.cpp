@@ -86,3 +86,19 @@ RotationProbs Animal::computeRotationProbs() const
     ret.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
     return ret;
 }
+
+void Animal::drawOn(sf::RenderTarget& target) const
+{
+    auto const animalSprite = getSprite(); //calls a virtual method for each specific animal
+        target.draw(animalSprite);
+    if (isDebugOn()) //if debug on you can see the healthPoints
+    {
+        sf::VertexArray line(sf::PrimitiveType::Lines, 2);
+            line[0] = { getPosition().toVec2d(), sf::Color::Black };
+            line[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(getDirection()), sf::Color::Black };
+            target.draw(line);  //draws line
+        auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
+        target.draw(text); //shows healthPoints via a text
+        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
+    }
+}

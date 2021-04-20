@@ -63,15 +63,6 @@ public:
     virtual double getSpeed() const override;
 
     /*!
-     *  @brief gets sprite of an ant
-     *
-     *  @return sf::Sprite
-     *
-     *  @note to be defined for specific ant sub-classes
-     */
-    virtual sf::Sprite getSprite() const = 0;
-
-    /*!
      *  @brief gets anthillUid
      *
      *  @return Uid anthillUid
