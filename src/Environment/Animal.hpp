@@ -142,7 +142,6 @@ public:
     virtual bool isEnemy(Animal const* entity) const = 0;
     virtual bool isEnemyDispatch(Termite const* other) const = 0;
     virtual bool isEnemyDispatch(Ant const* other) const = 0;
-
 protected:
     /*!
      *  @brief sets direction angle

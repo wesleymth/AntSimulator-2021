@@ -124,14 +124,14 @@ RotationProbs Ant::computeRotationProbs() const
 
 bool Ant::isEnemy(Animal const* animal)
 {
-
+    return !isDead() && !animal->isDead() && animal->isEnemyDispatch(this);
 }
 bool Ant::isEnemyDispatch(Termite const* other)
 {
-
+    return true;
 }
 bool Ant::isEnemyDispatch(Ant const* other)
 {
-
+    return getAnthillUid()!=other->getAnthillUid();
 }
 
