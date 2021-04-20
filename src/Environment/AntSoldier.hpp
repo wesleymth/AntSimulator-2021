@@ -36,6 +36,8 @@ public:
     sf::Sprite getSprite() const override;
 
     double getStrength() const override;
+
+    void drawOn(sf::RenderTarget& target) const override;
 };
 
 #endif // ANTSOLDIER_HPP

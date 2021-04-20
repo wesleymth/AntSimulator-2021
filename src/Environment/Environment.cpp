@@ -153,7 +153,7 @@ Animal* Environment::getClosestAnimalForAnimal(ToricPosition const& position)
         if (toricDistance(position, animal->getPosition()) < compareDistance) //if the distance of the next animal is lower than the distance of the last animal
         {
             compareDistance = toricDistance(position, animal->getPosition()); //distance is then equal to the distance of the new animal
-            if (compareDistance <= getAppConfig().animal_sight_distance) //if the animal is in the sight distance of the given animal
+            if ((0 < compareDistance) and (compareDistance <= getAppConfig().animal_sight_distance)) //if the animal is in the sight distance of the given animal and the animal its looking at isn't itself
             {
                 animalptr = animal;
             }

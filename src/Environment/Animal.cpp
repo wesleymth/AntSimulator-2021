@@ -10,7 +10,7 @@ Animal::Animal()
 }
 
 Animal::Animal(const ToricPosition& TP, double HP, double LT)
-    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle)
+    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle), fightTimeCounter(sf::Time::Zero)
 {
     //Done
 }
@@ -76,11 +76,48 @@ void Animal::move(sf::Time dt)
 void Animal::update(sf::Time dt)
 {
     --lifetime;
+    Animal* closestAnimal(getAppEnv().getClosestAnimalForAnimal(getPosition()));
+    if (closestAnimal != nullptr)
+    {
+        if ((not(state == Attack)) and (isEnemy(closestAnimal)) and (fightTimeCounter <= sf::Time::Zero))
+        {
+            setState(Attack);
+            setFightTimeCounter(getAttackDelay());
+            receiveDamage(closestAnimal->getStrength());
+            closestAnimal->setState(Attack);
+            closestAnimal->setFightTimeCounter(closestAnimal->getAttackDelay());
+            closestAnimal->receiveDamage(getStrength());
+        }
+    }
 
-    //AJOUTER GESTION COMBAT
+    if ((state == Attack) and (fightTimeCounter > sf::Time::Zero))
+    {
+        fightTimeCounter -= dt;
+    }
 
-    timeLastRot += dt;
-    move(dt); //makes animal move
+    if ((state == Attack) and (fightTimeCounter <= sf::Time::Zero)) //if the fight time is over
+    {
+        setState(Idle); //lets it move again
+        setFightTimeCounter(getAttackDelay()); //for a cooldown
+        if (closestAnimal != nullptr)
+        {
+            closestAnimal->setState(Idle);
+            closestAnimal->setFightTimeCounter(getAttackDelay());
+        }
+    }
+
+    if ((state == Idle) and (fightTimeCounter > sf::Time::Zero)) //Cooldown before fighting again
+    {
+        timeLastRot += dt;
+        move(dt); //makes animal move
+        fightTimeCounter -= dt;
+    }
+
+    if ((state == Idle) and (fightTimeCounter <= sf::Time::Zero)) //can fight at any time
+    {
+        timeLastRot += dt;
+        move(dt); //makes animal move
+    }
 }
 
 RotationProbs Animal::computeRotationProbs() const
@@ -91,14 +128,26 @@ RotationProbs Animal::computeRotationProbs() const
     return ret;
 }
 
-bool Animal::isInAttackState() const
-{
-    return (state == Attack);
-}
-
 void Animal::setState(State S)
 {
     state = S;
+}
+
+void Animal::receiveDamage(double damageReceived)
+{
+    if (healthPoints <= damageReceived)
+    {
+        healthPoints = 0.0;
+    }
+    else
+    {
+        healthPoints -= damageReceived;
+    }
+}
+
+void Animal::setFightTimeCounter(double time)
+{
+    fightTimeCounter = sf::seconds(time);
 }
 
 void Animal::drawOn(sf::RenderTarget& target) const
@@ -113,6 +162,5 @@ void Animal::drawOn(sf::RenderTarget& target) const
             target.draw(line);  //draws line
         auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
         target.draw(text); //shows healthPoints via a text
-        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
     }
 }

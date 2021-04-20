@@ -26,7 +26,7 @@ public:
      *  @param LT lifetime
      *
      *  @note sets the direction angle using a uniform distribution uniform(0.0, TAU) from Random.hpp/cpp
-     *  @note sets the time it last spun to 0 seconds using sf::Time::Zero
+     *  @note sets the time it last spun and the attckTimeCounter to 0 seconds using sf::Time::Zero
      *  @note sets state to idle
      */
     Animal(const ToricPosition& TP, double HP, double LT);
@@ -130,6 +130,8 @@ public:
      */
     virtual sf::Sprite getSprite() const = 0;
 
+    void receiveDamage(double damageReceived);
+
     /*!
      *  @brief returns true if animal is ennemy
      *
@@ -151,16 +153,17 @@ protected:
      */
     void setDirection(Angle setAngle);
 
+    void setState(State S);
+
+    void setFightTimeCounter(double time);
+
 private:
     Angle dirAngle;
     double healthPoints;
     double lifetime;
     sf::Time timeLastRot;
     State state;
-
-    bool isInAttackState() const;
-
-    void setState(State S);
+    sf::Time fightTimeCounter;
 };
 
 #endif // ANIMAL_HPP
