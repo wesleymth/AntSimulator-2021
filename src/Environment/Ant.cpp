@@ -38,7 +38,7 @@ double Ant::getSpeed() const
     return getAppConfig().ant_speed;
 }
 
-double Ant::getAttackDelay() const
+double Ant::getAttackDelay() const // POUR PUSH
 {
     return getAppConfig().ant_attack_delay;
 }
