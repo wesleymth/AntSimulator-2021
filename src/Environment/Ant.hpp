@@ -60,7 +60,7 @@ public:
      *
      *  @note returns getAppConfig().ant_speed
      */
-    virtual double getSpeed() const override;
+    double getSpeed() const override;
 
 
     double getAttackDelay() const override;
@@ -111,9 +111,9 @@ public:
      */
     RotationProbs computeRotationProbs() const override;
 
-    virtual bool isEnemy(Animal const* animal);
-    virtual bool isEnemyDispatch(Termite const* other);
-    virtual bool isEnemyDispatch(Ant const* other);
+    bool isEnemy(Animal const* animal) const override;
+    bool isEnemyDispatch(Termite const* other) const override;
+    bool isEnemyDispatch(Ant const* other) const override;
 private:
     Uid anthillUid;
     ToricPosition lastPheromone;

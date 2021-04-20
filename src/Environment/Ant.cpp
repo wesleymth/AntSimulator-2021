@@ -5,6 +5,7 @@
 #include "Environment.hpp"
 
 Ant::Ant()
+    :Animal(Vec2d(getAppConfig().world_size/2, getAppConfig().world_size/2))
 {
     //Done
 }
@@ -36,11 +37,6 @@ Ant::Ant(const Vec2d& pos, Uid uid)
 double Ant::getSpeed() const
 {
     return getAppConfig().ant_speed;
-}
-
-double Ant::getAttackDelay() const
-{
-    return getAppConfig().ant_attack_delay;
 }
 
 Uid Ant::getAnthillUid() const
@@ -127,15 +123,15 @@ RotationProbs Ant::computeRotationProbs() const
     return rotProb;
 }
 
-bool Ant::isEnemy(Animal const* animal)
+bool Ant::isEnemy(Animal const* animal) const
 {
     return !isDead() && !animal->isDead() && animal->isEnemyDispatch(this);
 }
-bool Ant::isEnemyDispatch(Termite const* other)
+bool Ant::isEnemyDispatch(Termite const* other) const
 {
     return true;
 }
-bool Ant::isEnemyDispatch(Ant const* other)
+bool Ant::isEnemyDispatch(Ant const* other) const
 {
     return getAnthillUid()!=other->getAnthillUid();
 }

@@ -13,10 +13,10 @@ public:
     double getStrength() const override;
     double getAttackDelay() const override;
 
-    sf::Sprite getSprite() const;
-    virtual bool isEnemy(Animal const* animal);
-    virtual bool isEnemyDispatch(Termite const* other);
-    virtual bool isEnemyDispatch(Ant const* other);
+    sf::Sprite getSprite() const override;
+    bool isEnemy(Animal const* animal) const;
+    bool isEnemyDispatch(Termite const* other) const;
+    bool isEnemyDispatch(Ant const* other) const;
 };
 
 #endif // TERMITE_HPP
