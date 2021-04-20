@@ -44,7 +44,7 @@ public:
     *
     *  @return pointer on closest animal
     */
-   Animal* getClosestAnimalForAnimal(ToricPosition const& position);
+   Animal* getClosestAnimalForAnimal(const Animal* currentInstance);
 
    /*!
     *  @brief returns pointer on anthill with the specific uid if it is in the perception radius

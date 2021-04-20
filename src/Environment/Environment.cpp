@@ -140,20 +140,16 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
     return foodptr;
 }
 
-Animal* Environment::getClosestAnimalForAnimal(ToricPosition const& position)
+Animal* Environment::getClosestAnimalForAnimal(const Animal* currentInstance)
 {
     Animal* animalptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
-    if (animals.size() != 0)
-    {
-        compareDistance = (toricDistance(position, animals[0]->getPosition())); //sets the comparing distance to the distance between the first aniaml and the position of the given animal
-    }
     for(auto& animal: animals)
     {
-        if (toricDistance(position, animal->getPosition()) < compareDistance) //if the distance of the next animal is lower than the distance of the last animal
+        if ((toricDistance(currentInstance->getPosition(), animal->getPosition()) < compareDistance) and (currentInstance != animal)) //if the distance of the next animal is lower than the distance of the last animal and the animal isn't itself
         {
-            compareDistance = toricDistance(position, animal->getPosition()); //distance is then equal to the distance of the new animal
-            if ((0 < compareDistance) and (compareDistance <= getAppConfig().animal_sight_distance)) //if the animal is in the sight distance of the given animal and the animal its looking at isn't itself
+            compareDistance = toricDistance(currentInstance->getPosition(), animal->getPosition()); //distance is then equal to the distance of the new animal
+            if (compareDistance <= getAppConfig().animal_sight_distance) //if the animal is in the sight distance of the given animal
             {
                 animalptr = animal;
             }

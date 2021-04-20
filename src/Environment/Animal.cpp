@@ -10,7 +10,8 @@ Animal::Animal()
 }
 
 Animal::Animal(const ToricPosition& TP, double HP, double LT)
-    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP), lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle), fightTimeCounter(sf::Time::Zero)
+    :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP),
+      lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle), fightTime(sf::Time::Zero), lastFought(nullptr)
 {
     //Done
 }
@@ -76,47 +77,41 @@ void Animal::move(sf::Time dt)
 void Animal::update(sf::Time dt)
 {
     --lifetime;
-    Animal* closestAnimal(getAppEnv().getClosestAnimalForAnimal(getPosition()));
-    if (closestAnimal != nullptr)
+    Animal* closestAnimal(getAppEnv().getClosestAnimalForAnimal(this)); //receives pointer on closest animal within sighting distance
+    if ((closestAnimal != nullptr) and (closestAnimal != lastFought) and isEnemy(closestAnimal))
     {
-        if ((not(state == Attack)) and (isEnemy(closestAnimal)) and (fightTimeCounter <= sf::Time::Zero))
+        if ((state != Attack) and (closestAnimal->state != Attack))
         {
             setState(Attack);
-            setFightTimeCounter(getAttackDelay());
-            receiveDamage(closestAnimal->getStrength());
             closestAnimal->setState(Attack);
-            closestAnimal->setFightTimeCounter(closestAnimal->getAttackDelay());
-            closestAnimal->receiveDamage(getStrength());
+            setFightTime(getAttackDelay());
+            closestAnimal->setFightTime(closestAnimal->getAttackDelay());
         }
-    }
 
-    if ((state == Attack) and (fightTimeCounter > sf::Time::Zero))
-    {
-        fightTimeCounter -= dt;
-    }
-
-    if ((state == Attack) and (fightTimeCounter <= sf::Time::Zero)) //if the fight time is over
-    {
-        setState(Idle); //lets it move again
-        setFightTimeCounter(getAttackDelay()); //for a cooldown
-        if (closestAnimal != nullptr)
+        if (state == Attack)
         {
-            closestAnimal->setState(Idle);
-            closestAnimal->setFightTimeCounter(getAttackDelay());
+            if (fightTime > sf::Time::Zero)
+            {
+                receiveDamage(closestAnimal->getStrength());
+                closestAnimal->receiveDamage(getStrength());
+                fightTime -= dt;
+            }
+            else
+            {
+                lastFought = closestAnimal;
+                setState(Idle);
+                closestAnimal->setState(Idle);
+            }
         }
     }
-
-    if ((state == Idle) and (fightTimeCounter > sf::Time::Zero)) //Cooldown before fighting again
+    else
     {
         timeLastRot += dt;
-        move(dt); //makes animal move
-        fightTimeCounter -= dt;
-    }
-
-    if ((state == Idle) and (fightTimeCounter <= sf::Time::Zero)) //can fight at any time
-    {
-        timeLastRot += dt;
-        move(dt); //makes animal move
+        move(dt); //makes animal move normally
+        if ((closestAnimal == nullptr) and (lastFought != nullptr))
+        {
+            lastFought = nullptr;
+        }
     }
 }
 
@@ -145,9 +140,9 @@ void Animal::receiveDamage(double damageReceived)
     }
 }
 
-void Animal::setFightTimeCounter(double time)
+void Animal::setFightTime(double time)
 {
-    fightTimeCounter = sf::seconds(time);
+    fightTime = sf::seconds(time);
 }
 
 void Animal::drawOn(sf::RenderTarget& target) const
