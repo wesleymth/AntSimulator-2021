@@ -10,7 +10,7 @@ public:
     Termite(const Vec2d& pos);
     double getSpeed() const override;
 
-    double getStrength() const override;
+    int getStrength() const override;
     double getAttackDelay() const override;
 
     sf::Sprite getSprite() const override;

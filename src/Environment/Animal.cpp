@@ -61,6 +61,7 @@ bool Animal::isDead() const
 
 void Animal::move(sf::Time dt)
 {
+    timeLastRot += dt;
     auto dx = (getSpeed()*Vec2d::fromAngle(dirAngle)) * dt.asSeconds();
     setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
 
@@ -80,7 +81,7 @@ void Animal::update(sf::Time dt)
     Animal* closestAnimal(getAppEnv().getClosestAnimalForAnimal(this)); //receives pointer on closest animal within sighting distance
     if ((closestAnimal != nullptr) and (closestAnimal != lastFought) and isEnemy(closestAnimal))
     {
-        if ((state != Attack) and (closestAnimal->state != Attack))
+        if ((state != Attack) and (closestAnimal->state != Attack) and (closestAnimal->state != Defend))
         {
             setState(Attack);
             closestAnimal->setState(Attack);
@@ -92,7 +93,7 @@ void Animal::update(sf::Time dt)
         {
             if (fightTime > sf::Time::Zero)
             {
-                receiveDamage(closestAnimal->getStrength());
+                //receiveDamage(closestAnimal->getStrength());
                 closestAnimal->receiveDamage(getStrength());
                 fightTime -= dt;
             }
@@ -100,13 +101,25 @@ void Animal::update(sf::Time dt)
             {
                 lastFought = closestAnimal;
                 setState(Idle);
-                closestAnimal->setState(Idle);
+                //closestAnimal->setState(Idle);
             }
         }
+        /*if (state == Defend)
+        {
+            if (fightTime > sf::Time::Zero)
+            {
+                receiveDamage(closestAnimal->getStrength());
+                fightTime -= dt;
+            }
+            else
+            {
+                lastFought = closestAnimal;
+                setState(Idle);
+            }
+        }*/
     }
     else
     {
-        timeLastRot += dt;
         move(dt); //makes animal move normally
         if ((closestAnimal == nullptr) and (lastFought != nullptr))
         {

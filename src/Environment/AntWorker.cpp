@@ -27,7 +27,7 @@ sf::Sprite AntWorker::getSprite() const
                        getDirection()/DEG_TO_RAD);
 }
 
-double AntWorker::getStrength() const
+int AntWorker::getStrength() const
 {
     return getAppConfig().ant_worker_strength;
 }

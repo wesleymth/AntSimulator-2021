@@ -51,7 +51,7 @@ public:
      */
     void drawOn(sf::RenderTarget& target) const override;
 
-    double getStrength() const override;
+    int getStrength() const override;
 
 private:
     Quantity carriedFood;

@@ -26,7 +26,7 @@ double Termite::getSpeed() const
     return getAppConfig().termite_speed;
 }
 
-double Termite::getStrength() const
+int Termite::getStrength() const
 {
     return getAppConfig().termite_strength;
 }

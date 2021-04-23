@@ -6,7 +6,7 @@
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
 
-enum State {Idle,Attack,Escape};
+enum State {Idle,Attack,Defend,Escape};
 class Ant;
 class Termite;
 
@@ -108,7 +108,7 @@ public:
 
 
 
-    virtual double getStrength() const = 0;
+    virtual int getStrength() const = 0;
 
     virtual double getAttackDelay() const = 0;
 
