@@ -62,9 +62,12 @@ public:
      */
     double getSpeed() const override;
 
-
+    /*!
+     *  @brief gets the attack delay of the ants
+     *
+     *  @note returns getAppConfig().ant_attack_delay
+     */
     double getAttackDelay() const override;
-
 
     /*!
      *  @brief gets anthillUid

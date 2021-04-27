@@ -38,6 +38,13 @@ public:
     sf::Sprite getSprite() const override;
 
     /*!
+     *  @brief gets strength of an ant worker
+     *
+     *  @return return getAppConfig().ant_worker_strength
+     */
+    int getStrength() const override;
+
+    /*!
      *  @brief updates an ant worker
      *
      *  @note calls Animal::update(dt) and adds specific behaviour regarding foods
@@ -51,15 +58,8 @@ public:
      */
     void drawOn(sf::RenderTarget& target) const override;
 
-    double getStrength() const override;
-
 private:
     Quantity carriedFood;
-
-    /*!
-     *  @brief makes ant turn around
-    */
-    void turnAround();
 };
 
 #endif // ANTWORKER_HPP

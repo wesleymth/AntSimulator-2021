@@ -37,12 +37,13 @@ public:
      */
     double getSpeed() const override;
 
+
     /*!
      *  @brief gets strength of termite
      *
      *  @note returns getAppConfig().termite_strength
      */
-    double getStrength() const override;
+    int getStrength() const override;
 
     /*!
      *  @brief gets attack delay of termite

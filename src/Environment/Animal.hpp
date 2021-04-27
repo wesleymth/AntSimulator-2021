@@ -6,7 +6,7 @@
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
 
-enum State {Idle,Attack,Escape};
+enum State {Idle,Attack,Defend,Escape};
 class Ant;
 class Termite;
 
@@ -79,7 +79,9 @@ public:
     Angle getDirection() const;
 
     /*!
-     *  @brief
+     *  @brief returns the health points of the animal
+     *
+     *  @return health points in double form
      */
     double getHP() const;
 
@@ -100,7 +102,7 @@ public:
     virtual void move(sf::Time dt);
 
     /*!
-     *  @brief updates the animal by making it move, decrements its lifetime and adds dt to the time it last spun
+     *  @brief updates the animal by making it move, decrements its lifetime, adds dt to the time it last spun, and manages fights between animals
      */
     virtual void update(sf::Time dt) override;
 
@@ -111,13 +113,23 @@ public:
      */
     virtual RotationProbs computeRotationProbs() const;
 
+    /*!
+     *  @brief gets the strength of the animal
+     *
+     *  @return strength of the animal int form
+     *
+     *  @note dynamic resolution of links to avoid duplication of code
+     */
+    virtual int getStrength() const = 0;
 
-
-    virtual double getStrength() const = 0;
-
+    /*!
+     *  @brief gets the attack delay of the animal
+     *
+     *  @return attack delay of the animal double form
+     *
+     *  @note dynamic resolution of links to avoid duplication of code
+     */
     virtual double getAttackDelay() const = 0;
-
-
 
     /*!
      *  @brief draw elements that are common to all animals
@@ -136,7 +148,15 @@ public:
      */
     virtual sf::Sprite getSprite() const = 0;
 
+    /*!
+     *  @brief takes away healthpoints depending on the strength of the animal attacked
+     */
     void receiveDamage(double damageReceived);
+
+    /*!
+     *  @brief makes animal turn around
+    */
+    void turnAround();
 
     /*!
      *  @brief returns true if animal is ennemy
@@ -179,10 +199,16 @@ protected:
      */
     void setDirection(Angle setAngle);
 
+    /*!
+     *  @brief changes the state of the animal
+     */
     void setState(State S);
 
-
-
+    /*!
+     *  @brief changes the fight time of the animal
+     *
+     *  @note uses the function sf::seconds to convert it to an sf::Time
+     */
     void setFightTime(double time);
 
 private:

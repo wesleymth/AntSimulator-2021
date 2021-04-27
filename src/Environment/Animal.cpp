@@ -67,6 +67,7 @@ bool Animal::isDead() const
 
 void Animal::move(sf::Time dt)
 {
+    timeLastRot += dt;
     auto dx = (getSpeed()*Vec2d::fromAngle(dirAngle)) * dt.asSeconds();
     setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
 
@@ -84,39 +85,36 @@ void Animal::update(sf::Time dt)
 {
     --lifetime;
     Animal* closestAnimal(getAppEnv().getClosestAnimalForAnimal(this)); //receives pointer on closest animal within sighting distance
-    if ((closestAnimal != nullptr) and (closestAnimal != lastFought) and isEnemy(closestAnimal))
+    if ((closestAnimal != nullptr) and (closestAnimal != lastFought) and isEnemy(closestAnimal)) //if tehre is an enemy in radius of perception that didn't just fight with the current instance
     {
-        if ((state != Attack) and (closestAnimal->state != Attack))
+        if ((state != Attack) and (closestAnimal->state != Attack)) //if both animals aren't already in a fight
         {
-            setState(Attack);
-            closestAnimal->setState(Attack);
-            setFightTime(getAttackDelay());
-            closestAnimal->setFightTime(closestAnimal->getAttackDelay());
+            setState(Attack); //current animal goes into attack mode
+            closestAnimal->setState(Attack); //sets closest animal to attack mode as well
+            setFightTime(getAttackDelay()); //sets the fight time to the attck delay depending on animal
+            closestAnimal->setFightTime(closestAnimal->getAttackDelay()); //same thing for the closest animal
         }
 
-        if (state == Attack)
+        if (state == Attack) //when the animal is in attack mode
         {
-            if (fightTime > sf::Time::Zero)
+            if (fightTime > sf::Time::Zero) //while they are still fighting
             {
-                receiveDamage(closestAnimal->getStrength());
-                closestAnimal->receiveDamage(getStrength());
+                closestAnimal->receiveDamage(getStrength()); //inflicts damage upon the closest animal
                 fightTime -= dt;
             }
             else
             {
-                lastFought = closestAnimal;
-                setState(Idle);
-                closestAnimal->setState(Idle);
+                lastFought = closestAnimal; //if their fight is over then the lastFought attribute becomes the closest animal to prevent infinite fighting
+                setState(Idle); //sets back animal to just wandering
             }
         }
     }
     else
     {
-        timeLastRot += dt;
         move(dt); //makes animal move normally
         if ((closestAnimal == nullptr) and (lastFought != nullptr))
         {
-            lastFought = nullptr;
+            lastFought = nullptr; //if the closest animal died or it is no longer in radius, lastFought becomes nullptr
         }
     }
 }
@@ -136,7 +134,7 @@ void Animal::setState(State S)
 
 void Animal::receiveDamage(double damageReceived)
 {
-    if (healthPoints <= damageReceived)
+    if (healthPoints <= damageReceived) // if damage is superior than the healthpoints
     {
         healthPoints = 0.0;
     }
@@ -144,6 +142,11 @@ void Animal::receiveDamage(double damageReceived)
     {
         healthPoints -= damageReceived;
     }
+}
+
+void Animal::turnAround()
+{
+        setDirection(getDirection()+PI); //adds PI in radians to the direction angle
 }
 
 void Animal::setFightTime(double time)
