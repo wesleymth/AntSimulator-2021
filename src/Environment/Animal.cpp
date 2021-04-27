@@ -42,7 +42,6 @@ Animal::Animal(const Vec2d& pos)
 
 Animal::~Animal()
 {
-    delete lastFought;
     lastFought = nullptr;
 }
 
@@ -112,6 +111,7 @@ void Animal::update(sf::Time dt)
             {
                 lastFought = closestAnimal; //if their fight is over then the lastFought attribute becomes the closest animal to prevent infinite fighting
                 setState(Idle); //sets back animal to just wandering
+                //closestAnimal->setState(Idle);
             }
         }
     }
