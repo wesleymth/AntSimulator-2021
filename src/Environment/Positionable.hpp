@@ -6,11 +6,11 @@
 #pragma once
 #include "ToricPosition.hpp"
 
-    /*!
-    * @brief Manage a position in a toric world
-    *
-    *
-    */
+/*!
+ * @class Positionable
+ *
+ * @brief Represents an entitiy that has a postion
+ */
 class Positionable
 {
 public:

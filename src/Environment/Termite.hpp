@@ -2,6 +2,14 @@
 #define TERMITE_HPP
 #include "Animal.hpp"
 
+
+/*!
+ * @class Termite
+ *
+ * @inherits Animal
+ *
+ * @brief Represents a Termite
+ */
 class Termite : public Animal
 {
 public:

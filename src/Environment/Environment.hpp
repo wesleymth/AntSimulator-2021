@@ -10,6 +10,14 @@
 #include "../Interface/Updatable.hpp"
 #include "../Interface/Drawable.hpp"
 
+
+/*!
+ * @class Environment
+ *
+ * @inherits Drawable, Updatable
+ *
+ * @brief Represents and manages Environment and all compoments
+ */
 class Environment : public Updatable, public Drawable
 {
 private:
