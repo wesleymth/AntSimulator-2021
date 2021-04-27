@@ -187,11 +187,11 @@ Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosit
                                                    const Intervals &angles)
 {
     Quantities Q(11,0);
-    for(auto phero: pheromones)
+    for(auto phero: pheromones) //looks in list of all pheromones
     {
-        if(toricDistance(position, phero->getPosition())<=getAppConfig().ant_smell_max_distance)
+        if(toricDistance(position, phero->getPosition())<=getAppConfig().ant_smell_max_distance) // only considers pheromones within smelling distance
         {
-            Angle beta((position.toricVector(phero->getPosition()).angle() - direction_rad) / DEG_TO_RAD);
+            Angle beta((position.toricVector(phero->getPosition()).angle() - direction_rad) / DEG_TO_RAD); //gets angle between ant and pheromone
             while(-180>beta or beta>180)
             {
                 if(beta>180)

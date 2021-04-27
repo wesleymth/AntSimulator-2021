@@ -62,6 +62,11 @@ public:
     Animal(const Vec2d& pos);
 
     /*!
+     *  @brief destructor of ToricPosition
+     */
+    ~Animal();
+
+    /*!
      *  @brief gets speed of animal
      */
     virtual double getSpeed() const = 0;
@@ -143,7 +148,27 @@ public:
      *  @note to be defined for specific animal sub-classes
      */
     virtual bool isEnemy(Animal const* entity) const = 0;
+
+    /*!
+     *  @brief double dipatch fonction to allow polymorphism without type testing
+     *
+     *  @param Termite const* other
+     *
+     *  @return bool
+     *
+     *  @note to be defined for specific animal sub-classes
+     */
     virtual bool isEnemyDispatch(Termite const* other) const = 0;
+
+    /*!
+     *  @brief double dipatch fonction to allow polymorphism without type testing
+     *
+     *  @param Ant const* other
+     *
+     *  @return bool
+     *
+     *  @note to be defined for specific animal sub-classes
+     */
     virtual bool isEnemyDispatch(Ant const* other) const = 0;
 protected:
     /*!

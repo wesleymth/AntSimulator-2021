@@ -34,6 +34,12 @@ Animal::Animal(const Vec2d& pos)
     //Done
 }
 
+Animal::~Animal()
+{
+    delete lastFought;
+    lastFought = nullptr;
+}
+
 Angle Animal::getDirection() const
 {
     return dirAngle;
