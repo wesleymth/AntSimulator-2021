@@ -32,11 +32,27 @@ public:
 
     /*!
      *  @brief gets sprite of an ant soldier
+     *
+     *  @return sprite of an ant soldier
+     *
+     *  @note uses buildSprite(...) from Utility.hpp
      */
     sf::Sprite getSprite() const override;
 
+    /*!
+     *  @brief gets strength of an ant soldier
+     *
+     *  @return strength of an ant soldier
+     *
+     *  @note getAppConfig().ant_soldier_strength
+     */
     int getStrength() const override;
 
+    /*!
+     *  @brief draws an ant soldier
+     *
+     *  @note calls Ant::drawOn(target);
+     */
     void drawOn(sf::RenderTarget& target) const override;
 };
 

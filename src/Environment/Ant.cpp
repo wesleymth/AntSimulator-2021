@@ -39,7 +39,7 @@ double Ant::getSpeed() const
     return getAppConfig().ant_speed;
 }
 
-double Ant::getAttackDelay() const // POUR PUSH
+double Ant::getAttackDelay() const
 {
     return getAppConfig().ant_attack_delay;
 }
@@ -83,9 +83,7 @@ void Ant::drawPheromoneAngles(sf::RenderTarget &target) const
 {
     Intervals intervals = {   -180,   -100,    -55,    -25,    -10,      0,     10,     25,     55,    100,    180 };
     auto const intervalProbs = computeRotationProbs();
-        // pour intervalProbs (first désigne l'ensemble des angles)
         for (std::size_t i = 0; i < intervalProbs.first.size(); ++i) {
-            // "second" designe l'ensemble des probabilités
             auto const msg = std::to_string(intervalProbs.second[i]).substr(2, 4);
             auto const angle = intervalProbs.first[i];
             auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 250;

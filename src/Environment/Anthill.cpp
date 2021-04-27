@@ -79,7 +79,7 @@ void Anthill::generateAntSoldier() const
 
 void Anthill::generateAnt() const
 {
-    double theta(uniform(0.0,1.0));
+    double theta(uniform(0.0,1.0)); //gets a random double between 0.0 and 1.0
     if ( (0 <= theta) and (theta <= getWorkerProb()))
     {
         generateAntWorker();

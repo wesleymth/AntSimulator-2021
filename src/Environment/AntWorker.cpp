@@ -32,11 +32,6 @@ int AntWorker::getStrength() const
     return getAppConfig().ant_worker_strength;
 }
 
-void AntWorker::turnAround()
-{
-        setDirection(getDirection()+PI); //adds PI in radians to the direction angle
-}
-
 void AntWorker::update(sf::Time dt)
 {
     Animal::update(dt);
