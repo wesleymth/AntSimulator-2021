@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #include "Environment.hpp"
 #include "../Application.hpp"
 
@@ -179,7 +185,7 @@ void Environment::addPheromone(Pheromone* phero)
 
 bool Environment::togglePheromoneDisplay()
 {
-    return showPheromones=not showPheromones;
+    return (showPheromones=not showPheromones);
 }
 
 Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosition &position,

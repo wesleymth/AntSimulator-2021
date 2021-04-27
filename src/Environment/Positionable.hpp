@@ -1,7 +1,8 @@
 /*
-* POOSV 2020-21
-* @author:
-*/
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
 
 #pragma once
 #include "ToricPosition.hpp"

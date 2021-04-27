@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #include "ToricPosition.hpp"
 #include "Application.hpp"
 #include "../Utility/Utility.hpp"

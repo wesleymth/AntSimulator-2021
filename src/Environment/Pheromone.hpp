@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef PHEROMONE_HPP
 #define PHEROMONE_HPP
 #include "Positionable.hpp"

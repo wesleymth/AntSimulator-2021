@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANTHILL_HPP
 #define ANTHILL_HPP
 #include "../Utility/Types.hpp"
@@ -5,6 +11,13 @@
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
 
+/*!
+ * @class Anthill
+ *
+ * @brief Represents and manages the aspects of an anthill
+ *
+ * @inherits Positionable, Drawable, Updatable
+ */
 
 class Anthill : public Positionable, public Drawable, public Updatable
 {

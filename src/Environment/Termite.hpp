@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef TERMITE_HPP
 #define TERMITE_HPP
 #include "Animal.hpp"

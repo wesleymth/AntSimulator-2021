@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ENVIRONMENT_HPP
 #define ENVIRONMENT_HPP
 #include "Animal.hpp"
@@ -119,6 +125,8 @@ public:
 
    /*!
     *  @brief toggles display of pheromones
+    *
+    *  @return the opposite value of current showPheromones
     */
    bool togglePheromoneDisplay();
 

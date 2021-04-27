@@ -1,6 +1,22 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANT_HPP
 #define ANT_HPP
 #include "Animal.hpp"
+
+/*!
+ * @class Ant
+ *
+ * @brief Represents and manages the aspects of an abstract ant
+ *
+ * @note abstract class
+ *
+ * @inherits Animal
+ */
 
 class Ant : public Animal
 {

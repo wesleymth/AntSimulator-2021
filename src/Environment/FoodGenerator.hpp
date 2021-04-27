@@ -1,7 +1,21 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef FOODGENERATOR_HPP
 #define FOODGENERATOR_HPP
 #include <SFML/Graphics.hpp>
 #include "../Interface/Updatable.hpp"
+
+/*!
+ * @class AntSoldier
+ *
+ * @brief Represents and manages the aspects of a food generator, which can generate a food instance periodically
+ *
+ * @inherits Updatable
+ */
 
 class FoodGenerator : public Updatable
 {

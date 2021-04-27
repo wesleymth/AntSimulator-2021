@@ -1,6 +1,7 @@
 /*
  * POOSV 2020-21
- * @author:
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
  */
 
 #include "Positionable.hpp"

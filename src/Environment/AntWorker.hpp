@@ -1,6 +1,20 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANTWORKER_HPP
 #define ANTWORKER_HPP
 #include "Ant.hpp"
+
+/*!
+ * @class AntWorker
+ *
+ * @brief Represents and manages the aspects of an ant worker, which can interact with food instances and other animals
+ *
+ * @inherits Ant
+ */
 
 class AntWorker : public Ant
 {

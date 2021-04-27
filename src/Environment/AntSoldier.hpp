@@ -1,6 +1,20 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANTSOLDIER_HPP
 #define ANTSOLDIER_HPP
 #include "Ant.hpp"
+
+/*!
+ * @class AntSoldier
+ *
+ * @brief Represents and manages the aspects of an ant soldier, which can interact with other animals and is capable of fighting
+ *
+ * @inherits Ant
+ */
 
 class AntSoldier : public Ant
 {

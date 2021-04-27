@@ -1,9 +1,23 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef FOOD_HPP
 #define FOOD_HPP
 #include "Positionable.hpp"
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
+
+/*!
+ * @class Food
+ *
+ * @brief Represents and manages the aspects of a food, which can be picked up and moved by ant workers
+ *
+ * @inherits Positionable, Drawable
+ */
 
 class Food : public Positionable, public Drawable
 {

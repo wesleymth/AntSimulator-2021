@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 #include "Positionable.hpp"
@@ -5,6 +11,16 @@
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
+
+/*!
+ * @class Animal
+ *
+ * @brief Represents and manages the aspects of an abstract animal
+ *
+ * @note abstract class
+ *
+ * @inherits Positionable, Drawable, Updatable
+ */
 
 enum State {Idle,Attack,Defend,Escape};
 class Ant;
