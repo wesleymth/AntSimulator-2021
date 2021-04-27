@@ -127,11 +127,40 @@ public:
 
     /*!
      *  @brief override of computeRotationProbs() to add effect of pheromones
+     *
+     *  @return RotationProbs
      */
     RotationProbs computeRotationProbs() const override;
 
+    /*!
+     *  @brief returns true if animal in parameter is an enemy
+     *
+     *  @param Animal const* animal
+     *
+     *  @note uses double dispatch with isEnemyDispatch. Override of pure virtual method in animal
+     */
     bool isEnemy(Animal const* animal) const override;
+
+    /*!
+     *  @brief double dipatch fonction to allow polymorphism without type testing
+     *
+     *  @param Termite const* other
+     *
+     *  @return bool
+     *
+     *  @note Override of pure virtual method in animal
+     */
     bool isEnemyDispatch(Termite const* other) const override;
+
+    /*!
+     *  @brief double dipatch fonction to allow polymorphism without type testing
+     *
+     *  @param Ant const* other
+     *
+     *  @return bool
+     *
+     *  @note Override of pure virtual method in animal
+     */
     bool isEnemyDispatch(Ant const* other) const override;
 private:
     Uid anthillUid;

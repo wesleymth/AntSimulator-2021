@@ -117,15 +117,15 @@ RotationProbs Ant::computeRotationProbs() const
     Quantities Q(getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), {-180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180}));
     Probs Pphi;
     double z(0);
-    for(size_t i(0); i<Q.size(); ++i)
+    for(size_t i(0); i<Q.size(); ++i) // Calculates Pphi vector Pphi[i]=D(Q[i])
     {
         Pphi.push_back(1/(1+exp(-getAppConfig().beta_d*(Q[i]-getAppConfig().q_zero))));
     }
-    for(size_t n(0); n<Q.size(); ++n)
+    for(size_t n(0); n<Q.size(); ++n)  //Calculates z(alpha)
     {
         z+=rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
     }
-    for(size_t n(0); n<rotProb.second.size(); ++n)
+    for(size_t n(0); n<rotProb.second.size(); ++n) //Calculates Pm'(n), probabilities influenced by pheromones
     {
         rotProb.second[n]=(1/z)*rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
     }
@@ -136,7 +136,7 @@ bool Ant::isEnemy(Animal const* animal) const
 {
     return !isDead() && !animal->isDead() && animal->isEnemyDispatch(this);
 }
-bool Ant::isEnemyDispatch(Termite const* other) const
+bool Ant::isEnemyDispatch(Termite const* other) const  //unused param is normal
 {
     return true;
 }

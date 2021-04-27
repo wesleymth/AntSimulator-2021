@@ -9,6 +9,8 @@
 #include <iostream>
 
 /*!
+ * @class ToricPosition
+ *
  * @brief Handle toric coordinate, distance and other
  * basic math operation in a toric world
  *
