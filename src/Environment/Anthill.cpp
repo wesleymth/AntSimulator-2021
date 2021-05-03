@@ -36,8 +36,7 @@ double Anthill::getWorkerProb() const
 
 void Anthill::receiveFood(Quantity received)
 {
-    if (received > 0) //doesn't do anything for negative received
-    {
+    if (received > 0) { //doesn't do anything for negative received
         foodStock += received;
     }
 }
@@ -47,9 +46,8 @@ void Anthill::drawOn(sf::RenderTarget& target) const
     auto const anthillSprite = buildSprite((getPosition()).toVec2d(),
                                            DEFAULT_ANTHILL_SIZE,
                                            getAppTexture(getAppConfig().anthill_texture));;
-        target.draw(anthillSprite);
-    if (isDebugOn()) //if debug on you can see the current foodStock in black and the uid in magenta
-    {
+    target.draw(anthillSprite);
+    if (isDebugOn()) { //if debug on you can see the current foodStock in black and the uid in magenta
         auto const foodStockText = buildText(to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
         target.draw(foodStockText); //shows quantity of foodStock via a text
 
@@ -61,8 +59,7 @@ void Anthill::drawOn(sf::RenderTarget& target) const
 void Anthill::update(sf::Time dt)
 {
     timeLastSpawn+=dt;
-    if (timeLastSpawn >= sf::seconds(getAppConfig().anthill_spawn_delay))
-    {
+    if (timeLastSpawn >= sf::seconds(getAppConfig().anthill_spawn_delay)) {
         timeLastSpawn = sf::Time::Zero;
         generateAnt(); //randomly generates ant every anthill_spawn_delay
     }
@@ -86,12 +83,9 @@ void Anthill::generateAntSoldier() const
 void Anthill::generateAnt() const
 {
     double theta(uniform(0.0,1.0)); //gets a random double between 0.0 and 1.0
-    if ( (0 <= theta) and (theta <= getWorkerProb()))
-    {
+    if ( (0 <= theta) and (theta <= getWorkerProb())) {
         generateAntWorker();
-    }
-    else
-    {
+    } else {
         generateAntSoldier();
     }
 }

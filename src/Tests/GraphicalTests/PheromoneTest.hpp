@@ -44,18 +44,18 @@ class Ant;
 class PheromoneTest : public Application
 {
 public:
-   	PheromoneTest(int argc, char const** argv)
-    : Application(argc, argv)
+    PheromoneTest(int argc, char const** argv)
+        : Application(argc, argv)
     {
     }
     virtual ~PheromoneTest() = default;
     virtual void onEvent(sf::Event event, sf::RenderWindow& window) override final;
-	virtual void onRun() override final;
+    virtual void onRun() override final;
     virtual void onUpdate(sf::Time dt) override final;
     virtual void onDraw(sf::RenderTarget& target) override final;
 protected:
-	void populate();
-	virtual std::string getHelpTextFile() const override final;
+    void populate();
+    virtual std::string getHelpTextFile() const override final;
 private:
     // Properties for generating segment of pheromones
     Vec2d mFirstClick;
@@ -65,7 +65,7 @@ private:
     Ant* mAnt = nullptr;
     bool mLive = false;
     Uid const mAntId = createUid();
-	
+
 };
 
 

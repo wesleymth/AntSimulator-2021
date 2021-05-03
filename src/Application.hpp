@@ -1,7 +1,7 @@
 /*
  * POOSV 2016-21
  * Marco Antognini & Jamila Sam
- * STEP4
+ * STEP : FINAL
  */
 
 #ifndef INFOSV_APPLICATION_HPP
@@ -21,7 +21,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-//#include <Stats/Stats.hpp>
+#include <Stats/Stats.hpp>
 /*!
  * @class Application
  *
@@ -243,7 +243,7 @@ protected:
      *
      *  @return the application statistic manager
      */
-//    Stats& getStats();
+    Stats& getStats();
 
 	void setActiveGraph(int id);
 
@@ -298,7 +298,7 @@ protected:
 				  , size_t font_size
 				  );
 
-//	virtual void resetStats();
+	virtual void resetStats();
 	
 private:
 
@@ -308,7 +308,7 @@ private:
 //    j::Value          mJSONRead;       ///< Application configuration
     Config*          mConfig;       ///< Application configuration
 	
-//	Stats*   mStats;                 ///< Statistic manager
+	Stats*   mStats;                 ///< Statistic manager
     sf::View mStatsView;             ///< View for the stats area
 	sf::View mControlView;             ///< View for the control area
     int      mCurrentGraphId;        ///< Current graph ID

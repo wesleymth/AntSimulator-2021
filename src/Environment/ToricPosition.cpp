@@ -9,26 +9,21 @@
 #include "../Utility/Utility.hpp"
 
 
-void ToricPosition::clamp(){
+void ToricPosition::clamp()
+{
     double x(coordinates.x());
     double y(coordinates.y());
     //if the position is negative we add the corresponding world dimension (width or height)
     //otherwise we add the rest of its division by the corresponding world dimension (width or height)
-    if(x<0)
-    {
+    if(x<0) {
         x += worldDimensions.x();
-    }
-    else
-    {
+    } else {
         x = fmod(x,worldDimensions.x());
     }
 
-    if(y<0)
-    {
+    if(y<0) {
         y += worldDimensions.y();
-    }
-    else
-    {
+    } else {
         y = fmod(y,worldDimensions.y());
     }
     //use of a new 2d vector to replace the past coordinates
@@ -44,7 +39,7 @@ ToricPosition::ToricPosition(const Vec2d &coords, const Vec2d &dim)
 
 ToricPosition::ToricPosition(double x, double y)
     :coordinates(x,y),worldDimensions(getAppConfig().simulation_size,getAppConfig().simulation_size)
-    //takes the dimensions of the world with the use of getAppConfig().simulation_size
+     //takes the dimensions of the world with the use of getAppConfig().simulation_size
 {
     clamp(); //assures that the position is in the world
 }
@@ -114,33 +109,31 @@ std::ostream& operator<<(std::ostream& out, ToricPosition const& T)
     return out << "[" << T.x() << ", " << T.y() << "]";
 }
 
-double ToricPosition::operator[](int index) const{
+double ToricPosition::operator[](int index) const
+{
     return coordinates[index]; //uses the indexation method of Vec2ds
 }
 
 Vec2d ToricPosition::toricVector(ToricPosition const& that) const
 {
-   Vec2d to(that.coordinates-coordinates);
-   double dist(distance(that.coordinates, this->coordinates));
-   for(int i(-1); i<=1; ++i) //2 "for" loops to iterate on x & y coordinates
-   {
-       for(int j(-1); j<=1; ++j)
-       {
-           Vec2d incr(i*worldDimensions.x(), j*worldDimensions.y());
-           if(distance(that.coordinates+incr, this->coordinates)<dist)
-           {
-               dist=distance(that.coordinates+incr, this->coordinates);
-               to=(that.coordinates+incr)-this->coordinates;
-           }
-       }
-   }
-   return to;
+    Vec2d to(that.coordinates-coordinates);
+    double dist(distance(that.coordinates, this->coordinates));
+    for(int i(-1); i<=1; ++i) { //2 "for" loops to iterate on x & y coordinates
+        for(int j(-1); j<=1; ++j) {
+            Vec2d incr(i*worldDimensions.x(), j*worldDimensions.y());
+            if(distance(that.coordinates+incr, this->coordinates)<dist) {
+                dist=distance(that.coordinates+incr, this->coordinates);
+                to=(that.coordinates+incr)-this->coordinates;
+            }
+        }
+    }
+    return to;
 }
 
 double toricDistance(ToricPosition const& from, ToricPosition const& to)
 {
-   Vec2d segment(from.toricVector(to)); //calls the method toricVector
-   return segment.length();
+    Vec2d segment(from.toricVector(to)); //calls the method toricVector
+    return segment.length();
 }
 
 

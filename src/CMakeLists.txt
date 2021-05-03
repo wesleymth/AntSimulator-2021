@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Ant_Simulator_SSV_2021_STEP4)
+project(Ant_Simulator_SSV_2021_Final)
 
 #set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_STANDARD 14)
@@ -72,7 +72,10 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
     if(SFML_FOUND)
       message(STATUS "Found SFML ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}")
       
-
+      #main application:
+      add_executable (application  ${TEST_DIR}/GraphicalTests/FinalApplication.cpp ${SOURCES_GFX})
+      target_link_libraries(application sfml-graphics sfml-window sfml-system)
+	
       #Units tests:
        add_executable (enemyTest  ${TEST_DIR}/UnitTests/EnemyTest.cpp ${SOURCES} ${CACHE_SOURCES})
       target_link_libraries(enemyTest sfml-graphics sfml-window sfml-system)
@@ -80,6 +83,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
       target_link_libraries(positionableTest sfml-graphics sfml-window sfml-system)
        add_executable (toricTest  ${TEST_DIR}/UnitTests/ToricTest.cpp ${SOURCES} ${CACHE_SOURCES})
       target_link_libraries(toricTest sfml-graphics sfml-window sfml-system)
+      # add_executable (circularBodyTest  ${TEST_DIR}/UnitTests/CircularBodyTest.cpp ${CB_SOURCES} ${CACHE_SOURCES})
+      # target_link_libraries(circularBodyTest sfml-graphics sfml-window sfml-system)
        add_executable (vec2dTest  ${TEST_DIR}/UnitTests/Vec2dTest.cpp ${SOURCES} ${CACHE_SOURCES})
        target_link_libraries(vec2dTest sfml-graphics sfml-window sfml-system)
 
@@ -110,6 +115,10 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
 
             include_directories(${SFML_INCLUDE_DIR})
 	    
+	    #main application:
+            add_executable(application ${TEST_DIR}/GraphicalTests/FinalApplication.cpp ${SOURCES_GFX})
+            target_link_libraries(application ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+
 	    #Units tests:
 	     add_executable (enemyTest ${TEST_DIR}/UnitTests/EnemyTest.cpp ${SOURCES} ${CACHE_SOURCES})
             target_link_libraries(enemyTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
@@ -117,7 +126,8 @@ find_package(SFML 2.5 QUIET COMPONENTS graphics window system)
             target_link_libraries(positionableTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 	    add_executable (toricTest ${TEST_DIR}/UnitTests/ToricTest.cpp ${SOURCES} ${CACHE_SOURCES})
             target_link_libraries(toricTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-
+            # add_executable (circularBodyTest ${TEST_DIR}/UnitTests/CircularBodyTest.cpp ${CB_SOURCES} ${CACHE_SOURCES})
+            # target_link_libraries(circularBodyTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 	     add_executable (vec2dTest ${TEST_DIR}/UnitTests/Vec2dTest.cpp ${SOURCES} ${CACHE_SOURCES})
              target_link_libraries(vec2dTest ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 	    

@@ -12,6 +12,6 @@
 
 int main(int argc, char const** argv)
 {
-	INIT_DEFAULT_APP(argc, argv);
-	return Catch::Session().run();
+    INIT_DEFAULT_APP(argc, argv);
+    return Catch::Session().run();
 }

@@ -156,9 +156,9 @@ public:
      */
     double operator[](int axis) const;
 
-	double x() const;
-	double y() const;
-	
+    double x() const;
+    double y() const;
+
 
 private:
     double x_, y_; ///< DATA

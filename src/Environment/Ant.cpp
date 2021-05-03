@@ -58,8 +58,7 @@ Uid Ant::getAnthillUid() const
 void Ant::drawOn(sf::RenderTarget& target) const
 {
     Animal::drawOn(target);
-    if(getAppConfig().getProbaDebug())
-    {
+    if(getAppConfig().getProbaDebug()) {
         drawPheromoneAngles(target);
     }
 }
@@ -68,10 +67,8 @@ void Ant::spreadPheromones()
 {
     double dist(toricDistance(getPosition(),lastPheromone));
     Vec2d vect(getPosition().toricVector(lastPheromone));
-    if(dist*getAppConfig().ant_pheromone_density>=1)
-    {
-        for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i)
-        {
+    if(dist*getAppConfig().ant_pheromone_density>=1) {
+        for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i) {
             getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
                                                    getAppConfig().ant_pheromone_energy));
             lastPheromone=getPosition();
@@ -89,44 +86,41 @@ void Ant::drawPheromoneAngles(sf::RenderTarget &target) const
 {
     Intervals intervals = {   -180,   -100,    -55,    -25,    -10,      0,     10,     25,     55,    100,    180 };
     auto const intervalProbs = computeRotationProbs();
-        for (std::size_t i = 0; i < intervalProbs.first.size(); ++i) {
-            auto const msg = std::to_string(intervalProbs.second[i]).substr(2, 4);
-            auto const angle = intervalProbs.first[i];
-            auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 250;
+    for (std::size_t i = 0; i < intervalProbs.first.size(); ++i) {
+        auto const msg = std::to_string(intervalProbs.second[i]).substr(2, 4);
+        auto const angle = intervalProbs.first[i];
+        auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 250;
 
-            auto const text = buildText(msg, getPosition().toVec2d() + local, getAppFont(), 15, sf::Color::Black);
-            target.draw(text);
-        }
+        auto const text = buildText(msg, getPosition().toVec2d() + local, getAppFont(), 15, sf::Color::Black);
+        target.draw(text);
+    }
 
-        auto const quantities = getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), intervals);
-        for (std::size_t i = 0; i < quantities.size(); ++i) {
-            auto const msg = std::to_string(quantities[i]).substr(0, 4);
-            auto const angle = intervals[i];
-            auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 200;
+    auto const quantities = getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), intervals);
+    for (std::size_t i = 0; i < quantities.size(); ++i) {
+        auto const msg = std::to_string(quantities[i]).substr(0, 4);
+        auto const angle = intervals[i];
+        auto const local = Vec2d::fromAngle(getDirection() + angle * DEG_TO_RAD) * 200;
 
-            auto const text = buildText(msg, getPosition().toVec2d() + local, getAppFont(), 15, sf::Color::Red);
-            target.draw(text);
-        }
+        auto const text = buildText(msg, getPosition().toVec2d() + local, getAppFont(), 15, sf::Color::Red);
+        target.draw(text);
+    }
 }
 
 RotationProbs Ant::computeRotationProbs() const
 {
     RotationProbs rotProb;
-    rotProb.first={ -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
-    rotProb.second={0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
+    rotProb.first= { -180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180};
+    rotProb.second= {0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
     Quantities Q(getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), {-180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180}));
     Probs Pphi;
     double z(0);
-    for(size_t i(0); i<Q.size(); ++i) // Calculates Pphi vector Pphi[i]=D(Q[i])
-    {
+    for(size_t i(0); i<Q.size(); ++i) { // Calculates Pphi vector Pphi[i]=D(Q[i])
         Pphi.push_back(1/(1+exp(-getAppConfig().beta_d*(Q[i]-getAppConfig().q_zero))));
     }
-    for(size_t n(0); n<Q.size(); ++n)  //Calculates z(alpha)
-    {
+    for(size_t n(0); n<Q.size(); ++n) { //Calculates z(alpha)
         z+=rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
     }
-    for(size_t n(0); n<rotProb.second.size(); ++n) //Calculates Pm'(n), probabilities influenced by pheromones
-    {
+    for(size_t n(0); n<rotProb.second.size(); ++n) { //Calculates Pm'(n), probabilities influenced by pheromones
         rotProb.second[n]=(1/z)*rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
     }
     return rotProb;

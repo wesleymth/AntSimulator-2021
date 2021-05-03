@@ -27,26 +27,26 @@ Vec2d Vec2d::fromJSON(j::Value json)
 }
 
 Vec2d::Vec2d()
-: Vec2d(0.0, 0.0)
+    : Vec2d(0.0, 0.0)
 {
     // Done.
 }
 
 Vec2d::Vec2d(double x_, double y_)
-: x_(x_)
-, y_(y_)
+    : x_(x_)
+    , y_(y_)
 {
     // Done.
 }
 
 Vec2d::Vec2d(sf::Vector2f const& sfvect)
-: Vec2d(sfvect.x, sfvect.y)
+    : Vec2d(sfvect.x, sfvect.y)
 {
     // Done.
 }
 
 Vec2d::Vec2d(sf::Vector2i const& sfvect)
-: Vec2d(sfvect.x, sfvect.y)
+    : Vec2d(sfvect.x, sfvect.y)
 {
     // Done.
 }
@@ -165,19 +165,19 @@ double Vec2d::operator[](int axis) const
     default:
         // This should not happen
         assert(false);
-		return 0;
+        return 0;
         break;
     }
 }
 
 double Vec2d::x() const
 {
-	return x_;
+    return x_;
 }
 
 double Vec2d::y() const
 {
-	return y_;
+    return y_;
 }
 
 double Vec2d::lengthSquared() const

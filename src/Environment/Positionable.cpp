@@ -24,11 +24,13 @@ Positionable::Positionable(const Vec2d& pos)
     //Done
 }
 
-ToricPosition Positionable::getPosition() const{
+ToricPosition Positionable::getPosition() const
+{
     return position;
 }
 
-void Positionable::setPosition(const ToricPosition& pos){
+void Positionable::setPosition(const ToricPosition& pos)
+{
     position=pos;
 }
 
@@ -42,7 +44,8 @@ std::ostream& operator<<(std::ostream& out, Positionable const& P)
     return out << P.getPosition(); //uses the operator<< of ToricPosition
 }
 
-std::ostream& Positionable::display(std::ostream& out){
+std::ostream& Positionable::display(std::ostream& out)
+{
     return out << *this; //uses the external operator<< above
 }
 

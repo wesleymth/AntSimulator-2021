@@ -14,12 +14,12 @@ FoodGenerator::FoodGenerator()
     //Done
 }
 
-void FoodGenerator::update(sf::Time dt){
+void FoodGenerator::update(sf::Time dt)
+{
 
     timeLastFood += dt; //increments timeLastFood by time passed since last update
 
-    if (timeLastFood > sf::seconds(getAppConfig().food_generator_delta)) //if it has been a while since a food was generated
-    {
+    if (timeLastFood > sf::seconds(getAppConfig().food_generator_delta)) { //if it has been a while since a food was generated
         timeLastFood = sf::Time::Zero; //sets back timeLastFood attribute to 0
         //memory allocation of pointer using "new"
         //normal function to generate random value using normal law of a mean and variance

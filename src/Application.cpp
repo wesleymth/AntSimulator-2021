@@ -14,7 +14,7 @@
 #include <fstream>
 #include <algorithm>
 #include <cassert>
-//#include <Stats/Stats.hpp>
+#include <Stats/Stats.hpp>
 #include "Config.hpp"
 namespace // anonymous
 {
@@ -135,7 +135,7 @@ Application::Application(int argc, char const** argv)
 , mCfgFile(configFileRelativePath(argc, argv))
 //, mJSONRead(mAppDirectory + mCfgFile)
 , mConfig(new Config(mAppDirectory + mCfgFile))
-//, mStats(nullptr)
+, mStats(nullptr)
 , mCurrentGraphId(-1)
 , mEnv(nullptr)
 , mPaused(false)  
@@ -175,7 +175,7 @@ Application::~Application()
     // Destroy lab and stats, in reverse order
     delete mEnv;
 	delete mConfig;
-//	delete mStats;
+	delete mStats;
 
     // Release textures
     for (auto& kv : mTextures) {
@@ -192,7 +192,7 @@ void Application::run()
 {
     // Load lab and stats
     mEnv   = new Environment();
-//	mStats = new Stats;
+	mStats = new Stats;
     // Set up subclasses
     onRun();
     onSimulationStart();
@@ -251,7 +251,7 @@ void Application::run()
                 auto dt = std::min(elapsedTime, maxDt);
                 elapsedTime -= dt;
 				getEnv().update(dt);
-//				getStats().update(dt);
+				getStats().update(dt);
                 onUpdate(dt);
 				--nbCycles;
 
@@ -490,7 +490,7 @@ void Application::handleEvent(sf::Event event, sf::RenderWindow& window)
         case sf::Keyboard::C:
 			delete mConfig;
             mConfig = new Config(mAppDirectory + mCfgFile); // reconstruct
-//			getEnv().resetControls();
+			getEnv().resetControls();
             break;
 
         // Toggle pause for simulation
@@ -502,7 +502,7 @@ void Application::handleEvent(sf::Event event, sf::RenderWindow& window)
         case sf::Keyboard::R:
 				mIsResetting = true;
 				getEnv().reset();
-//				resetStats();
+				resetStats();
 				onSimulationStart();
 				createViews();
 				mSimulationBackground= mEnvBackground;
@@ -524,15 +524,31 @@ void Application::handleEvent(sf::Event event, sf::RenderWindow& window)
             mSimulationView.move(0, 100);
             break;
         case sf::Keyboard::Tab: // next control
+        
+			mCurrentControl = static_cast<Control>((mCurrentControl + 1) % Control::NB_CONTROLS);
 
 			break;
 			
         case sf::Keyboard::PageDown: // increase current control
 
-				
+				switch(mCurrentControl){
+					// TODO : add new Controls if needed
+					case STATS:
+						mStats->previous(); 
+						break;
+					default:
+						break;
+				}
 				break;
         case sf::Keyboard::PageUp: // decrease current control
-
+				switch(mCurrentControl){
+					// TODO : add new Controls if needed
+					case STATS:
+						mStats->next();
+						break;
+					default:
+						break;
+				}
 				break;
         default:
             onEvent(event, window);
@@ -638,8 +654,8 @@ void Application::render(sf::Drawable const& simulationBackground,
 	// Render the stats
 	mRenderWindow.setView(mStatsView);
 	mRenderWindow.draw(statsBackground);
-//	if (isStatsOn)
-//		getStats().drawOn(mRenderWindow);
+	if (isStatsOn)
+		getStats().drawOn(mRenderWindow);
 	
     // Finally, publish everything onto the screen
     mRenderWindow.display();
@@ -764,11 +780,11 @@ void Application::drawControls(sf::RenderWindow& target) {
 	}
 }
 
-void Application::drawTitle(sf::RenderWindow& /*target*/
-							,  sf::Color /*color*/
-							, size_t /* xcoord */
-							, size_t /* ycoord */
-							, size_t /* font_size */
+void Application::drawTitle(sf::RenderWindow& target
+								 , sf::Color color
+								 , size_t xcoord
+								 , size_t ycoord
+								 , size_t font_size
 							) 
 {
 	//draw title here if needed
@@ -784,13 +800,10 @@ void Application::drawOneControl(sf::RenderWindow& target
 	sf::Color color (mCurrentControl == control ? sf::Color::Red : sf::Color::White);
 	std::string text("");
 	switch (control) {
-		case TEMPERATURE :
-			text = "Temperature : ";
-			//text += to_nice_string(mEnv->getTemperature());
-			break;
+		// TODO : add new controls if needed
 		case STATS :
-			text = "Current stat : disabled";
-//			text += (isStatsOn ? mStats->getCurrentTitle() : "disabled");
+			text = "Current stat : ";
+			text += (isStatsOn ? mStats->getCurrentTitle() : "disabled");
             //text += mStats->getCurrentTitle();
 			break;
 		default:
@@ -809,32 +822,28 @@ void Application::drawOneControl(sf::RenderWindow& target
 	target.draw(legend);
 }
 
-void Application::addGraph(std::string const& /*title*/, std::vector<std::string> const& /*series*/, double /*min*/, double /*max*/)
+void Application::addGraph(std::string const& title, std::vector<std::string> const& series, double min, double max)
 {
-/*	
     if (series.size() > 0){
 		++mCurrentGraphId;
     getStats().addGraph(mCurrentGraphId, title, series, min, max, getStatsSize() );
 	}
-*/
 }
 
 
-/*Stats& Application::getStats()
+Stats& Application::getStats()
 {
     return *mStats;
-	}*/
-
-void Application::setActiveGraph(int /*id*/)
-{
-	//getStats().setActive(id);
 }
 
-/*
-  void Application::resetStats()
+void Application::setActiveGraph(int id)
+{
+	getStats().setActive(id);
+}
+
+void Application::resetStats()
 {
 	delete mStats;
 	mStats = new Stats;
 	mCurrentGraphId = -1;
 }
-*/

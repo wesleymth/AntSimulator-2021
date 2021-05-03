@@ -22,7 +22,7 @@ Pheromone::Pheromone(const Vec2d& vect, Quantity quant)
 Pheromone::Pheromone( const ToricPosition& TP, Quantity quant)
     :Positionable(TP), quantity(quant)
 {
- //Done
+//Done
 }
 
 void Pheromone::update(sf::Time dt)

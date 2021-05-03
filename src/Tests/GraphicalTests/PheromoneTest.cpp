@@ -16,26 +16,26 @@ void PheromoneTest::onRun()
 {
     // Basic setup
     Application::onRun();
-	// add graphs for statistics
-	setStats(false);
+    // add graphs for statistics
+    setStats(false);
 //	resetStats();
-	populate();
+    populate();
 }
 
 std::string PheromoneTest::getHelpTextFile() const
 {
-	 return RES_LOCATION + "pheromon-test-help.txt";
+    return RES_LOCATION + "pheromon-test-help.txt";
 }
 
 void PheromoneTest::populate()
 {
-	getAppEnv().reset();
-	delete mAnt;
-	mAnt = nullptr;
-	const auto x(getAppConfig().simulation_size);
-	const auto y(x);
-	ToricPosition pos(x/2,y/2);
-	mAnt = new AntWorker(pos, mAntId);
+    getAppEnv().reset();
+    delete mAnt;
+    mAnt = nullptr;
+    const auto x(getAppConfig().simulation_size);
+    const auto y(x);
+    ToricPosition pos(x/2,y/2);
+    mAnt = new AntWorker(pos, mAntId);
 }
 
 void PheromoneTest::onUpdate(sf::Time dt)
@@ -46,7 +46,7 @@ void PheromoneTest::onUpdate(sf::Time dt)
     }
 }
 
-void PheromoneTest::onDraw(sf::RenderTarget& target) 
+void PheromoneTest::onDraw(sf::RenderTarget& target)
 {
     if (mAnt != nullptr) {
 
@@ -58,39 +58,38 @@ void PheromoneTest::onEvent(sf::Event event, sf::RenderWindow&)
 {
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
-            default: break;
+        default:
+            break;
 
-            case sf::Keyboard::P:
-				getAppEnv().togglePheromoneDisplay();
-                break;
-			case sf::Keyboard::A:
-				getAppEnv().addAnimal(new AntWorker(getCursorPositionInView(), createUid()));	 
-                break;		
-            case sf::Keyboard::Return:
-                mLive = !mLive; // toggle «live» mode
-                break;
+        case sf::Keyboard::P:
+            getAppEnv().togglePheromoneDisplay();
+            break;
+        case sf::Keyboard::A:
+            getAppEnv().addAnimal(new AntWorker(getCursorPositionInView(), createUid()));
+            break;
+        case sf::Keyboard::Return:
+            mLive = !mLive; // toggle «live» mode
+            break;
 
-            case sf::Keyboard::S:
-			{
-                mAnt->update(sf::seconds(0.05f));
-			}
-			
-                break;
-			case sf::Keyboard::Q:
-			{
-				getAppConfig().switchProbaDebug();
-			}
-			
-                break;		
+        case sf::Keyboard::S: {
+            mAnt->update(sf::seconds(0.05f));
+        }
+
+        break;
+        case sf::Keyboard::Q: {
+            getAppConfig().switchProbaDebug();
+        }
+
+        break;
         }
     }
 
     // Generate segment of pheromones
     if (event.type == sf::Event::MouseButtonPressed) {
         if (mWasFirstClick) { // yes
-          
+
             // Spawns enough pheromone between `end` and `start` based on
-			// the pheromone density (with no handling of the toric world)
+            // the pheromone density (with no handling of the toric world)
             auto const end = getCursorPositionInView();
             auto const start = mFirstClick;
             auto const NB_STEPS_PER_PIXEL = getAppConfig().pheromone_test_density;
