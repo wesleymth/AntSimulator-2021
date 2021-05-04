@@ -8,4 +8,7 @@ public:
     Loader();
 };
 
+
+void loadMap(std::string const& filepath);
+
 #endif // LOADER_HPP

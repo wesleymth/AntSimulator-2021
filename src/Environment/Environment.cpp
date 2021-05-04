@@ -38,6 +38,7 @@ void Environment::update(sf::Time dt)
     for(auto& animal: animals) {
         animal->update(dt); //in charge of movement and incrementation of attributes
         if (animal->isDead()) { //gets rid of the animal in the attribute of the environement if the animal is dead
+            delete animal;
             animal = nullptr;
         }
         animals.erase(std::remove(animals.begin(), animals.end(), nullptr), animals.end());
@@ -50,6 +51,7 @@ void Environment::update(sf::Time dt)
     for(auto& phero: pheromones) {
         phero->update(dt); //in charge of movement and incrementation of attributes
         if (phero->isNegligeable()) { //gets rid of the pheromone in the attribute of the environement
+            delete phero;
             phero = nullptr;
         }
         pheromones.erase(std::remove(pheromones.begin(), pheromones.end(), nullptr), pheromones.end());
@@ -57,6 +59,7 @@ void Environment::update(sf::Time dt)
 
     for(auto& food: foods) {
         if (food->zeroQuantity()) { //gets rid of the food in the attribute of the environement if its quantity equals 0
+            delete food;
             food = nullptr;
         }
         foods.erase(std::remove(foods.begin(), foods.end(), nullptr), foods.end());
