@@ -113,14 +113,14 @@ RotationProbs Ant::computeRotationProbs() const
     rotProb.second= {0.0000,0.0000,0.0005,0.0010,0.0050,0.9870,0.0050,0.0010,0.0005,0.0000,0.0000};
     Quantities Q(getAppEnv().getPheromoneQuantitiesPerIntervalForAnt(getPosition(), getDirection(), {-180, -100, -55, -25, -10, 0, 10, 25, 55, 100, 180}));
     Probs Pphi;
+    double sumPphi(0);
     double z(0);
     for(size_t i(0); i<Q.size(); ++i) { // Calculates Pphi vector Pphi[i]=D(Q[i])
         Pphi.push_back(1/(1+exp(-getAppConfig().beta_d*(Q[i]-getAppConfig().q_zero))));
     }
-    for(size_t n(0); n<Q.size(); ++n) { //Calculates z(alpha)
+    for(size_t n(0); n<Q.size(); ++n) { //Calculates z(alpha) and nomalisies Pphi then Calculates Pm'(n), probabilities influenced by pheromones
+        Pphi[n]=Pphi[n]/sumPphi;
         z+=rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
-    }
-    for(size_t n(0); n<rotProb.second.size(); ++n) { //Calculates Pm'(n), probabilities influenced by pheromones
         rotProb.second[n]=(1/z)*rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
     }
     return rotProb;
