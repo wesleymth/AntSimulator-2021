@@ -197,3 +197,13 @@ Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosit
     }
     return Q;
 }
+
+std::unordered_map<std::string, double> Environment::fetchData(const std::string &)
+{
+    return {
+        {"worker ants", p1j+1},
+        {"soldier ants", p2j+1},
+        {"termites", p3j+1},
+        {"temperature", p4j+1}
+      }
+}

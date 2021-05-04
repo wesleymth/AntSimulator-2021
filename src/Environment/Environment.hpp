@@ -15,6 +15,7 @@
 #include "FoodGenerator.hpp"
 #include "../Interface/Updatable.hpp"
 #include "../Interface/Drawable.hpp"
+#include <unordered_map>
 
 
 /*!
@@ -150,6 +151,8 @@ public:
     Quantities getPheromoneQuantitiesPerIntervalForAnt(const ToricPosition &position,
             Angle direction_rad,
             const Intervals &angles);
+
+    std::unordered_map<std::string, double> fetchData(const std::string &);
 };
 
 #endif // ENVIRONMENT_HPP
