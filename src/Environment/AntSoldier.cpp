@@ -8,15 +8,17 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 
+int AntSoldier::count = 0;
+
 AntSoldier::AntSoldier()
 {
-    //Done
+
 }
 
 AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid)
     :Ant::Ant(TP, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan, uid)
 {
-    //Done
+    ++count;
 }
 
 AntSoldier::AntSoldier(const Vec2d& pos, Uid uid)

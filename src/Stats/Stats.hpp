@@ -7,23 +7,7 @@
 #include "../Interface/Updatable.hpp"
 #include "Graph.hpp"
 
-struct Graphs
-{
-    std::vector<std::unique_ptr<Graph>> collectionOfGraphs;
-    std::vector<std::string> labels;
-    std::vector<int> ids;
-};
-
-struct L
-{
-    std::vector<std::string> graphNames;
-    std::vector<int> ids;
-};
-
-typedef std::vector<std::unique_ptr<Graph>> G ;
-
-typedef std::vector<std::string> Labels;
-
+typedef std::vector< std::pair <int,std::pair<std::string, std::unique_ptr<Graph>>>> Graphs ;
 
 class Stats : public Drawable, public Updatable
 {

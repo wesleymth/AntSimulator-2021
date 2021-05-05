@@ -18,6 +18,7 @@
 
 class AntSoldier : public Ant
 {
+    static int count;
 public:
     /*!
      *  @brief default constructor
