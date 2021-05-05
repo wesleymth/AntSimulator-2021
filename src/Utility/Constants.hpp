@@ -21,6 +21,12 @@ double const DEFAULT_ANIMAL_LIFE = 1.0; ///< drawing constant for animals
 double const DEFAULT_TERMITE_SIZE = 20.0;   ///< drawing constant for
 double const DEFAULT_ANTHILL_SIZE = 50;
 double const DEFAULT_FOOD_SIZE = 8;
+double const DEFAULT_FOOD_QUANTITY = 0;
+double const DEFAULT_PHEROMONE_QUANTITY = 0;
+double const DEFAULT_UID = 0;
+
+
+const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699);
 
 // Define resources location
 std::string const RES_LOCATION = "../res/";

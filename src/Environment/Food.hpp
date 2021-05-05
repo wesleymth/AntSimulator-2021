@@ -22,6 +22,12 @@
 class Food : public Positionable, public Drawable
 {
 public:
+
+    /*!
+     *  @brief default constructor
+     */
+    Food();
+
     /*!
      *  @brief constructor using a given positionable and quantity
      *

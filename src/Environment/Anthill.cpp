@@ -13,6 +13,7 @@
 #include "AntWorker.hpp"
 
 Anthill::Anthill()
+    :Anthill(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2))
 {
     //Done
 }

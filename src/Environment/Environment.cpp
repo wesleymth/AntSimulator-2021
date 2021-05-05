@@ -197,7 +197,7 @@ Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosit
     }
     return Q;
 }
-
+/*
 std::unordered_map<std::string, double> Environment::fetchData(const std::string &)
 {
     return {
@@ -207,3 +207,4 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
         {"temperature", p4j+1}
       }
 }
+*/

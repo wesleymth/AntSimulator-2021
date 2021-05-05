@@ -1,9 +1,10 @@
 #include "Loader.hpp"
 #include "Utility/Utility.hpp"
 #include "Application.hpp"
-#include <fstream>
-#include <string>
 #include "Environment.hpp"
+#include <iostream>
+#include "Termite.hpp"
+#include "./Utility/Constants.hpp"
 
 Loader::Loader()
 {
@@ -12,15 +13,15 @@ Loader::Loader()
 
 void loadMap(std::string const& filepath)
 {
-    ifstream file; // déclaration du flot en lecture
+    std::ifstream file; // déclaration du flot en lecture
     file.open(filepath.c_str()); // le flot est lié au fichier "test"
     if (! file.fail()) {
-        string line;
-        string word;
-        vector<string> words;
+        std::string line;
+        std::string word;
+        std::vector<std::string> words;
         while (!file.eof())
         {
-            file >> ws
+            file >> std::ws;
             getline(file, line);
             if (! file.fail()) // on a effectivement pu lire qqchose
             {
@@ -30,43 +31,53 @@ void loadMap(std::string const& filepath)
                     {
                         while(line[i]!=' ' and i<line.size())
                         {
-                            word.pushback(line[i]);
+                            word+=line[i];
                         }
-                        words.pushback(word);
+                        words.push_back(word);
                     }
                     try
                     {
-                        Switch(words[0])
+                        if (words[0]=="anthill")
                         {
-                            case "anthill":
-                                if(words.size=3)
-                                {
-                                    getAppEnv.addAnthill(Vec2d(std::stod(words[1]), std::stod(words[2])));
-                                } else {
-                                    throw "insufficient arguments";
-                                }
-                                break;
-                            case "termite":
-                                if(words.size=3)
-                                {
-                                    getAppEnv.addTermite(Vec2d(std::stod(words[1]), std::stod(words[2])));
-                                } else {
-                                    throw "insufficient arguments";
-                                }
-                                break;
-
-
+                            if(words.size()==3)
+                            {
+                                getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2]))));
+                            } else {
+                                throw ERROR_LOADER_INCORRECT_ARGUMENTS;
+                            }
+                        } else if (words[0]=="termite") {
+                            if(words.size()==3)
+                            {
+                                getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));
+                            } else {
+                                throw ERROR_LOADER_INCORRECT_ARGUMENTS;
+                            }
+                        } else if (words[0]=="food") {
+                            if(words.size()==4)
+                            {
+                                getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));
+                            } else {
+                                throw ERROR_LOADER_INCORRECT_ARGUMENTS;
+                            }
+                        } else {
+                            std::cerr << "invalid argument provided for type"<< std::endl;
                         }
-                    }  catch ("insufficient arguments") {
-                        cerr << "insufficient arguments provided for" << words << "construction" <<endl;
                     }
-
-
+                    catch (int i) {
+                        if (i==ERROR_LOADER_INCORRECT_ARGUMENTS)
+                        {
+                            std::cerr << "incorrect number of arguments provided for" << words[0] << "construction" << std::endl;
+                        }
+                    }  catch (const std::invalid_argument&) {
+                        std::cerr << "Argument is invalid -> no possible conversion to double";
+                    }   catch (const std::out_of_range&) {
+                                std::cerr << "Argument is out of range for a double";
+                    }
                 }
             }
         }
         file.close (); // fermeture du flot
     } else {
-    cerr << "Ouverture du fichier " << filepath << " impossible." << endl;
+    std::cerr << "Ouverture du fichier " << filepath << " impossible." << std::endl;
     }
 }

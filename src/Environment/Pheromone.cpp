@@ -9,6 +9,7 @@
 #include "./Utility/Utility.hpp"
 
 Pheromone::Pheromone()
+    :Pheromone(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_PHEROMONE_QUANTITY)
 {
     //Done
 }

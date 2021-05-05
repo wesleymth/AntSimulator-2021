@@ -9,6 +9,7 @@
 #include "../Utility/Utility.hpp"
 
 AntSoldier::AntSoldier()
+    :AntSoldier(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
 {
     //Done
 }

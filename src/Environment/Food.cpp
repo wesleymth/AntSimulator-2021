@@ -8,6 +8,12 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 
+
+Food::Food()
+    :Food(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), 0)
+{
+    //Done
+}
 Food::Food(const ToricPosition& TP, Quantity quant)
     :Positionable(TP),quantity(quant)
 {

@@ -1,6 +1,7 @@
 #ifndef LOADER_HPP
 #define LOADER_HPP
-
+#include <string>
+#include <fstream>
 
 class Loader
 {
