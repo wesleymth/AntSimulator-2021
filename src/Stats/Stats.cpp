@@ -1,4 +1,5 @@
 #include "Stats.hpp"
+#include "../Application.hpp"
 
 Stats::Stats()
 {
@@ -12,12 +13,20 @@ void Stats::setActiveId(int id) //permettant d'affecter la valeur id à l'identi
 
 std::string Stats::getCurrentTitle() const //retournant le libellé du graphe courant (celui correspondant à l'identifiant actif)
 {
-    return graphs.labels[activeId];
+    std::string title("");
+    for (auto& graph:graphs)
+    {
+        if (activeId == graph.first)
+        {
+            title = graph.second.first;
+        }
+    }
+    return title;
 }
 
 void Stats::next() //permettant d'incrémenter l'identifiant actif (modulo le nombre de graphes: on passe à la valeur zéro si l'identifiant actif est celui du dernier graphe possible);
 {
-    if ((activeId+1) == graphs.collectionOfGraphs.size())
+    if (activeId == graphs[graphs.size()-1].first)
     {
         activeId = 0;
     }
@@ -31,7 +40,7 @@ void Stats::previous()
 {
     if ((activeId-1) < 0)
     {
-        activeId = (graphs.collectionOfGraphs.size() - 1);
+        activeId = (graphs[graphs.size()-1].first);
     }
     else
     {
@@ -41,9 +50,9 @@ void Stats::previous()
 
 void Stats::reset()
 {
-    for (auto& graph:graphs.collectionOfGraphs)
+    for (auto& graph:graphs)
     {
-        graph.reset();
+        graph.second.second.reset();
     }
 }
 
@@ -54,7 +63,15 @@ void Stats::addGraph( int id,
                double max,
                const Vec2d &size)
 {
-
+    for (auto& graph:graphs)
+    {
+        if (id == graph.first)
+        {
+            graph.second.first = title;
+            graph.second.second.reset(new Graph(series, size, min, max));
+        }
+    }
+    activeId = id;
 }
 
 void Stats::drawOn(sf::RenderTarget& target) const
@@ -69,7 +86,7 @@ void Stats::update(sf::Time dt)
     if (timeLastUpdate > sf::seconds(getAppConfig().food_generator_delta)) { //if it has been a while since a food was generated
         for (auto& graph:graphs)
         {
-            graph.updateData(timeLastUpdate, Environment::fetchData(const graph.name &));
+            graph.second.second->updateData(timeLastUpdate, getAppEnv().fetchData(graph.second.first));
         }
         timeLastUpdate = sf::Time::Zero; //sets back timeLastUpdate attribute to 0
     }
