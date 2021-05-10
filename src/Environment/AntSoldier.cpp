@@ -13,7 +13,12 @@ int AntSoldier::count = 0;
 AntSoldier::AntSoldier()
     :AntSoldier(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
 {
+    //Done
+}
 
+AntSoldier::~AntSoldier()
+{
+    --count;
 }
 
 AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid)

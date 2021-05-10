@@ -8,16 +8,23 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 
+Quantity Food::count = 0.0;
 
 Food::Food()
     :Food(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), 0)
 {
     //Done
 }
+
+Food::~Food()
+{
+    count -= quantity;
+}
+
 Food::Food(const ToricPosition& TP, Quantity quant)
     :Positionable(TP),quantity(quant)
 {
-    //Done
+    count += quant;
 }
 
 Food::Food(const Vec2d& pos, Quantity quant)

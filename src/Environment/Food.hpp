@@ -22,6 +22,7 @@
 class Food : public Positionable, public Drawable
 {
 public:
+    static Quantity count;
 
     /*!
      *  @brief default constructor
@@ -29,10 +30,19 @@ public:
     Food();
 
     /*!
+     *  @brief default destructor
+     *
+     *  @note takes away quantity of Food::count
+     */
+    ~Food();
+
+    /*!
      *  @brief constructor using a given positionable and quantity
      *
      *  @param TP ToricPosition of the food
      *  @param quant quantity of the food
+     *
+     *  @note adds quant to Food::count
      */
     Food(const ToricPosition& TP, Quantity quant);
 

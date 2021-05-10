@@ -19,10 +19,19 @@
 class Termite : public Animal
 {
 public:
+    static int count;
+
     /*!
      *  @brief default constructor
      */
     Termite();
+
+    /*!
+     *  @brief default destructor
+     *
+     *  @note decrements count
+     */
+    ~Termite();
 
     /*!
      *  @brief constructor with specific attributes
@@ -31,6 +40,7 @@ public:
      *  @param uid the anthill it belongs to's uid
      *
      *  @note calls constructor of Animal
+     *  @note increments count
      */
     Termite(const ToricPosition& pos);
 
