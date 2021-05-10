@@ -6,8 +6,13 @@
 
 #include "Environment.hpp"
 #include "../Application.hpp"
+#include "AntSoldier.hpp"
+#include "AntWorker.hpp"
+#include "Termite.hpp"
+
 
 Environment::Environment()
+    :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)
 {
     //Done
 }
@@ -197,14 +202,46 @@ Quantities Environment::getPheromoneQuantitiesPerIntervalForAnt(const ToricPosit
     }
     return Q;
 }
-/*
-std::unordered_map<std::string, double> Environment::fetchData(const std::string &)
+
+std::vector<std::string> Environment::getAnthillsIds() const
 {
-    return {
-        {"worker ants", 0},
-        {"soldier ants", 0},
-        {"termites", 0,
-        {"temperature", 0}
-      }
+    std::vector<std::string> res;
+    for(auto& anthill: anthills)
+    {
+        res.push_back("anthill #" + std::to_string(anthill->getUid()));
+    }
+    return res;
 }
-*/
+
+std::unordered_map<std::string, double> Environment::fetchData(const std::string & title)
+{
+    if(title == "s::GENERAL")
+    {
+        return
+        {
+            {"worker ants", AntWorker::count},
+            {"soldier ants", AntSoldier::count},
+            {"termites", Termite::count},
+            {"temperature", temperature}
+        };
+    }
+    if (title == "s::FOOD")
+    {
+        return
+        {
+            {"food in envrionment", Food::count},
+            {"food carried", AntWorker::totalFoodCarried},
+        };
+    }
+    if (title == "s::ANTHILLS")
+    {
+        std::unordered_map<std::string, double> new_data;
+        for(auto& anthill: anthills)
+        {
+            new_data.insert(std::make_pair<std::string,double>("anthill #" + std::to_string(anthill->getUid()),anthill->getFoodStock()));
+        }
+        return new_data;
+    }
+
+}
+

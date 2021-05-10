@@ -34,9 +34,12 @@ private:
     std::vector<Pheromone*> pheromones;
     FoodGenerator foodGenerator;
     bool showPheromones;
+    double temperature;
 public:
     /*!
      *  @brief default constructor
+     *
+     *  @note sets temperature to getAppConfig().temperature_initial
      */
     Environment();
 
@@ -152,7 +155,9 @@ public:
             Angle direction_rad,
             const Intervals &angles);
 
-    std::unordered_map<std::string, double> fetchData(const std::string &);
+    std::unordered_map<std::string, double> fetchData(const std::string &title);
+
+    std::vector<std::string> getAnthillsIds() const;
 };
 
 #endif // ENVIRONMENT_HPP

@@ -22,10 +22,19 @@
 class Anthill : public Positionable, public Drawable, public Updatable
 {
 public:
+    static int count;
+
     /*!
      *  @brief default constructor
      */
     Anthill();
+
+    /*!
+     *  @brief default destructor
+     *
+     *  @note decrements count
+     */
+    ~Anthill();
 
     /*!
      *  @brief constructor with specific position
@@ -35,6 +44,7 @@ public:
      *  @note creates a uid using creatUid() from Utility.hpp
      *  @note sets foodStock and timeLastSpawn to 0
      *  @note generates an ant when created using generateAnt()
+     *  @note increments count
      */
     Anthill(const ToricPosition& TP);
 
@@ -53,6 +63,20 @@ public:
      *  @return getAppConfig().anthill_worker_prob_default
      */
     double getWorkerProb() const;
+
+    /*!
+     *  @brief gets the anthill's uid
+     *
+     *  @return uid
+     */
+    Uid getUid() const;
+
+    /*!
+     *  @brief gets the anthill's foodStock
+     *
+     *  @return foodStock
+     */
+    Quantity getFoodStock() const;
 
     /*!
      *  @brief adds food to the foodStock

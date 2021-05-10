@@ -487,12 +487,12 @@ void Application::handleEvent(sf::Event event, sf::RenderWindow& window)
             window.close();
             break;
 
-        case sf::Keyboard::C:
+       /* case sf::Keyboard::C:
 			delete mConfig;
             mConfig = new Config(mAppDirectory + mCfgFile); // reconstruct
 			getEnv().resetControls();
             break;
-
+        */
         // Toggle pause for simulation
         case sf::Keyboard::Space:
             mPaused = !mPaused;
@@ -838,7 +838,7 @@ Stats& Application::getStats()
 
 void Application::setActiveGraph(int id)
 {
-	getStats().setActive(id);
+    getStats().setActiveId(id);
 }
 
 void Application::resetStats()

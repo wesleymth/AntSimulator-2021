@@ -12,16 +12,24 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 
+int Anthill::count = 0;
+
 Anthill::Anthill()
     :Anthill(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2))
 {
     //Done
 }
 
+Anthill::~Anthill()
+{
+    --count;
+}
+
 Anthill::Anthill(const ToricPosition& TP)
     :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero)
 {
     generateAnt(); //Generates an ant at the creation of an anthill
+    ++count;
 }
 
 Anthill::Anthill(const Vec2d& pos)
@@ -34,6 +42,16 @@ double Anthill::getWorkerProb() const
 {
     return getAppConfig().anthill_worker_prob_default;
 }
+
+Uid Anthill::getUid() const
+{
+    return uid;
+}
+
+Quantity Anthill::getFoodStock() const
+{
+    return foodStock;
+};
 
 void Anthill::receiveFood(Quantity received)
 {

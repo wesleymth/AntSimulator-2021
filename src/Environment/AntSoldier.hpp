@@ -18,12 +18,20 @@
 
 class AntSoldier : public Ant
 {
-    static int count;
 public:
+    static int count;
+
     /*!
      *  @brief default constructor
      */
     AntSoldier();
+
+    /*!
+     *  @brief default destructor
+     *
+     *  @note decrements count
+     */
+    ~AntSoldier();
 
     /*!
      *  @brief constructor with specific position and uid
@@ -32,6 +40,7 @@ public:
      *  @param uid of the corresponding anthill
      *
      *  @note calls Ant constructor using TP, getAppConfig().ant_soldier_hp, getAppConfig().ant_soldier_lifespan and uid
+     *  @note incrments count
      */
     AntSoldier(const ToricPosition& TP, Uid uid);
 

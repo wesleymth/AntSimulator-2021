@@ -19,10 +19,22 @@
 class AntWorker : public Ant
 {
 public:
+    static int count;
+
+    static double totalFoodCarried;
+
     /*!
      *  @brief default constructor
      */
     AntWorker();
+
+    /*!
+     *  @brief default destructor
+     *
+     *  @note decrements count
+     *  @note the antworker drops its food if it dies while carrying food
+     */
+    ~AntWorker();
 
     /*!
      *  @brief constructor with specific attributes
@@ -31,6 +43,7 @@ public:
      *  @param uid the anthill it belongs to's uid
      *
      *  @note calls constructor of Ant
+     *  @note increments count
      */
     AntWorker(const ToricPosition& TP, Uid uid);
 

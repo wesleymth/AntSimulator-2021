@@ -235,6 +235,7 @@ private:
     State state;
     sf::Time fightTime;
     Animal* lastFought;
+    sf::Sprite sprite;
 
 };
 

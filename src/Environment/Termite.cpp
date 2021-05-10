@@ -9,16 +9,23 @@
 #include "../Utility/Utility.hpp"
 #include "Environment.hpp"
 
+int Termite::count = 0;
+
 Termite::Termite()
     :Termite(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2))
 {
     //Done
 }
 
+Termite::~Termite()
+{
+    --count;
+}
+
 Termite::Termite(const ToricPosition& pos)
     :Animal::Animal(pos, getAppConfig().termite_hp, getAppConfig().termite_lifespan)
 {
-    //Done
+    ++count;
 }
 
 Termite::Termite(const Vec2d& pos)
