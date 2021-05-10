@@ -12,6 +12,7 @@
 #include <JSON/JSON.hpp>
 #include "Config.hpp"
 #include <Utility/Vec2d.hpp>
+#include "Stats/Stats.hpp"
 
 #include <SFML/Graphics.hpp>
 

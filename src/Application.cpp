@@ -16,6 +16,7 @@
 #include <cassert>
 #include <Stats/Stats.hpp>
 #include "Config.hpp"
+
 namespace // anonymous
 {
 /* objects defined in anonymous namespaces cannot be used
@@ -490,7 +491,7 @@ void Application::handleEvent(sf::Event event, sf::RenderWindow& window)
         case sf::Keyboard::C:
 			delete mConfig;
             mConfig = new Config(mAppDirectory + mCfgFile); // reconstruct
-			getEnv().resetControls();
+//			getEnv().resetControls();
             break;
 
         // Toggle pause for simulation
@@ -838,7 +839,7 @@ Stats& Application::getStats()
 
 void Application::setActiveGraph(int id)
 {
-	getStats().setActive(id);
+    getStats().setActiveId(id);
 }
 
 void Application::resetStats()
