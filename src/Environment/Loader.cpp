@@ -11,7 +11,7 @@ Loader::Loader()
     //done
 }
 
-void Loader::loadMap(std::string const& filepath)
+void loadMap(std::string const& filepath)
 {
     std::ifstream file; // déclaration du flot en lecture
     file.open(filepath.c_str()); // le flot est lié au fichier "test"
