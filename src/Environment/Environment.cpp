@@ -120,9 +120,9 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
-    if (foods.size() != 0) {
+    /*if (foods.size() != 0) {
         compareDistance = (toricDistance(position, foods[0]->getPosition())); //sets the comparing distance to the distance between the first food and the position of the ant worker
-    }
+    }*/
     for(auto& food: foods) {
         if (toricDistance(position, food->getPosition()) < compareDistance) { //if the distance of the next food is lower than the distance of the last food
             compareDistance = toricDistance(position, food->getPosition()); //distance is then equal to the distance of the new food
@@ -138,10 +138,13 @@ Animal* Environment::getClosestAnimalForAnimal(const Animal* currentInstance)
 {
     Animal* animalptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
-    for(auto& animal: animals) {
-        if ((toricDistance(currentInstance->getPosition(), animal->getPosition()) < compareDistance) and (currentInstance != animal)) { //if the distance of the next animal is lower than the distance of the last animal and the animal isn't itself
+    for(auto& animal: animals)
+    {
+        if ((toricDistance(currentInstance->getPosition(), animal->getPosition()) < compareDistance) and (currentInstance != animal))
+        { //if the distance of the next animal is lower than the distance of the last animal and the animal isn't itself
             compareDistance = toricDistance(currentInstance->getPosition(), animal->getPosition()); //distance is then equal to the distance of the new animal
-            if (compareDistance <= getAppConfig().animal_sight_distance) { //if the animal is in the sight distance of the given animal
+            if (compareDistance <= getAppConfig().animal_sight_distance)
+            { //if the animal is in the sight distance of the given animal
                 animalptr = animal;
             }
         }
@@ -242,6 +245,5 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
         }
         return new_data;
     }
-
 }
 
