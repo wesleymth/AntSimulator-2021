@@ -41,7 +41,7 @@ void loadMap(std::string const& filepath)
                         }
                         word.clear();
                     }
-                    std::cout << words.size() << std::endl;
+                    std::cout << words.size() << std::endl;     // test *************
                     try
                     {
                         std::cout<< "try" << std::endl;   // test *************
@@ -49,7 +49,7 @@ void loadMap(std::string const& filepath)
                         {
                             if(words.size()==3)
                             {
-                                //getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2])))); // A decommenter
+                                getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2]))));// *** A decommenter
                                 std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ")" << std::endl;      // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
@@ -57,7 +57,7 @@ void loadMap(std::string const& filepath)
                         } else if (words[0]=="termite") {
                             if(words.size()==3)
                             {
-                                //getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));
+                                getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));//  *** A decommenter
                                 std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ")" << std::endl;  // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
@@ -65,7 +65,7 @@ void loadMap(std::string const& filepath)
                         } else if (words[0]=="food") {
                             if(words.size()==4)
                             {
-                                //getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));
+                                getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));  // *** A decommenter
                                 std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ") Quantity = " << words[3] <<std::endl; // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
