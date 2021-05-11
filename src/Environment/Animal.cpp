@@ -17,8 +17,7 @@ Animal::Animal()
 
 Animal::Animal(const ToricPosition& TP, double HP, double LT)
     :Positionable(TP), dirAngle(uniform(0.0, TAU)), healthPoints(HP),
-     lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle), fightTime(sf::Time::Zero), lastFought(nullptr),
-     sprite(getSprite())
+     lifetime(LT), timeLastRot(sf::Time::Zero), state(Idle), fightTime(sf::Time::Zero), lastFought(nullptr)
 {
     //Done
 }

@@ -9,6 +9,23 @@
 
 typedef std::vector< std::pair <int,std::pair<std::string, std::unique_ptr<Graph>>>> Graphs ;
 
+    //   GRAPHS STRUCTURE
+    //
+    //   -----------------------------
+    //   |            |       |      |
+    //   |            |       |      |
+    //   |            |       |      |
+    //   |     int    | title |Graph*|
+    //   |            |       |      |
+    //   |            |       |      |
+    //   |            |       |      |
+    //   -----------------------------
+    //             ^      ^
+    //             1st pair
+    //                    ^      ^
+    //                    2nd pair
+
+
 class Stats : public Drawable, public Updatable
 {
 public:

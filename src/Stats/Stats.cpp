@@ -76,7 +76,10 @@ void Stats::addGraph( int id,
 
 void Stats::drawOn(sf::RenderTarget& target) const
 {
-
+    for (auto& graph : graphs)
+    {
+        graph.second.second->drawOn(target);
+    }
 }
 
 void Stats::update(sf::Time dt)
