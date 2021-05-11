@@ -232,8 +232,7 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
     {
         return
         {
-            {"food in envrionment", Food::count},
-            {"food carried", AntWorker::totalFoodCarried},
+            {"food", Food::count}
         };
     }
     if (title == "s::ANTHILLS")
@@ -245,5 +244,6 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
         }
         return new_data;
     }
+    //lancer exception
 }
 

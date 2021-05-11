@@ -10,7 +10,6 @@
 #include "Random/Random.hpp"
 
 int AntWorker::count = 0;
-double AntWorker::totalFoodCarried = 0.0;
 
 AntWorker::AntWorker()
     :AntWorker(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
@@ -21,11 +20,6 @@ AntWorker::AntWorker()
 AntWorker::~AntWorker()
 {
     --count;
-    if (carriedFood > 0) //Drops the food it carried if it dies
-    {
-        getAppEnv().addFood(new Food(getPosition(),carriedFood));
-        totalFoodCarried -= carriedFood;
-    }
 }
 
 AntWorker::AntWorker(const ToricPosition& TP, Uid uid)
@@ -62,7 +56,6 @@ void AntWorker::update(sf::Time dt)
     {
         Quantity taken(closestFood->takeQuantity(getAppConfig().ant_max_food));
         carriedFood += taken;
-        totalFoodCarried += taken;
         //if the ant can see a food close to itself and if the ant doesn't carry anything then the ant takes a quantity ant_max_food from the food
         if (getAppEnv().getAnthillForAnt(getPosition(),getAnthillUid()) == nullptr)
         {
@@ -73,7 +66,6 @@ void AntWorker::update(sf::Time dt)
     if (getAppEnv().getAnthillForAnt(getPosition(),getAnthillUid()) != nullptr)
     {
         getAppEnv().getAnthillForAnt(getPosition(),getAnthillUid())->receiveFood(carriedFood);
-        totalFoodCarried -= carriedFood;
         carriedFood = 0.0;
         //if the ant can see the anthill and the position of the ant is the same as the anthill then it drops its carried food to the anthill
     }

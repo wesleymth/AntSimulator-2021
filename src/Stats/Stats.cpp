@@ -1,5 +1,6 @@
 #include "Stats.hpp"
 #include "../Application.hpp"
+#include <utility>
 
 Stats::Stats()
 {
@@ -13,20 +14,12 @@ void Stats::setActiveId(int id) //permettant d'affecter la valeur id à l'identi
 
 std::string Stats::getCurrentTitle() const //retournant le libellé du graphe courant (celui correspondant à l'identifiant actif)
 {
-    std::string title("");
-    for (auto& graph:graphs)
-    {
-        if (activeId == graph.first)
-        {
-            title = graph.second.first;
-        }
-    }
-    return title;
+    return graphs.find(activeId)->second.first;
 }
 
 void Stats::next() //permettant d'incrémenter l'identifiant actif (modulo le nombre de graphes: on passe à la valeur zéro si l'identifiant actif est celui du dernier graphe possible);
 {
-    if (activeId == graphs[graphs.size()-1].first)
+    if (activeId == graphs.size()-1)
     {
         activeId = 0;
     }
@@ -40,7 +33,7 @@ void Stats::previous()
 {
     if ((activeId-1) < 0)
     {
-        activeId = (graphs[graphs.size()-1].first);
+        activeId = graphs.size()-1;
     }
     else
     {
@@ -50,9 +43,9 @@ void Stats::previous()
 
 void Stats::reset()
 {
-    for (auto& graph:graphs)
+    for (Graphs::iterator i(graphs.begin()); i!= graphs.end(); ++i)
     {
-        graph.second.second.reset();
+        i->second.second.reset();
     }
 }
 
@@ -63,23 +56,13 @@ void Stats::addGraph( int id,
                double max,
                const Vec2d &size)
 {
-    for (auto& graph:graphs)
-    {
-        if (id == graph.first)
-        {
-            graph.second.first = title;
-            graph.second.second.reset(new Graph(series, size, min, max));
-        }
-    }
+    graphs.insert(id,std::make_pair<std::string,std::unique_ptr<Graph>>(title,new Graph(series,size,min,max)));
     activeId = id;
 }
 
 void Stats::drawOn(sf::RenderTarget& target) const
 {
-    for (auto& graph : graphs)
-    {
-        graph.second.second->drawOn(target);
-    }
+    graphs.find(activeId)->second.second->drawOn(target);
 }
 
 void Stats::update(sf::Time dt)

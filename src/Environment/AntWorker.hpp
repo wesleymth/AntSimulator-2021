@@ -21,8 +21,6 @@ class AntWorker : public Ant
 public:
     static int count;
 
-    static double totalFoodCarried;
-
     /*!
      *  @brief default constructor
      */

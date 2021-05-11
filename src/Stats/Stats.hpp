@@ -6,24 +6,27 @@
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
 #include "Graph.hpp"
+#include <unordered_map>
 
-typedef std::vector< std::pair <int,std::pair<std::string, std::unique_ptr<Graph>>>> Graphs ;
+typedef std::pair<std::string, std::unique_ptr<Graph>> GRAPH ;
+
+typedef std::unordered_map<int,GRAPH> Graphs ;
 
     //   GRAPHS STRUCTURE
     //
-    //   -----------------------------
-    //   |            |       |      |
-    //   |            |       |      |
-    //   |            |       |      |
-    //   |     int    | title |Graph*|
-    //   |            |       |      |
-    //   |            |       |      |
-    //   |            |       |      |
-    //   -----------------------------
-    //             ^      ^
-    //             1st pair
-    //                    ^      ^
-    //                    2nd pair
+    //   -------------------------------
+    //   |            |       |        |
+    //   |            |       |        |
+    //   |            |       |        |
+    //   |     id     | title | Graph* |
+    //   |   (first)  |(second|(second |
+    //   |            |.first |.second |
+    //   |            |   )   |   )    |
+    //   -------------------------------
+    //          ^             ^
+    //              1st pair
+    //                      ^     ^
+    //                      2nd pair
 
 
 class Stats : public Drawable, public Updatable
@@ -35,7 +38,7 @@ public:
     void next();
     void previous();
     void reset();
-    void addGraph( int id,
+    void addGraph(int id,
                    const std::string &title,
                    const std::vector<std::string> &series,
                    double min,
