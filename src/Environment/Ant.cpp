@@ -117,10 +117,14 @@ RotationProbs Ant::computeRotationProbs() const
     double z(0);
     for(size_t i(0); i<Q.size(); ++i) { // Calculates Pphi vector Pphi[i]=D(Q[i])
         Pphi.push_back(1/(1+exp(-getAppConfig().beta_d*(Q[i]-getAppConfig().q_zero))));
+        sumPphi+=Pphi[i];
     }
     for(size_t n(0); n<Q.size(); ++n) { //Calculates z(alpha) and nomalisies Pphi then Calculates Pm'(n), probabilities influenced by pheromones
         Pphi[n]=Pphi[n]/sumPphi;
         z+=rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
+    }
+    for(size_t n(0); n<Q.size(); ++n)
+    {
         rotProb.second[n]=(1/z)*rotProb.second[n]*pow(Pphi[n], getAppConfig().alpha);
     }
     return rotProb;
