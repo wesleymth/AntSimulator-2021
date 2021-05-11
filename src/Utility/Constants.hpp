@@ -24,8 +24,6 @@ double const DEFAULT_FOOD_SIZE = 8;
 double const DEFAULT_FOOD_QUANTITY = 0;
 double const DEFAULT_PHEROMONE_QUANTITY = 0;
 double const DEFAULT_UID = 0;
-
-
 const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699);
 
 // Define resources location

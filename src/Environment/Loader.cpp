@@ -8,10 +8,10 @@
 
 Loader::Loader()
 {
-
+    //done
 }
 
-void loadMap(std::string const& filepath)
+void Loader::loadMap(std::string const& filepath)
 {
     std::ifstream file; // déclaration du flot en lecture
     file.open(filepath.c_str()); // le flot est lié au fichier "test"
@@ -21,41 +21,52 @@ void loadMap(std::string const& filepath)
         std::vector<std::string> words;
         while (!file.eof())
         {
-            file >> std::ws;
             getline(file, line);
+            std::cout << line << std::endl;
             if (! file.fail()) // on a effectivement pu lire qqchose
             {
-                if (line[0]!='#')
+                if (line[0]!='#' and line.size()>1)
                 {
-                    for(size_t i(0); i<line.size(); ++i)
+                    for(size_t i(0); i<line.size()-1; ++i)
                     {
                         while(line[i]!=' ' and i<line.size())
                         {
                             word+=line[i];
+                            ++i;
                         }
-                        words.push_back(word);
+                        std::cout << word <<std::endl;     // test *************
+                        if(not word.empty())
+                        {
+                            words.push_back(word);
+                        }
+                        word.clear();
                     }
+                    std::cout << words.size() << std::endl;
                     try
                     {
+                        std::cout<< "try" << std::endl;   // test *************
                         if (words[0]=="anthill")
                         {
                             if(words.size()==3)
                             {
-                                getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2]))));
+                                //getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2])))); // A decommenter
+                                std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ")" << std::endl;      // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
                         } else if (words[0]=="termite") {
                             if(words.size()==3)
                             {
-                                getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));
+                                //getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));
+                                std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ")" << std::endl;  // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
                         } else if (words[0]=="food") {
                             if(words.size()==4)
                             {
-                                getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));
+                                //getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));
+                                std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ") Quantity = " << words[3] <<std::endl; // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
@@ -66,13 +77,15 @@ void loadMap(std::string const& filepath)
                     catch (int i) {
                         if (i==ERROR_LOADER_INCORRECT_ARGUMENTS)
                         {
-                            std::cerr << "incorrect number of arguments provided for" << words[0] << "construction" << std::endl;
+                            std::cerr << "incorrect number of arguments provided for " << words[0] << " construction" << std::endl;
                         }
                     }  catch (const std::invalid_argument&) {
                         std::cerr << "Argument is invalid -> no possible conversion to double";
                     }   catch (const std::out_of_range&) {
                                 std::cerr << "Argument is out of range for a double";
                     }
+                    words.clear();
+                    std::cout<< std::endl << std::endl;   // test *************
                 }
             }
         }
