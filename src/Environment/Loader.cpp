@@ -22,7 +22,7 @@ void loadMap(std::string const& filepath)
         while (!file.eof())
         {
             getline(file, line);
-            std::cout << line << std::endl;
+            std::cout << line << std::endl; // test
             if (! file.fail()) // on a effectivement pu lire qqchose
             {
                 if (line[0]!='#' and line.size()>1)

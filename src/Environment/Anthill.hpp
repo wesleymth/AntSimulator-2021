@@ -112,12 +112,19 @@ public:
      */
     bool uidIsEqual(Uid checkId) const;
 
-
+    /*!
+     *  @brief Writes information to recreate current this
+     *
+     *  @param std::ofstream &stream
+     */
     void writeLine(std::ofstream &stream) const;
+
+    void takeDamage()
 private:
     Uid uid;
     Quantity foodStock;
     sf::Time timeLastSpawn;
+    double healthPoints;
 
     /*!
      *  @brief generates an ant worker in the environment

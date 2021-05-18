@@ -87,6 +87,13 @@ public:
      */
     bool zeroQuantity() const;
 
+    /*!
+     *  @brief Writes information to recreate current this
+     *
+     *  @param std::ofstream &stream
+     *
+     *  @note In addition to position and type writes food
+     */
     void writeLine(std::ofstream &stream) const;
 private:
 

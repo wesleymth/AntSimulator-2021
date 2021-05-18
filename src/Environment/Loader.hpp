@@ -9,7 +9,13 @@ public:
     Loader();
 };
 
-
+/*!
+ * @brief Loads map from .map file
+ *
+ * @param std::string const& filepath
+ *
+ * @note
+ */
 void loadMap(std::string const& filepath);
 
 

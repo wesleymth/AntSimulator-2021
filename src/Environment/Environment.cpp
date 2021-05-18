@@ -9,14 +9,10 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 #include "Termite.hpp"
-<<<<<<< HEAD
 #include <iostream>
 #include <string>
-
-
-=======
 #include <unordered_map>
->>>>>>> 410120bcd7f8b69c997f7beecdcd1f031ea05b61
+
 
 Environment::Environment()
     :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)
@@ -262,7 +258,7 @@ void Environment::saveMap()
     std::string fileName;
     std::cout << "File Name.map" << std::endl;
     std::cin >> fileName;
-    std::ofstream file(fileName);
+    std::ofstream file("../res/"+fileName);
     for(auto& food : foods)
     {
         food->writeLine(file);
