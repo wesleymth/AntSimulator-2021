@@ -26,7 +26,7 @@ typedef std::unordered_map<int,GraphAndLabel> Graphs ;
     //          ^             ^
     //               Graphs
     //                      ^     ^
-    //                    GraphAndLabel
+    //                    GraphAndLabel(pair)
 
 
 class Stats : public Drawable, public Updatable

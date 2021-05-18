@@ -25,7 +25,7 @@ AntWorker::~AntWorker()
 AntWorker::AntWorker(const ToricPosition& TP, Uid uid)
     :Ant::Ant(TP, getAppConfig().ant_worker_hp, getAppConfig().ant_worker_lifespan, uid), carriedFood(0.0)
 {
-    //Done
+    ++count;
 }
 
 AntWorker::AntWorker(const Vec2d& pos, Uid id)

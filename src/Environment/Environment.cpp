@@ -249,9 +249,8 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
         }
         return new_data;
     } else {
-        throw std::invalid_argument("Graph title doesn't correspond to existing graphs");
+        throw std::invalid_argument("Graph title doesn't correspond to defined graphs");
     }
-    //lancer exception
 }
 
 
