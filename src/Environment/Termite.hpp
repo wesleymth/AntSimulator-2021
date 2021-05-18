@@ -7,7 +7,7 @@
 #ifndef TERMITE_HPP
 #define TERMITE_HPP
 #include "Animal.hpp"
-
+#include "../Interface/Savable.hpp"
 
 /*!
  * @class Termite
@@ -16,7 +16,7 @@
  *
  * @brief Represents a Termite
  */
-class Termite : public Animal
+class Termite : public Animal, public Savable
 {
 public:
     static int count;
@@ -122,7 +122,7 @@ public:
      *
      *  @note Override of pure virtual method in animal
      */
-    virtual void writeLine(std::ofstream &stream) const override;
+    void writeLine(std::ofstream &stream) const override;
 };
 
 #endif // TERMITE_HPP

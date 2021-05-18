@@ -142,8 +142,3 @@ bool Ant::isEnemyDispatch(Ant const* other) const
 {
     return getAnthillUid()!=other->getAnthillUid();
 }
-
-void Ant::writeLine(std::ofstream &stream) const
-{
-    //intentionally does nothing
-}

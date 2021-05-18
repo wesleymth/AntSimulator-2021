@@ -154,3 +154,8 @@ void Animal::drawOn(sf::RenderTarget& target) const
         target.draw(text); //shows healthPoints via a text
     }
 }
+
+void Animal::writeLine(std::ofstream& stream)
+{
+    //done
+}

@@ -10,7 +10,7 @@
 #include "Positionable.hpp"
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
-
+#include "../Interface/Savable.hpp"
 /*!
  * @class Anthill
  *
@@ -19,7 +19,7 @@
  * @inherits Positionable, Drawable, Updatable
  */
 
-class Anthill : public Positionable, public Drawable, public Updatable
+class Anthill : public Positionable, public Drawable, public Updatable, public Savable
 {
 public:
     static int count;
@@ -117,7 +117,7 @@ public:
      *
      *  @param std::ofstream &stream
      */
-    void writeLine(std::ofstream &stream) const;
+    void writeLine(std::ofstream &stream) const override;
 
     void takeDamage(double damage);
 private:

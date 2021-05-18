@@ -208,15 +208,9 @@ public:
      */
     virtual bool isEnemyDispatch(Ant const* other) const = 0;
 
+    virtual void writeLine(std::ofstream& stream);
 
-    /*!
-     *  @brief Writes information to recreate current this
-     *
-     *  @param std::ofstream &stream
-     *
-     *  @note Override of pure virtual method in animal
-     */
-    virtual void writeLine(std::ofstream& stream) const = 0;
+
 protected:
     /*!
      *  @brief sets direction angle
