@@ -10,6 +10,7 @@
 #include "../Utility/Types.hpp"
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
+#include "../Interface/Savable.hpp"
 
 /*!
  * @class Food
@@ -19,7 +20,7 @@
  * @inherits Positionable, Drawable
  */
 
-class Food : public Positionable, public Drawable
+class Food : public Positionable, public Drawable, public Savable
 {
 public:
     static Quantity count;
@@ -94,7 +95,7 @@ public:
      *
      *  @note In addition to position and type writes food
      */
-    void writeLine(std::ofstream &stream) const;
+    void writeLine(std::ofstream &stream) const override;
 private:
 
     Quantity quantity;
