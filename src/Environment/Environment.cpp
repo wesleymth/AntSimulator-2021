@@ -9,7 +9,7 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 #include "Termite.hpp"
-
+#include <unordered_map>
 
 Environment::Environment()
     :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)
@@ -218,7 +218,7 @@ std::vector<std::string> Environment::getAnthillsIds() const
 
 std::unordered_map<std::string, double> Environment::fetchData(const std::string & title)
 {
-    if(title == "s::GENERAL")
+    if(title == "general")
     {
         return
         {
@@ -227,15 +227,13 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
             {"termites", Termite::count},
             {"temperature", temperature}
         };
-    }
-    if (title == "s::FOOD")
+    } else if (title == "food")
     {
         return
         {
             {"food", Food::count}
         };
-    }
-    if (title == "s::ANTHILLS")
+    } else if (title == "anthills")
     {
         std::unordered_map<std::string, double> new_data;
         for(auto& anthill: anthills)
@@ -243,6 +241,8 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
             new_data.insert(std::make_pair<std::string,double>("anthill #" + std::to_string(anthill->getUid()),anthill->getFoodStock()));
         }
         return new_data;
+    } else {
+        throw std::invalid_argument("Graph title doesn't correspond to existing graphs");
     }
     //lancer exception
 }

@@ -3,6 +3,7 @@
 #include <utility>
 
 Stats::Stats()
+    :activeId(0), timeLastUpdate(sf::Time::Zero)
 {
 
 }
@@ -43,9 +44,10 @@ void Stats::previous()
 
 void Stats::reset()
 {
-    for (Graphs::iterator i(graphs.begin()); i!= graphs.end(); ++i)
+    for(auto& graph : graphs)
+    //for (Graphs::iterator i(graphs.begin()); i!= graphs.end(); ++i)
     {
-        i->second.second.reset();
+        graph.second.second->reset();
     }
 }
 
@@ -56,8 +58,17 @@ void Stats::addGraph( int id,
                double max,
                const Vec2d &size)
 {
-    graphs.insert(id,std::make_pair<std::string,std::unique_ptr<Graph>>(title,new Graph(series,size,min,max)));
-    activeId = id;
+    if(graphs.find(id) ==  graphs.end())
+    {
+        graphs[id].second.reset(new Graph(series,size,min,max));
+        graphs[id].first = title;
+        setActiveId(id);
+    }
+    else
+    {
+        throw std::invalid_argument("id doesn't correspond to existing ids: " + std::to_string(id) + " " + title);
+    }
+    //graphs.insert(id,std::make_pair<std::string, std::unique_ptr<Graph>>(title,std::make_unique<Graph(series,size,min,max)>));
 }
 
 void Stats::drawOn(sf::RenderTarget& target) const
