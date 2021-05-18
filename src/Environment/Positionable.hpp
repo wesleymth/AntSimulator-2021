@@ -66,6 +66,13 @@ public:
      */
     std::ostream& display(std::ostream& out);
 
+    /*!
+     * @brief calculates the angle between the current instance and another Positionable
+     *
+     * @return angle between the two
+     */
+    double calculateAngle(const Positionable& other);
+
 private:
     ToricPosition position;
 };
