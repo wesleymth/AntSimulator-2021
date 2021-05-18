@@ -164,6 +164,8 @@ public:
      *  @brief creates file containing information to recreate current enironment with loadMap function
      */
     void saveMap();
+
+    bool anthillStillAlive(const Anthill* a);
 };
 
 

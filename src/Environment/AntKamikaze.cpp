@@ -65,3 +65,16 @@ void AntKamikaze::move(sf::Time dt)
     }
 }
 
+bool AntKamikaze::targetInPerceptionDistance() const
+{
+    return (toricDistance(getPosition(), target->getPosition()) <= getAppConfig().ant_max_perception_distance);
+}
+
+void AntKamikaze::explode()
+{
+    if (foundTarget() and targetInPerceptionDistance())
+    {
+        target->takeDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
+        receiveDamage(getHP());
+    }
+}

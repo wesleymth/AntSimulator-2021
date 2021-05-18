@@ -5,7 +5,7 @@
 Stats::Stats()
     :activeId(0), timeLastUpdate(sf::Time::Zero)
 {
-
+    //Dones
 }
 
 void Stats::setActiveId(int id) //permettant d'affecter la valeur id à l'identifiant actif
@@ -20,32 +20,25 @@ std::string Stats::getCurrentTitle() const //retournant le libellé du graphe co
 
 void Stats::next() //permettant d'incrémenter l'identifiant actif (modulo le nombre de graphes: on passe à la valeur zéro si l'identifiant actif est celui du dernier graphe possible);
 {
-    if (activeId == graphs.size()-1)
+    activeId += 1;
+    if (activeId > graphs.size()-1)
     {
         activeId = 0;
-    }
-    else
-    {
-        activeId += 1;
     }
 }
 
 void Stats::previous()
 {
-    if ((activeId-1) < 0)
+    activeId -= 1;
+    if ((activeId) < 0)
     {
         activeId = graphs.size()-1;
-    }
-    else
-    {
-        activeId -= 1;
     }
 }
 
 void Stats::reset()
 {
     for(auto& graph : graphs)
-    //for (Graphs::iterator i(graphs.begin()); i!= graphs.end(); ++i)
     {
         graph.second.second->reset();
     }
@@ -62,39 +55,6 @@ void Stats::addGraph( int id,
     graphs[id].second.reset(new Graph(series,size,min,max));
     graphs[id].first = title;
     setActiveId(id);
-
-   /* std::cerr << id << std::endl;
-    std::cerr << "graphs size: " << graphs.size() << std::endl;
-    std::cerr << "_____________________________" << std::endl;
-    for (auto& graph:graphs)
-    {
-        std::cerr << "graph id : " << graph.first << std::endl;
-    }*/
-
-    /*if(graphs.find(id) != graphs.end()) //if graph exists
-
-    {
-        //GraphAndLabel pair = std::make_pair(title,std::make_unique<Graph>(series,size,min,max));
-
-        //pair.second.reset(new Graph(series,size,min,max));
-
-        //graphs[id].first = pair.first;
-        //graphs[id].second = pair.second;
-
-        graphs[id].second.reset(new Graph(series,size,min,max));
-        graphs[id].first = title;
-        setActiveId(id);
-    }
-    else //if graph doesn't exist
-    {
-
-        throw std::invalid_argument("problem with id: " + std::to_string(id) + ", corrseponding to title: " + title);
-
-        //GraphAndLabel pair (std::make_pair(title,std::make_unique<Graph>(series,size,min,max)));
-        //graphs.insert(std::make_pair(id,pair));
-
-        //graphs.insert(id,std::make_pair<std::string, std::unique_ptr<Graph>>(title,std::make_unique<Graph(series,size,min,max)>));
-    }*/
 }
 
 void Stats::drawOn(sf::RenderTarget& target) const

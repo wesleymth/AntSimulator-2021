@@ -59,11 +59,13 @@ public:
 
     void setTarget(Anthill *&anthill);
 
-    void setFoundTarget(bool statement);
-
     void move(sf::Time dt) override;
 
     bool foundTarget() const;
+
+    void explode();
+
+    bool targetInPerceptionDistance() const;
 
 private:
     Anthill* target;
