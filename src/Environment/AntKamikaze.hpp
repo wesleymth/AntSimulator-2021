@@ -65,7 +65,6 @@ public:
 
     bool foundTarget() const;
 
-
 private:
     Anthill* target;
 };

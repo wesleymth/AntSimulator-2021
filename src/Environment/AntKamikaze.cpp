@@ -18,7 +18,7 @@ AntKamikaze::~AntKamikaze()
 }
 
 AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid), target(nullptr), foundTarget(false)
+    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid), target(nullptr)
 {
     ++count;
 }
@@ -52,14 +52,12 @@ bool AntKamikaze::foundTarget() const
     return (target != nullptr);
 }
 
-
-
 void AntKamikaze::move(sf::Time dt)
 {
     if (foundTarget())
     {
-
-        //setDirection();
+        auto dx = (getSpeed()*Vec2d::fromAngle(calculateAngle(*target))) * dt.asSeconds();
+        setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
     }
     else
     {
