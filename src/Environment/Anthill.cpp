@@ -114,3 +114,13 @@ void Anthill::writeLine(std::ofstream &stream) const
 {
     stream << "anthill " << getPosition().x() << " " << getPosition().y() << std::endl;
 }
+
+void Anthill::takeDamage(double damage)
+{
+    if(healthPoints>damage)
+    {
+        healthPoints-=damage;
+    } else {
+        healthPoints=0;
+    }
+}

@@ -58,9 +58,7 @@ void Stats::addGraph( int id,
                double max,
                const Vec2d &size)
 {
-<<<<<<< HEAD
-    if(graphs.find(id) ==  graphs.end())
-=======
+
     graphs[id].second.reset(new Graph(series,size,min,max));
     graphs[id].first = title;
     setActiveId(id);
@@ -74,7 +72,7 @@ void Stats::addGraph( int id,
     }*/
 
     /*if(graphs.find(id) != graphs.end()) //if graph exists
->>>>>>> 80d44e695bcf28f39b5ece9bc8cda40afc712a95
+
     {
         //GraphAndLabel pair = std::make_pair(title,std::make_unique<Graph>(series,size,min,max));
 
@@ -89,11 +87,7 @@ void Stats::addGraph( int id,
     }
     else //if graph doesn't exist
     {
-<<<<<<< HEAD
-        throw std::invalid_argument("id doesn't correspond to existing ids: " + std::to_string(id) + " " + title);
-    }
-    //graphs.insert(id,std::make_pair<std::string, std::unique_ptr<Graph>>(title,std::make_unique<Graph(series,size,min,max)>));
-=======
+
         throw std::invalid_argument("problem with id: " + std::to_string(id) + ", corrseponding to title: " + title);
 
         //GraphAndLabel pair (std::make_pair(title,std::make_unique<Graph>(series,size,min,max)));
@@ -101,7 +95,6 @@ void Stats::addGraph( int id,
 
         //graphs.insert(id,std::make_pair<std::string, std::unique_ptr<Graph>>(title,std::make_unique<Graph(series,size,min,max)>));
     }*/
->>>>>>> 80d44e695bcf28f39b5ece9bc8cda40afc712a95
 }
 
 void Stats::drawOn(sf::RenderTarget& target) const

@@ -12,10 +12,6 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-<<<<<<< HEAD
-
-=======
->>>>>>> 80d44e695bcf28f39b5ece9bc8cda40afc712a95
 
 Environment::Environment()
     :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)

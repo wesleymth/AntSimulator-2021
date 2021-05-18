@@ -119,7 +119,7 @@ public:
      */
     void writeLine(std::ofstream &stream) const;
 
-    void takeDamage()
+    void takeDamage(double damage);
 private:
     Uid uid;
     Quantity foodStock;
