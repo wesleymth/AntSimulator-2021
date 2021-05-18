@@ -17,7 +17,10 @@
 #include "../Interface/Drawable.hpp"
 #include <unordered_map>
 #include <fstream>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 80d44e695bcf28f39b5ece9bc8cda40afc712a95
 
 /*!
  * @class Environment
