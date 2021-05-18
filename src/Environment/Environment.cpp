@@ -9,14 +9,9 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 #include "Termite.hpp"
-<<<<<<< HEAD
 #include <iostream>
 #include <string>
-
-
-=======
 #include <unordered_map>
->>>>>>> 410120bcd7f8b69c997f7beecdcd1f031ea05b61
 
 Environment::Environment()
     :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)
