@@ -70,9 +70,6 @@ void Animal::move(sf::Time dt)
     timeLastRot += dt;
     auto dx = (getSpeed()*Vec2d::fromAngle(dirAngle)) * dt.asSeconds();
     setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
-
-    std::cerr << getPosition() << std::endl;
-
     if (timeLastRot >= sf::seconds(getAppConfig().animal_next_rotation_delay)) {
         timeLastRot=sf::Time::Zero; //resets timeLastRot to 0
         RotationProbs degProb(computeRotationProbs()); //gets rotation probabilities

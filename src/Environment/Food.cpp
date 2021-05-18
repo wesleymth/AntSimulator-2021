@@ -33,6 +33,7 @@ Food::Food(const Vec2d& pos, Quantity quant)
     //Done
 }
 
+
 Quantity Food::takeQuantity(Quantity wantTake)
 {
     Quantity taken(quantity);
@@ -63,4 +64,9 @@ void Food::drawOn(sf::RenderTarget& target) const
 bool Food::zeroQuantity() const
 {
     return (quantity == 0);
+}
+
+void Food::writeLine(std::ofstream& stream) const
+{
+    stream << "food " << getPosition().x() << " " << getPosition().y() << " " << quantity << std::endl;
 }

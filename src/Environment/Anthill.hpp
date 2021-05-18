@@ -112,6 +112,8 @@ public:
      */
     bool uidIsEqual(Uid checkId) const;
 
+
+    void writeLine(std::ofstream &stream) const;
 private:
     Uid uid;
     Quantity foodStock;

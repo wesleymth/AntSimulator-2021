@@ -72,3 +72,8 @@ bool Termite::isEnemyDispatch(Ant const* other) const
 {
     return true;
 }
+
+void Termite::writeLine(std::ofstream& stream) const
+{
+    stream << "termite " << getPosition().x() << " " << getPosition().y() << std::endl;
+}

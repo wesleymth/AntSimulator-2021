@@ -9,6 +9,9 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 #include "Termite.hpp"
+#include <iostream>
+#include <string>
+
 
 
 Environment::Environment()
@@ -247,3 +250,27 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
     //lancer exception
 }
 
+
+
+void Environment::saveMap()
+{
+
+    std::string fileName;
+    std::cout << "File Name.map" << std::endl;
+    std::cin >> fileName;
+    std::ofstream file(fileName);
+    for(auto& food : foods)
+    {
+        food->writeLine(file);
+    }
+    for(auto anthill : anthills)
+    {
+        anthill->writeLine(file);
+    }
+    for(auto animal : animals)
+    {
+        animal->writeLine(file);
+    }
+    file.close();
+
+}

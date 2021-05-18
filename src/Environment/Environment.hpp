@@ -16,7 +16,7 @@
 #include "../Interface/Updatable.hpp"
 #include "../Interface/Drawable.hpp"
 #include <unordered_map>
-
+#include <fstream>
 
 /*!
  * @class Environment
@@ -158,7 +158,15 @@ public:
     std::unordered_map<std::string, double> fetchData(const std::string &title);
 
     std::vector<std::string> getAnthillsIds() const;
+
+    /*!
+     *  @brief creates file containing information to recreate current enironment with loadMap function
+     */
+    void saveMap();
 };
+
+
+
 
 #endif // ENVIRONMENT_HPP
 

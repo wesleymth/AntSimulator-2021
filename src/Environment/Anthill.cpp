@@ -1,3 +1,4 @@
+
 /*
  * POOSV 2020-21
  * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
@@ -107,4 +108,9 @@ void Anthill::generateAnt() const
     } else {
         generateAntSoldier();
     }
+}
+
+void Anthill::writeLine(std::ofstream &stream) const
+{
+    stream << "anthill " << getPosition().x() << " " << getPosition().y() << std::endl;
 }

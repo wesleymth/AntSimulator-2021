@@ -12,4 +12,7 @@ public:
 
 void loadMap(std::string const& filepath);
 
+
+
+
 #endif // LOADER_HPP

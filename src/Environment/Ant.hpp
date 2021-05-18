@@ -162,6 +162,16 @@ public:
      *  @note Override of pure virtual method in animal
      */
     bool isEnemyDispatch(Ant const* other) const override;
+
+
+    /*!
+     *  @brief Override of pure virtual method in animal
+     *
+     *  @param std::ofstream &stream
+     *
+     *  @note Intentionally does nothing as ants are not saved
+     */
+    virtual void writeLine(std::ofstream &stream) const override;
 private:
     Uid anthillUid;
     ToricPosition lastPheromone;

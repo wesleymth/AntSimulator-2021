@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
+#include <string>
 
 /*!
  * @class Animal
@@ -206,6 +207,16 @@ public:
      *  @note to be defined for specific animal sub-classes
      */
     virtual bool isEnemyDispatch(Ant const* other) const = 0;
+
+
+    /*!
+     *  @brief Writes information to recreate current this
+     *
+     *  @param std::ofstream &stream
+     *
+     *  @note Override of pure virtual method in animal
+     */
+    virtual void writeLine(std::ofstream& stream) const = 0;
 protected:
     /*!
      *  @brief sets direction angle

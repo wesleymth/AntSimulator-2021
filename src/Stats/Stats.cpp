@@ -56,7 +56,7 @@ void Stats::addGraph( int id,
                double max,
                const Vec2d &size)
 {
-    graphs.insert(id,std::make_pair<std::string,std::unique_ptr<Graph>>(title,new Graph(series,size,min,max)));
+    //graphs.insert(id,std::make_pair<std::string,std::unique_ptr<Graph>>(title,new Graph(series,size,min,max)));
     activeId = id;
 }
 

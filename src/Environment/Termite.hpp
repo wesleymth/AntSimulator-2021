@@ -107,13 +107,22 @@ public:
      *  @brief double dipatch fonction to allow polymorphism without type testing
      *
      *  @param Ant const* other
-     *
+     *`
      *  @return bool
      *
      *  @note Override of pure virtual method in animal
      */
     bool isEnemyDispatch(Ant const* other) const override;
 
+
+    /*!
+     *  @brief Writes information to recreate current this
+     *
+     *  @param std::ofstream &stream
+     *
+     *  @note Override of pure virtual method in animal
+     */
+    virtual void writeLine(std::ofstream &stream) const override;
 };
 
 #endif // TERMITE_HPP

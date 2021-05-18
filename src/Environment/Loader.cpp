@@ -34,23 +34,19 @@ void loadMap(std::string const& filepath)
                             word+=line[i];
                             ++i;
                         }
-                        std::cout << word <<std::endl;     // test *************
                         if(not word.empty())
                         {
                             words.push_back(word);
                         }
                         word.clear();
                     }
-                    std::cout << words.size() << std::endl;     // test *************
                     try
                     {
-                        std::cout<< "try" << std::endl;   // test *************
                         if (words[0]=="anthill")
                         {
                             if(words.size()==3)
                             {
                                 getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2]))));// *** A decommenter
-                                std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ")" << std::endl;      // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
@@ -58,7 +54,6 @@ void loadMap(std::string const& filepath)
                             if(words.size()==3)
                             {
                                 getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));//  *** A decommenter
-                                std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ")" << std::endl;  // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
@@ -66,7 +61,6 @@ void loadMap(std::string const& filepath)
                             if(words.size()==4)
                             {
                                 getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));  // *** A decommenter
-                                std::cout<< words[0] << " (" << words[1] << ", " << words[2] << ") Quantity = " << words[3] <<std::endl; // test *************
                             } else {
                                 throw ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
@@ -85,7 +79,6 @@ void loadMap(std::string const& filepath)
                                 std::cerr << "Argument is out of range for a double";
                     }
                     words.clear();
-                    std::cout<< std::endl << std::endl;   // test *************
                 }
             }
         }
@@ -94,3 +87,5 @@ void loadMap(std::string const& filepath)
     std::cerr << "Ouverture du fichier " << filepath << " impossible." << std::endl;
     }
 }
+
+

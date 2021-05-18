@@ -87,6 +87,7 @@ public:
      */
     bool zeroQuantity() const;
 
+    void writeLine(std::ofstream &stream) const;
 private:
 
     Quantity quantity;
