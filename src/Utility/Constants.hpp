@@ -26,6 +26,14 @@ double const DEFAULT_PHEROMONE_QUANTITY = 0;
 double const DEFAULT_UID = 0;
 const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699);
 
+double const ANT_KAMAIKAZE_HP = 20;
+double const ANT_KAMAIKAZE_LIFE = 20;
+double const ANT_SCOUT_HP = 20;
+double const ANT_SCOUT_LIFE = 20;
+int const ANT_KAMAIKAZE_STRENGTH = 0;
+int const ANT_KAMAIKAZE_BLOW_UP_DAMAGE = 100;
+int const ANT_SCOUT_STRENGTH = 4;
+
 // Define resources location
 std::string const RES_LOCATION = "../res/";
 

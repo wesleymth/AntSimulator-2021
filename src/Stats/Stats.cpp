@@ -58,17 +58,19 @@ void Stats::addGraph( int id,
                double max,
                const Vec2d &size)
 {
-    std::cerr << id << std::endl;
+    graphs[id].second.reset(new Graph(series,size,min,max));
+    graphs[id].first = title;
+    setActiveId(id);
+
+   /* std::cerr << id << std::endl;
     std::cerr << "graphs size: " << graphs.size() << std::endl;
     std::cerr << "_____________________________" << std::endl;
     for (auto& graph:graphs)
     {
         std::cerr << "graph id : " << graph.first << std::endl;
-    }
+    }*/
 
-
-
-    if(graphs.find(id) == graphs.end()) //if graph doesn't exist
+    /*if(graphs.find(id) != graphs.end()) //if graph exists
     {
         //GraphAndLabel pair = std::make_pair(title,std::make_unique<Graph>(series,size,min,max));
 
@@ -77,18 +79,19 @@ void Stats::addGraph( int id,
         //graphs[id].first = pair.first;
         //graphs[id].second = pair.second;
 
-        setActiveId(id);
-
         graphs[id].second.reset(new Graph(series,size,min,max));
         graphs[id].first = title;
+        setActiveId(id);
     }
-    else
+    else //if graph doesn't exist
     {
-        throw std::invalid_argument("problem with id: " + std::to_string(id) + ", corrseponding title: " + title);
+        throw std::invalid_argument("problem with id: " + std::to_string(id) + ", corrseponding to title: " + title);
+
         //GraphAndLabel pair (std::make_pair(title,std::make_unique<Graph>(series,size,min,max)));
         //graphs.insert(std::make_pair(id,pair));
+
         //graphs.insert(id,std::make_pair<std::string, std::unique_ptr<Graph>>(title,std::make_unique<Graph(series,size,min,max)>));
-    }
+    }*/
 }
 
 void Stats::drawOn(sf::RenderTarget& target) const
