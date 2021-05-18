@@ -8,11 +8,11 @@
 #include "Graph.hpp"
 #include <unordered_map>
 
-typedef std::pair<std::string, std::unique_ptr<Graph>> GRAPH ;
+typedef std::pair<std::string, std::unique_ptr<Graph>> GraphAndLabel ;
 
-typedef std::unordered_map<int,GRAPH> Graphs ;
+typedef std::unordered_map<int,GraphAndLabel> Graphs ;
 
-    //   GRAPHS STRUCTURE
+    //   STRUCTURE
     //
     //   -------------------------------
     //   |            |       |        |
@@ -24,9 +24,9 @@ typedef std::unordered_map<int,GRAPH> Graphs ;
     //   |            |   )   |   )    |
     //   -------------------------------
     //          ^             ^
-    //              1st pair
+    //               Graphs
     //                      ^     ^
-    //                      2nd pair
+    //                    GraphAndLabel
 
 
 class Stats : public Drawable, public Updatable

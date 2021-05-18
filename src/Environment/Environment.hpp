@@ -15,8 +15,12 @@
 #include "FoodGenerator.hpp"
 #include "../Interface/Updatable.hpp"
 #include "../Interface/Drawable.hpp"
+<<<<<<< HEAD
 #include <unordered_map>
 #include <fstream>
+=======
+
+>>>>>>> 410120bcd7f8b69c997f7beecdcd1f031ea05b61
 
 /*!
  * @class Environment
