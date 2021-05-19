@@ -27,7 +27,7 @@ Anthill::~Anthill()
 }
 
 Anthill::Anthill(const ToricPosition& TP)
-    :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(1000000)
+    :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(100)
 {
     generateAnt(); //Generates an ant at the creation of an anthill
     ++count;
@@ -73,6 +73,9 @@ void Anthill::drawOn(sf::RenderTarget& target) const
 
         auto const uidText = buildText(to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
         target.draw(uidText); //shows anthill's uid via a text
+
+        auto const healthPointsText = buildText(to_nice_string(healthPoints), getPosition().toVec2d()+Vec2d(0,80), getAppFont(), 15, sf::Color::Red);
+        target.draw(healthPointsText); //shows anthill's healthpoints
     }
 }
 
