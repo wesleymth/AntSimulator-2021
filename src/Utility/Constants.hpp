@@ -30,6 +30,8 @@ const double ANT_WORKER_COST = 10;
 const double ANT_SOLDIER_COST = 10;
 const double ANT_SCOUT_COST = 10;
 const double ANT_KAMIKAZE_COST = 10;
+const double HUNGER_DAMAGE_PER_TIME = 1;
+
 
 double const ANT_KAMAIKAZE_HP = 20;
 double const ANT_KAMAIKAZE_LIFE = 20;

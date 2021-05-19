@@ -208,7 +208,7 @@ public:
      */
     virtual bool isEnemyDispatch(Ant const* other) const = 0;
 
-    virtual void writeLine(std::ofstream& stream);
+    virtual void writeLine(std::ofstream& stream) const;
 
 
 protected:

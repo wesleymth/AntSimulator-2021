@@ -155,7 +155,7 @@ void Animal::drawOn(sf::RenderTarget& target) const
     }
 }
 
-void Animal::writeLine(std::ofstream& stream)
+void Animal::writeLine(std::ofstream& stream) const
 {
     //done
 }
