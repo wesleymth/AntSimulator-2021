@@ -31,6 +31,7 @@ const double ANT_SOLDIER_COST = 10;
 const double ANT_SCOUT_COST = 10;
 const double ANT_KAMIKAZE_COST = 10;
 const double HUNGER_DAMAGE_PER_TIME = 1;
+const double DEFAULT_ANTHILL_LIFEPOINTS = 100;
 
 
 double const ANT_KAMAIKAZE_HP = 20;

@@ -27,7 +27,7 @@ Anthill::~Anthill()
 }
 
 Anthill::Anthill(const ToricPosition& TP)
-    :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(100)
+    :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(5)
 {
     generateAnt(); //Generates an ant at the creation of an anthill
     ++count;
