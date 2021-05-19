@@ -120,6 +120,8 @@ public:
     void writeLine(std::ofstream &stream) const override;
 
     void takeDamage(double damage);
+
+    bool isDead() const;
 private:
     Uid uid;
     Quantity foodStock;
@@ -129,19 +131,19 @@ private:
     /*!
      *  @brief generates an ant worker in the environment
      */
-    void generateAntWorker() const;
+    void generateAntWorker();
 
     /*!
      *  @brief generates an ant soldier in the environment
      */
-    void generateAntSoldier() const;
+    void generateAntSoldier();
 
     /*!
      *  @brief generates an ant depending on a uinform law and the probability of getting a worker
      *
      *  @note uses uniform() from Random.hpp
      */
-    void generateAnt() const;
+    void generateAnt();
 
 };
 

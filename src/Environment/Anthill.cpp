@@ -83,6 +83,10 @@ void Anthill::update(sf::Time dt)
         timeLastSpawn = sf::Time::Zero;
         generateAnt(); //randomly generates ant every anthill_spawn_delay
     }
+    if (foodStock==0)
+    {
+        takeDamage(HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
+    }
 }
 
 bool Anthill::uidIsEqual(Uid checkId) const
@@ -90,17 +94,19 @@ bool Anthill::uidIsEqual(Uid checkId) const
     return (uid == checkId);
 }
 
-void Anthill::generateAntWorker() const
+void Anthill::generateAntWorker()
 {
     getAppEnv().addAnimal(new AntWorker(getPosition().toVec2d(),uid)); //adds an ant worker to the current environment
+    receiveFood(-ANT_WORKER_COST);
 }
 
-void Anthill::generateAntSoldier() const
+void Anthill::generateAntSoldier()
 {
-    getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid)); //adds an ant soldir to the current environment
+    getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid)); //adds an ant soldier to the current environment
+    receiveFood(-ANT_SOLDIER_COST);
 }
 
-void Anthill::generateAnt() const
+void Anthill::generateAnt()
 {
     double theta(uniform(0.0,1.0)); //gets a random double between 0.0 and 1.0
     if ( (0 <= theta) and (theta <= getWorkerProb())) {
@@ -123,4 +129,9 @@ void Anthill::takeDamage(double damage)
     } else {
         healthPoints=0;
     }
+}
+
+bool Anthill::isDead() const
+{
+    return (healthPoints <= 0);
 }

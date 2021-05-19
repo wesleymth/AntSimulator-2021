@@ -66,12 +66,17 @@ void Ant::drawOn(sf::RenderTarget& target) const
 void Ant::spreadPheromones()
 {
     double dist(toricDistance(getPosition(),lastPheromone));
-    Vec2d vect(getPosition().toricVector(lastPheromone));
+    Vec2d vect(lastPheromone.toricVector(getPosition()));
     if(dist*getAppConfig().ant_pheromone_density>=1) {
         for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i) {
+            /*
             getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
                                                    getAppConfig().ant_pheromone_energy));
             lastPheromone=getPosition();
+            */
+            lastPheromone=lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density);
+            getAppEnv().addPheromone(new Pheromone(lastPheromone,
+                                                   getAppConfig().ant_pheromone_energy));
         }
     }
 }
