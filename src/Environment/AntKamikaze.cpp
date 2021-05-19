@@ -18,7 +18,11 @@ AntKamikaze::~AntKamikaze()
 }
 
 AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid), target(nullptr)
+    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid),
+      target(nullptr),
+      targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2),
+      targetAngle(),
+      condition(Wander)
 {
     ++count;
 }
@@ -42,11 +46,6 @@ int AntKamikaze::getStrength() const
     return ANT_KAMAIKAZE_STRENGTH;
 }
 
-void AntKamikaze::setTarget(Anthill*& anthill)
-{
-    target = anthill;
-}
-
 bool AntKamikaze::foundTarget() const
 {
     return (target != nullptr);
@@ -54,9 +53,9 @@ bool AntKamikaze::foundTarget() const
 
 void AntKamikaze::move(sf::Time dt)
 {
-    if (foundTarget())
+    if (condition == KillTarget)
     {
-        auto dx = (getSpeed()*Vec2d::fromAngle(calculateAngle(*target))) * dt.asSeconds();
+        auto dx = (getSpeed()*Vec2d::fromAngle(targetAngle)) * dt.asSeconds();
         setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
     }
     else
@@ -70,11 +69,33 @@ bool AntKamikaze::targetInPerceptionDistance() const
     return (toricDistance(getPosition(), target->getPosition()) <= getAppConfig().ant_max_perception_distance);
 }
 
+void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition& position)
+{
+    target = anthill;
+    targetPosition = position;
+    targetAngle = calculateAngle(Positionable(targetPosition));
+    condition = KillTarget;
+}
+
 void AntKamikaze::explode()
 {
-    if (foundTarget() and targetInPerceptionDistance())
+    target->takeDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
+    receiveDamage(getHP());
+}
+
+void AntKamikaze::update(sf::Time dt)
+{
+    if ((condition == KillTarget) and (targetInPerceptionDistance()))
     {
-        target->takeDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
-        receiveDamage(getHP());
+        if(getAppEnv().anthillStillAlive(target))
+        {
+            explode();
+        }
+        else
+        {
+            target = nullptr;
+            condition = Wander;
+        }
     }
+    Animal::update(dt);
 }

@@ -3,6 +3,8 @@
 #include "Ant.hpp"
 #include "Anthill.hpp"
 
+enum Condition {Wander,KillTarget};
+
 class AntKamikaze : public Ant
 {
 public:
@@ -57,9 +59,9 @@ public:
      */
     int getStrength() const override;
 
-    void setTarget(Anthill *&anthill);
-
     void move(sf::Time dt) override;
+
+    void update(sf::Time dt) override;
 
     bool foundTarget() const;
 
@@ -67,8 +69,16 @@ public:
 
     bool targetInPerceptionDistance() const;
 
+    void receiveTargetInformation(Anthill *anthill, const ToricPosition& position);
+
+
+
 private:
     Anthill* target;
+    ToricPosition targetPosition;
+    Angle targetAngle;
+    Condition condition;
+
 };
 
 #endif // ANTKAMIKAZE_HPP
