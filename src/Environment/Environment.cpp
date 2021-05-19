@@ -272,3 +272,16 @@ void Environment::saveMap()
     file.close();
 
 }
+
+bool Environment::anthillStillAlive(const Anthill* a)
+{
+    bool res(false);
+    for(auto& anthill:anthills)
+    {
+        if (anthill == a)
+        {
+            res = true;
+        }
+    }
+    return res;
+}
