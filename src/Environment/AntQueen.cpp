@@ -41,7 +41,7 @@ void AntQueen::update(sf::Time dt)
     Animal::update(dt);
     if (toricDistance(anthillPosition, getPosition())>DEFAULT_COLONY_DISTANCE)
     {
-        colonise;
+        colonise();
     }
 }
 
