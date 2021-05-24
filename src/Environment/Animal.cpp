@@ -164,3 +164,9 @@ bool Animal::isKamikaze() const
 {
     return false;
 }
+
+void Animal::kill()
+{
+    lifetime=0;
+    healthPoints=0;
+}
