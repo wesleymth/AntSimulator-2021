@@ -28,18 +28,20 @@ const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699);
 
 
 //QUEEN
-double const DEFAULT_QUEEN_SIZE = 50.0;   ///< drawing constant
+double const DEFAULT_QUEEN_SIZE = 60.0;   ///< drawing constant
 double const DEFAULT_QUEEN_STRENGTH = 4;   ///<  constant for
 double const DEFAULT_QUEEN_HP = 300;   ///<  constant for
 double const DEFAULT_QUEEN_LIFE = 30000; ///<  constant for
+const double ANT_QUEEN_COST = 100;
 double const DEFAULT_COLONY_DISTANCE = 200; ///<  constant for
+double const DEFAULT_FOOD_COLONY = 200; ///<  constant for
 
 const double ANT_WORKER_COST = 10;
 const double ANT_SOLDIER_COST = 10;
 const double ANT_SCOUT_COST = 10;
 const double ANT_KAMIKAZE_COST = 10;
 const double HUNGER_DAMAGE_PER_TIME = 1;
-const double DEFAULT_ANTHILL_LIFEPOINTS = 100;
+const double DEFAULT_ANTHILL_HEALTHPOINTS = 100;
 
 
 double const ANT_KAMAIKAZE_HP = 20;

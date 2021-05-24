@@ -157,6 +157,12 @@ private:
     void generateAntSoldier();
 
     /*!
+     *  @brief generates an ant queen in the environment
+     */
+    void generateAntQueen();
+
+
+    /*!
      *  @brief generates an ant depending on a uinform law and the probability of getting a worker
      *
      *  @note uses uniform() from Random.hpp

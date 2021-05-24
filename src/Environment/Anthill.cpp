@@ -12,6 +12,8 @@
 #include "Animal.hpp"
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
+#include "AntQueen.hpp"
+
 
 int Anthill::count = 0;
 
@@ -39,7 +41,7 @@ Anthill::Anthill(const Vec2d& pos)
 }
 
 Anthill::Anthill(const ToricPosition& TP, Uid id)
-    :Positionable(TP), uid(id), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(1)
+    :Positionable(TP), uid(id), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(DEFAULT_ANTHILL_HEALTHPOINTS)
 {
     generateAnt(); //Generates an ant at the creation of an anthill
     ++count;
@@ -103,6 +105,10 @@ void Anthill::update(sf::Time dt)
     {
         takeDamage(HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
     }
+    if (foodStock>=DEFAULT_FOOD_COLONY)
+    {
+        generateAntQueen();
+    }
 }
 
 bool Anthill::uidIsEqual(Uid checkId) const
@@ -120,6 +126,12 @@ void Anthill::generateAntSoldier()
 {
     getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid)); //adds an ant soldier to the current environment
     consumeFood(ANT_SOLDIER_COST);
+}
+
+void Anthill::generateAntQueen()
+{
+    //getAppEnv().addAnimal(new AntQueen(getPosition(),uid)); //adds an ant queen to the current environment
+    consumeFood(ANT_QUEEN_COST);
 }
 
 void Anthill::generateAnt()

@@ -19,7 +19,7 @@ public:
      *  @note calls constructor of Ant
      *  @note increments count
      */
-    AntQueen(const ToricPosition& TP, Uid uid);
+    AntQueen(const ToricPosition &TP, Uid uid);
 
     /*!
      *  @brief constructor with specific attributes
@@ -29,7 +29,7 @@ public:
      *
      *  @note calls constructor of AntWorker using TP.toVec2d() as pos
      */
-    AntQueen(const Vec2d& pos, Uid uid);
+    AntQueen(const Vec2d &pos, Uid uid);
 
     /*!
      *  @brief gets sprite of an ant queen

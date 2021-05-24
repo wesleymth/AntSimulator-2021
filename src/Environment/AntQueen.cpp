@@ -1,7 +1,7 @@
 #include "AntQueen.hpp"
-#include "AntSoldier.hpp"
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
+#include "../Utility/Constants.hpp"
 
 
 AntQueen::AntQueen()
@@ -12,9 +12,9 @@ AntQueen::AntQueen()
 
 
 AntQueen::AntQueen(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, DEFAULT_QUEEN_HP, DEFAULT_QUEEN_LIFE, uid)
+    :Ant::Ant(TP, DEFAULT_QUEEN_HP, DEFAULT_QUEEN_LIFE, uid), anthillPosition(TP)
 {
-
+    //Done
 }
 
 AntQueen::AntQueen(const Vec2d& pos, Uid uid)
@@ -27,7 +27,7 @@ sf::Sprite AntQueen::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
                        DEFAULT_QUEEN_SIZE,
-                       getAppTexture(getAppConfig().ant_soldier_texture),
+                       getAppTexture(getAppConfig().ant_worker_texture),
                        getDirection()/DEG_TO_RAD);
 }
 
@@ -46,7 +46,7 @@ void AntQueen::update(sf::Time dt)
 }
 
 
-void AntSoldier::drawOn(sf::RenderTarget& target) const
+void AntQueen::drawOn(sf::RenderTarget& target) const
 {
     Ant::drawOn(target);
     if (isDebugOn()) { //if debug on you can see the uid in magenta
