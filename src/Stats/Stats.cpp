@@ -8,22 +8,22 @@ Stats::Stats()
     //Dones
 }
 
-void Stats::setActiveId(int id) //permettant d'affecter la valeur id à l'identifiant actif
+void Stats::setActiveId(int id)
 {
     activeId = id;
 }
 
-std::string Stats::getCurrentTitle() const //retournant le libellé du graphe courant (celui correspondant à l'identifiant actif)
+std::string Stats::getCurrentTitle() const
 {
     return graphs.find(activeId)->second.first;
 }
 
-void Stats::next() //permettant d'incrémenter l'identifiant actif (modulo le nombre de graphes: on passe à la valeur zéro si l'identifiant actif est celui du dernier graphe possible);
+void Stats::next()
 {
     activeId += 1;
     if (activeId > graphs.size()-1)
     {
-        activeId = 0;
+        activeId = 0; //if it is too big bring it back to zero
     }
 }
 
@@ -32,7 +32,7 @@ void Stats::previous()
     activeId -= 1;
     if ((activeId) < 0)
     {
-        activeId = graphs.size()-1;
+        activeId = graphs.size()-1; //if it less than zero bring it back to zero
     }
 }
 
@@ -52,7 +52,7 @@ void Stats::addGraph( int id,
                const Vec2d &size)
 {
 
-    graphs[id].second.reset(new Graph(series,size,min,max));
+    graphs[id].second.reset(new Graph(series,size,min,max)); //resets the graph with a new graph
     graphs[id].first = title;
     setActiveId(id);
 }
@@ -69,7 +69,7 @@ void Stats::update(sf::Time dt)
     if (timeLastUpdate > sf::seconds(getAppConfig().food_generator_delta)) { //if it has been a while since a food was generated
         for (auto& graph:graphs)
         {
-            graph.second.second->updateData(timeLastUpdate, getAppEnv().fetchData(graph.second.first));
+            graph.second.second->updateData(timeLastUpdate, getAppEnv().fetchData(graph.second.first)); //updates graph by getting new data
         }
         timeLastUpdate = sf::Time::Zero; //sets back timeLastUpdate attribute to 0
     }

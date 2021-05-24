@@ -210,6 +210,8 @@ public:
 
     virtual void writeLine(std::ofstream& stream) const;
 
+    virtual bool isKamikaze() const;
+
 
 protected:
     /*!

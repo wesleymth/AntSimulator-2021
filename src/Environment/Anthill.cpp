@@ -15,6 +15,11 @@
 
 int Anthill::count = 0;
 
+int Anthill::getCount()
+{
+    return count;
+}
+
 Anthill::Anthill()
     :Anthill(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2))
 {

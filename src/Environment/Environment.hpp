@@ -17,7 +17,7 @@
 #include "../Interface/Drawable.hpp"
 #include <unordered_map>
 #include <fstream>
-
+#include "AntScout.hpp"
 
 /*!
  * @class Environment
@@ -71,6 +71,20 @@ public:
      *  @return pointer on anthill
      */
     Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillUid);
+
+    /*!
+     *  @brief returns pointer on the closest anthill if it is in the perception radius
+     *
+     *  @return pointer on anthill
+     */
+    Anthill* getClosestAnthillForAnt(Ant * const &currentInstance);
+
+    /*!
+     *  @brief returns pointer on the closest Kamikaze if it is in the perception radius
+     *
+     *  @return pointer on kamikaze
+     */
+    //AntKamikaze *getClosestKamikazeForScout(AntScout * const &currentInstance);
 
     /*!
      *  @brief adds animal to current environment

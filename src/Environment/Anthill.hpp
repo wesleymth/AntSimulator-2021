@@ -22,7 +22,12 @@
 class Anthill : public Positionable, public Drawable, public Updatable, public Savable
 {
 public:
-    static int count;
+    /*!
+     *  @brief gets the counted number of Anthills in environment
+     *
+     *  @return number of anthills in environemnt
+     */
+    static int getCount();
 
     /*!
      *  @brief default constructor
@@ -123,6 +128,8 @@ public:
 
     bool isDead() const;
 private:
+    static int count;
+
     Uid uid;
     Quantity foodStock;
     sf::Time timeLastSpawn;

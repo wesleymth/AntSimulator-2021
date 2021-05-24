@@ -172,6 +172,42 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
     return anthillptr;
 }
 
+Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
+{
+    Anthill* anthillptr(nullptr);
+    double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
+    for(auto& anthill: anthills)
+    {
+        if ((toricDistance(currentInstance->getPosition(), anthill->getPosition()) < compareDistance))
+        { //if the distance of the next anthill is lower than the distance of the last anthill
+            compareDistance = toricDistance(currentInstance->getPosition(), anthill->getPosition()); //distance is then equal to the distance of the new animal
+            if (compareDistance <= getAppConfig().ant_max_perception_distance)
+            { //if the animal is in the sight distance of the given animal
+                anthillptr = anthill;
+            }
+        }
+    }
+    return anthillptr;
+}
+
+/*AntKamikaze* Environment::getClosestKamikazeForScout(AntScout * const &currentInstance)
+{
+    AntKamikaze* kamikazePtr(nullptr);
+    double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
+    for(auto& animal: animals)
+    {
+        if ((toricDistance(currentInstance->getPosition(), animal->getPosition()) < compareDistance) and (currentInstance != animal) and (animal->isKamikaze()))
+        { //if the distance of the next animal is lower than the distance of the last animal and the animal isn't itself and the animal is a kamikaze
+            compareDistance = toricDistance(currentInstance->getPosition(), animal->getPosition()); //distance is then equal to the distance of the new animal
+            if (compareDistance <= getAppConfig().animal_sight_distance)
+            { //if the animal is in the sight distance of the given animal
+                kamikazePtr = animal;
+            }
+        }
+    }
+    return kamikazePtr;
+}*/
+
 void Environment::addPheromone(Pheromone* phero)
 {
     pheromones.push_back(phero);
@@ -229,16 +265,16 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
     {
         return
         {
-            {"worker ants", AntWorker::count},
-            {"soldier ants", AntSoldier::count},
-            {"termites", Termite::count},
+            {"worker ants", AntWorker::getCount()},
+            {"soldier ants", AntSoldier::getCount()},
+            {"termites", Termite::getCount()},
             {"temperature", temperature}
         };
     } else if (title == "food")
     {
         return
         {
-            {"food", Food::count}
+            {"food", Food::getCount()}
         };
     } else if (title == "anthills")
     {

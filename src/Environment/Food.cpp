@@ -10,6 +10,11 @@
 
 Quantity Food::count = 0.0;
 
+Quantity Food::getCount()
+{
+    return count;
+}
+
 Food::Food()
     :Food(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), 0)
 {

@@ -3,12 +3,17 @@
 #include "Ant.hpp"
 #include "Anthill.hpp"
 
-enum Condition {Wander,KillTarget};
+enum KamikazeCondition {Wander,KillTarget};
 
 class AntKamikaze : public Ant
 {
 public:
-    static int count;
+    /*!
+     *  @brief gets the counted number of Kamikazes in environment
+     *
+     *  @return number of kamikazes in environemnt
+     */
+    static int getCount();
 
     /*!
      *  @brief default constructor
@@ -59,25 +64,59 @@ public:
      */
     int getStrength() const override;
 
+    /*!
+     *  @brief makes kamikaze move using Animal::move(sf::Time dt) except if condition = KillTarget in which case Kamikaze goes straigth to targetted anthill
+     */
     void move(sf::Time dt) override;
 
+    /*!
+     *  @brief updates kamaikaze using Animal::update(sf::Time dt) plus manages the kamikaze's explosion
+     */
     void update(sf::Time dt) override;
 
+    /*!
+     *  @brief draws kamaikaze using Ant::update(sf::Time dt) and if debug on you can see it's target if it has one
+     */
+    void drawOn(sf::RenderTarget& Target) const override;
+
+    /*!
+     *  @brief bool if target is found
+     *
+     *  @return target != nullptr
+     */
     bool foundTarget() const;
 
+    /*!
+     *  @brief makes the kamikaze explode onto an anthill
+     *
+     *  @note calls method receiveDamage from Animal class and takeDamage from Anthill class
+     */
     void explode();
 
+    /*!
+     *  @brief bool if target is in perception distance
+     *
+     *  @return true if in perception distance
+     */
     bool targetInPerceptionDistance() const;
 
+    /*!
+     *  @brief receives all information needed to go kill a targetted anthill
+     *
+     *  @note sets target and targetPosition attribute to anthill and position
+     *  @note calculates tragetAngle using calculateAngle from Positionable class
+     *  @note sets condition to KillTarget
+     */
     void receiveTargetInformation(Anthill *anthill, const ToricPosition& position);
 
-
+    bool isKamikaze() const override;
 
 private:
+    static int count;
     Anthill* target;
     ToricPosition targetPosition;
     Angle targetAngle;
-    Condition condition;
+    KamikazeCondition condition;
 
 };
 

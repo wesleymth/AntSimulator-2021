@@ -19,7 +19,12 @@
 class AntSoldier : public Ant
 {
 public:
-    static int count;
+    /*!
+     *  @brief gets the counted number of AntSoliders in environment
+     *
+     *  @return number of ant soldiers in environemnt
+     */
+    static int getCount();
 
     /*!
      *  @brief default constructor
@@ -78,6 +83,9 @@ public:
      *  @note calls Ant::drawOn(target);
      */
     void drawOn(sf::RenderTarget& target) const override;
+
+private:
+    static int count;
 };
 
 #endif // ANTSOLDIER_HPP

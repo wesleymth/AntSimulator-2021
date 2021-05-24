@@ -11,6 +11,11 @@
 
 int AntWorker::count = 0;
 
+int AntWorker::getCount()
+{
+    return count;
+}
+
 AntWorker::AntWorker()
     :AntWorker(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
 {

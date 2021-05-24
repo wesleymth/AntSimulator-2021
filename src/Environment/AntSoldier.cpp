@@ -10,6 +10,11 @@
 
 int AntSoldier::count = 0;
 
+int AntSoldier::getCount()
+{
+    return count;
+}
+
 AntSoldier::AntSoldier()
     :AntSoldier(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
 {

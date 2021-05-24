@@ -5,6 +5,11 @@
 
 int AntScout::count = 0;
 
+int AntScout::getCount()
+{
+    return count;
+}
+
 AntScout::AntScout()
     :AntScout(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
 {
@@ -18,7 +23,9 @@ AntScout::~AntScout()
 }
 
 AntScout::AntScout(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, ANT_SCOUT_HP, ANT_SCOUT_LIFE, uid), target(nullptr), foundTarget(false)
+    :Ant::Ant(TP, ANT_SCOUT_HP, ANT_SCOUT_LIFE, uid),
+      target(nullptr),
+      targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2)
 {
     ++count;
 }
@@ -42,4 +49,37 @@ int AntScout::getStrength() const
     return ANT_SCOUT_STRENGTH;
 }
 
+bool AntScout::foundTarget() const
+{
+    return (target != nullptr);
+}
 
+void AntScout::saveTargetInfo(Anthill *victim)
+{
+    target = victim;
+    targetPosition = victim->getPosition();
+}
+
+/*void AntScout::update(sf::Time dt)
+{
+    AntKamikaze* closestKamikaze (getAppEnv().getClosestKamikazeForScout(this));
+    Anthill* closestAnthill(getAppEnv().getClosestAnthillForAnt(this));
+    if (not foundTarget())
+    {
+        if ((closestAnthill != nullptr and closestAnthill->getUid() != getAnthillUid()))
+        {
+            saveTargetInfo(closestAnthill);
+            turnAround();
+        }
+    }
+    else
+    {
+        if (closestKamikaze != nullptr and not closestKamikaze->isEnemy(this))
+        {
+            closestKamikaze->receiveTargetInformation(target,targetPosition);
+            target = nullptr;
+        }
+    }
+    Animal::update(dt);
+}
+*/

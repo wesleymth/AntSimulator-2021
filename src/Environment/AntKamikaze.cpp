@@ -5,8 +5,13 @@
 
 int AntKamikaze::count = 0;
 
+int AntKamikaze::getCount()
+{
+    return count;
+}
+
 AntKamikaze::AntKamikaze()
-    :AntKamikaze(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
+    :AntKamikaze(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID) //sets position to middle of the world
 {
     //Done
 }
@@ -21,7 +26,7 @@ AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
     :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid),
       target(nullptr),
       targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2),
-      targetAngle(),
+      targetAngle(0),
       condition(Wander)
 {
     ++count;
@@ -55,7 +60,7 @@ void AntKamikaze::move(sf::Time dt)
 {
     if (condition == KillTarget)
     {
-        auto dx = (getSpeed()*Vec2d::fromAngle(targetAngle)) * dt.asSeconds();
+        auto dx = (getSpeed()*Vec2d::fromAngle(targetAngle)) * dt.asSeconds(); //targetAngle doesn't change
         setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
     }
     else
@@ -71,10 +76,10 @@ bool AntKamikaze::targetInPerceptionDistance() const
 
 void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition& position)
 {
-    target = anthill;
-    targetPosition = position;
-    targetAngle = calculateAngle(Positionable(targetPosition));
-    condition = KillTarget;
+    target = anthill; //gets the target
+    targetPosition = position; //it's position
+    targetAngle = calculateAngle(Positionable(targetPosition)); //clalculates the angle it has to follow to go straigth towrds it
+    condition = KillTarget; //changes its condition so that the update can manage it differently
 }
 
 void AntKamikaze::explode()
@@ -97,5 +102,27 @@ void AntKamikaze::update(sf::Time dt)
             condition = Wander;
         }
     }
+    else
+    {
+        if(getAppEnv().getClosestAnthillForAnt(this)->getUid() != getAnthillUid())
+        {
+            explode();
+        }
+    }
     Animal::update(dt);
+}
+
+void AntKamikaze::drawOn(sf::RenderTarget& Target) const
+{
+    Ant::drawOn(Target);
+    if (isDebugOn() and foundTarget())
+    { //if debug on and foundTarget true you can see the target's uid in red
+        auto const targetText = buildText(to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Red);
+        Target.draw(targetText);
+    }
+}
+
+bool AntKamikaze::isKamikaze() const
+{
+    return true;
 }

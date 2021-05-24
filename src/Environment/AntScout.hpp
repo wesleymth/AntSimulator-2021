@@ -2,11 +2,20 @@
 #define ANTSCOUT_HPP
 #include "Ant.hpp"
 #include "Anthill.hpp"
+#include "AntKamikaze.hpp"
+#include "AntSoldier.hpp"
+#include "AntWorker.hpp"
 
 class AntScout : public Ant
 {
 public:
-    static int count;
+
+    /*!
+     *  @brief gets the counted number of AntScouts in environment
+     *
+     *  @return number of ant scouts in environemnt
+     */
+    static int getCount();
 
     /*!
      *  @brief default constructor
@@ -56,10 +65,27 @@ public:
      *  @return ANT_SCOUT_STRENGTH
      */
     int getStrength() const override;
-private:
-    Anthill* target;
-    bool foundTarget;
 
+    /*!
+     *  @brief bool if target is found
+     *
+     *  @return target != nullptr
+     */
+    bool foundTarget() const;
+
+    /*!
+     *  @brief if it found a target it saves alol info needed for a Kamikaze
+     *
+     *  @param victim Anthill*
+     */
+    void saveTargetInfo(Anthill *victim);
+
+    //void update(sf::Time dt) override;
+
+private:
+    static int count;
+    Anthill* target;
+    ToricPosition targetPosition;
 };
 
 #endif // ANTSCOUT_HPP

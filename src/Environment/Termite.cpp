@@ -11,6 +11,11 @@
 
 int Termite::count = 0;
 
+int Termite::getCount()
+{
+    return count;
+}
+
 Termite::Termite()
     :Termite(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2))
 {

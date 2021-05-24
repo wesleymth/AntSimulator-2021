@@ -19,7 +19,13 @@
 class AntWorker : public Ant
 {
 public:
-    static int count;
+    /*!
+     *  @brief gets the counted number of AntWorkers in environment
+     *
+     *  @return number of ant workers in environemnt
+     */
+    static int getCount();
+
 
     /*!
      *  @brief default constructor
@@ -84,7 +90,9 @@ public:
     void drawOn(sf::RenderTarget& target) const override;
 
 private:
+    static int count;
     Quantity carriedFood;
+
 };
 
 #endif // ANTWORKER_HPP

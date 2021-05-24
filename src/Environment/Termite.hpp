@@ -19,7 +19,13 @@
 class Termite : public Animal, public Savable
 {
 public:
-    static int count;
+    /*!
+     *  @brief gets the counted number of termites in environment
+     *
+     *  @return number of termites in environemnt
+     */
+    static int getCount();
+
 
     /*!
      *  @brief default constructor
@@ -123,6 +129,9 @@ public:
      *  @note Override of pure virtual method in animal
      */
     void writeLine(std::ofstream &stream) const override;
+
+private:
+    static int count;
 };
 
 #endif // TERMITE_HPP

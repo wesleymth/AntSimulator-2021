@@ -23,7 +23,13 @@
 class Food : public Positionable, public Drawable, public Savable
 {
 public:
-    static Quantity count;
+    /*!
+     *  @brief gets the counted number of food in environment
+     *
+     *  @return number of food quantities in environemnt
+     */
+    static Quantity getCount();
+
 
     /*!
      *  @brief default constructor
@@ -97,6 +103,7 @@ public:
      */
     void writeLine(std::ofstream &stream) const override;
 private:
+    static Quantity count;
 
     Quantity quantity;
 };
