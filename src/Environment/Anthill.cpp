@@ -27,16 +27,22 @@ Anthill::~Anthill()
 }
 
 Anthill::Anthill(const ToricPosition& TP)
-    :Positionable(TP), uid(createUid()), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(5)
+    :Anthill(TP, createUid())
 {
-    generateAnt(); //Generates an ant at the creation of an anthill
-    ++count;
+    //Done
 }
 
 Anthill::Anthill(const Vec2d& pos)
     :Anthill(ToricPosition(pos))
 {
     //Done
+}
+
+Anthill::Anthill(const ToricPosition& TP, Uid id)
+    :Positionable(TP), uid(id), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(1)
+{
+    generateAnt(); //Generates an ant at the creation of an anthill
+    ++count;
 }
 
 double Anthill::getWorkerProb() const
@@ -58,6 +64,13 @@ void Anthill::receiveFood(Quantity received)
 {
     if (received > 0) { //doesn't do anything for negative received
         foodStock += received;
+    }
+}
+
+void Anthill::consumeFood(Quantity removed)
+{
+    if (removed > 0 and foodStock>removed) { //doesn't do anything for negative received
+        foodStock -= removed;
     }
 }
 
@@ -100,13 +113,13 @@ bool Anthill::uidIsEqual(Uid checkId) const
 void Anthill::generateAntWorker()
 {
     getAppEnv().addAnimal(new AntWorker(getPosition().toVec2d(),uid)); //adds an ant worker to the current environment
-    receiveFood(-ANT_WORKER_COST);
+    consumeFood(ANT_WORKER_COST);
 }
 
 void Anthill::generateAntSoldier()
 {
     getAppEnv().addAnimal(new AntSoldier(getPosition().toVec2d(),uid)); //adds an ant soldier to the current environment
-    receiveFood(-ANT_SOLDIER_COST);
+    consumeFood(ANT_SOLDIER_COST);
 }
 
 void Anthill::generateAnt()

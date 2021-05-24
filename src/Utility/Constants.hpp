@@ -16,15 +16,23 @@ double const EPSILON = 1e-8;            ///< a small epsilon value
 
 //
 double const DEFAULT_ANT_SIZE = 20.0;   ///< drawing constant for ants
-double const DEFAULT_ANIMAL_HP = 1.0;   ///< drawing constant for animals   ###ASK IF YOU CAN PUT IT IN APP.JSON INSTEAD###
-double const DEFAULT_ANIMAL_LIFE = 1.0; ///< drawing constant for animals
-double const DEFAULT_TERMITE_SIZE = 20.0;   ///< drawing constant for
+double const DEFAULT_ANIMAL_HP = 1.0;   ///<  constant for animals   ###ASK IF YOU CAN PUT IT IN APP.JSON INSTEAD###
+double const DEFAULT_ANIMAL_LIFE = 1.0; ///<  constant for animals
+double const DEFAULT_TERMITE_SIZE = 20.0;   ///<  constant for
 double const DEFAULT_ANTHILL_SIZE = 50;
 double const DEFAULT_FOOD_SIZE = 8;
 double const DEFAULT_FOOD_QUANTITY = 0;
 double const DEFAULT_PHEROMONE_QUANTITY = 0;
 double const DEFAULT_UID = 0;
 const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699);
+
+
+//QUEEN
+double const DEFAULT_QUEEN_SIZE = 50.0;   ///< drawing constant
+double const DEFAULT_QUEEN_STRENGTH = 4;   ///<  constant for
+double const DEFAULT_QUEEN_HP = 300;   ///<  constant for
+double const DEFAULT_QUEEN_LIFE = 30000; ///<  constant for
+double const DEFAULT_COLONY_DISTANCE = 200; ///<  constant for
 
 const double ANT_WORKER_COST = 10;
 const double ANT_SOLDIER_COST = 10;

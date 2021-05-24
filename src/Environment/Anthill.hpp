@@ -42,9 +42,6 @@ public:
      *  @param TP position in ToricPosition form
      *
      *  @note creates a uid using creatUid() from Utility.hpp
-     *  @note sets foodStock and timeLastSpawn to 0
-     *  @note generates an ant when created using generateAnt()
-     *  @note increments count
      */
     Anthill(const ToricPosition& TP);
 
@@ -56,6 +53,18 @@ public:
      *  @note calls Anthill constructor using ToricPosition(pos)
      */
     Anthill(const Vec2d& pos);
+
+    /*!
+     *  @brief constructor with specific position
+     *
+     *  @param TP position in ToricPosition form
+     *  @param Uid uid
+     *
+     *  @note sets foodStock and timeLastSpawn to 0
+     *  @note generates an ant when created using generateAnt()
+     *  @note increments count
+     */
+    Anthill(const ToricPosition& TP, Uid id);
 
     /*!
      *  @brief gets the probability of generating an ant worker
@@ -86,6 +95,15 @@ public:
      *  @note doesn't do anything for negative received
      */
     void receiveFood(Quantity received);
+
+    /*!
+     *  @brief removes food from the foodStock
+     *
+     *  @param Quantity removed
+     *
+     *  @note doesn't do anything for negative received
+     */
+    void consumeFood(Quantity removed);
 
     /*!
      *  @brief draws anthill

@@ -159,3 +159,9 @@ void Animal::writeLine(std::ofstream& stream) const
 {
     //done
 }
+
+void Animal::kill()
+{
+    lifetime=0;
+    healthPoints=0;
+}

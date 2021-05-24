@@ -232,6 +232,12 @@ protected:
      */
     void setFightTime(double time);
 
+    /*!
+     *  @brief kills animal
+     *
+     */
+    void kill();
+
 private:
     Angle dirAngle;
     double healthPoints;

@@ -261,7 +261,7 @@ void Environment::saveMap()
     std::string fileName;
     std::cout << "File Name.map" << std::endl;
     std::cin >> fileName;
-    std::ofstream file("../res/"+fileName);
+    std::ofstream file(RES_LOCATION+fileName);
     for(auto& food : foods)
     {
         food->writeLine(file);
