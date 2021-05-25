@@ -17,7 +17,6 @@ public:
      *  @param uid the anthill it belongs to's uid
      *
      *  @note calls constructor of Ant
-     *  @note increments count
      */
     AntQueen(const ToricPosition &TP, Uid uid);
 

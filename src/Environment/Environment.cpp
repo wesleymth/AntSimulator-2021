@@ -8,6 +8,7 @@
 #include "../Application.hpp"
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
+#include "AntQueen.hpp"
 #include "Termite.hpp"
 #include <iostream>
 #include <string>
@@ -53,9 +54,6 @@ void Environment::update(sf::Time dt)
 
     for(auto& anthill: anthills) {
         anthill->update(dt); //in charge of updating the anthills
-        if (anthill->isDead()) { //gets rid of the anthill in the attribute of the environement if the anthill is dead
-            delete anthill;
-            anthill = nullptr;
         }
         anthills.erase(std::remove(anthills.begin(), anthills.end(), nullptr), anthills.end());
     }

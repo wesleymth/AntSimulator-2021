@@ -59,7 +59,7 @@ void AntQueen::drawOn(sf::RenderTarget& target) const
 
 RotationProbs AntQueen::computeRotationProbs() const
 {
-    Animal::computeRotationProbs();
+    return Animal::computeRotationProbs();
 }
 
 void AntQueen::colonise()

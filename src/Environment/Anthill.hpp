@@ -11,6 +11,7 @@
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Updatable.hpp"
 #include "../Interface/Savable.hpp"
+
 /*!
  * @class Anthill
  *
@@ -152,6 +153,7 @@ private:
     Quantity foodStock;
     sf::Time timeLastSpawn;
     double healthPoints;
+    bool dead;
 
     /*!
      *  @brief generates an ant worker in the environment

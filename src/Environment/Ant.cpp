@@ -74,7 +74,7 @@ void Ant::spreadPheromones()
                                                    getAppConfig().ant_pheromone_energy));
             lastPheromone=getPosition();
             */
-            lastPheromone=lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density);
+            lastPheromone+=i*vect/(dist*getAppConfig().ant_pheromone_density);
             getAppEnv().addPheromone(new Pheromone(lastPheromone,
                                                    getAppConfig().ant_pheromone_energy));
         }
