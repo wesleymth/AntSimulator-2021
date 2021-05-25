@@ -208,6 +208,13 @@ public:
      */
     virtual bool isEnemyDispatch(Ant const* other) const = 0;
 
+    /*!
+     *  @brief Allows iteration on animals in environment
+     *
+     *  @param reference to ofstream stream
+     *
+     *  @note intentionally does nothing but is redefined for termite
+     */
     virtual void writeLine(std::ofstream& stream) const;
 
     virtual bool isKamikaze() const;

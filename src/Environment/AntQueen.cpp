@@ -64,7 +64,7 @@ RotationProbs AntQueen::computeRotationProbs() const
 
 void AntQueen::colonise()
 {
-    getAppEnv().addAnthill(new Anthill(getPosition(), getAnthillUid()));
+    getAppEnv().addAnthill(new Anthill(getPosition(), createUid()));
     kill();  //Mimics Ant queen going into anthill
 }
 

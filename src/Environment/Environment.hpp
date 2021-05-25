@@ -35,7 +35,7 @@ private:
     std::vector<Pheromone*> pheromones;
     FoodGenerator foodGenerator;
     bool showPheromones;
-    double temperature;
+    Temperature temperature;
 public:
     /*!
      *  @brief default constructor
@@ -50,6 +50,14 @@ public:
      *  @note uses reset()
      */
     ~Environment();
+
+    /*!
+     * @brief gets Temperature
+     *
+     * @return temperature in temperature form
+     */
+    Temperature getTemperature();
+
 
     /*!
      *  @brief returns pointer on closest food if it is in the perception radius
@@ -179,7 +187,7 @@ public:
      */
     void saveMap();
 
-    bool anthillStillAlive(const Anthill* a);
+    bool isTemperatureExtreme();
 };
 
 

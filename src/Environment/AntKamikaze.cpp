@@ -84,7 +84,7 @@ void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition
 
 void AntKamikaze::explode()
 {
-    target->takeDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
+    target->receiveDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
     receiveDamage(getHP());
 }
 
@@ -92,15 +92,8 @@ void AntKamikaze::update(sf::Time dt)
 {
     if ((condition == KillTarget) and (targetInPerceptionDistance()))
     {
-        if(getAppEnv().anthillStillAlive(target))
-        {
-            explode();
-        }
-        else
-        {
-            target = nullptr;
-            condition = Wander;
-        }
+
+
     }
     else
     {

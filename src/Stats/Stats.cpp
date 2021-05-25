@@ -66,7 +66,7 @@ void Stats::update(sf::Time dt)
 {
     timeLastUpdate += dt; //increments timeLastUpdate by time passed since last update
 
-    if (timeLastUpdate > sf::seconds(getAppConfig().food_generator_delta)) { //if it has been a while since a food was generated
+    if (timeLastUpdate > sf::seconds(getValueConfig()["stats"]["refresh rate"].toDouble())) { //if it has been a while since a food was generated
         for (auto& graph:graphs)
         {
             graph.second.second->updateData(timeLastUpdate, getAppEnv().fetchData(graph.second.first)); //updates graph by getting new data

@@ -69,7 +69,7 @@ Quantity Anthill::getFoodStock() const
 
 void Anthill::receiveFood(Quantity received)
 {
-    if (dead)
+    if (isDead())
     {
         if (received > 0) { //doesn't do anything for negative received
             foodStock += received;
@@ -86,7 +86,7 @@ void Anthill::consumeFood(Quantity removed)
 
 void Anthill::drawOn(sf::RenderTarget& target) const
 {
-    if (not dead)
+    if (not isDead())
     {
         auto const anthillSprite = buildSprite((getPosition()).toVec2d(),
                                                DEFAULT_ANTHILL_SIZE,
@@ -119,7 +119,7 @@ void Anthill::drawOn(sf::RenderTarget& target) const
 
 void Anthill::update(sf::Time dt)
 {
-    if (not dead)
+    if (not isDead())
     {
         timeLastSpawn+=dt;
         if (timeLastSpawn >= sf::seconds(getAppConfig().anthill_spawn_delay)) {
@@ -128,17 +128,24 @@ void Anthill::update(sf::Time dt)
         }
         if (foodStock==0)
         {
-            takeDamage(HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
+            receiveDamage(HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
         }
         if (foodStock>=DEFAULT_FOOD_COLONY)
         {
             generateAntQueen();
         }
-    }
-    if (healthPoints==0)
-    {
-        dead=true;
-        foodStock=0;
+        if (healthPoints==0)
+        {
+            foodStock=0;
+        }
+        if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS and foodStock>=0)
+        {
+            healthPoints+=foodStock*DEFAULT_ANTHILL_REGENERATION;
+        }
+        if (getAppEnv().isTemperatureExtreme())
+        {
+            receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*TEMPERATURE_DAMAGE_RATE);
+        }
     }
 }
 
@@ -177,13 +184,13 @@ void Anthill::generateAnt()
 
 void Anthill::writeLine(std::ofstream &stream) const
 {
-    if (not dead)
+    if (not isDead())
     {
         stream << "anthill " << getPosition().x() << " " << getPosition().y() << std::endl;
     }
 }
 
-void Anthill::takeDamage(double damage)
+void Anthill::receiveDamage(double damage)
 {
     if(healthPoints>damage)
     {
@@ -195,6 +202,5 @@ void Anthill::takeDamage(double damage)
 
 bool Anthill::isDead() const // a l'origine nous avions prevu de de pouvoir tuer les anthill mais il y a eu un conflit avec le code fourni dans Graph
 {
-    //return (healthPoints <= 0);
-    return false;
+    return healthPoints>0;
 }

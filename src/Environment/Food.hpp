@@ -104,7 +104,6 @@ public:
     void writeLine(std::ofstream &stream) const override;
 private:
     static Quantity count;
-
     Quantity quantity;
 };
 

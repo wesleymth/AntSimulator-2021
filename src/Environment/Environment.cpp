@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include "Random/Random.hpp"
 
 Environment::Environment()
     :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)
@@ -54,8 +55,6 @@ void Environment::update(sf::Time dt)
 
     for(auto& anthill: anthills) {
         anthill->update(dt); //in charge of updating the anthills
-        }
-        anthills.erase(std::remove(anthills.begin(), anthills.end(), nullptr), anthills.end());
     }
 
     for(auto& phero: pheromones) {
@@ -74,6 +73,16 @@ void Environment::update(sf::Time dt)
         }
         foods.erase(std::remove(foods.begin(), foods.end(), nullptr), foods.end());
     }
+
+    temperature+=normal(0, TEMPERATURE_SIGMA);
+    if(temperature>getAppConfig().temperature_max)
+    {
+        temperature=getAppConfig().temperature_max;
+    } else if(temperature<getAppConfig().temperature_min)
+    {
+        temperature=getAppConfig().temperature_min;
+    }
+    std::cout << temperature << std::endl;
 }
 
 void Environment::drawOn(sf::RenderTarget& targetWindow) const
@@ -121,6 +130,11 @@ void Environment::reset()
     pheromones.clear();
 }
 
+Temperature Environment::getTemperature()
+{
+    return temperature;
+}
+
 Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
@@ -161,7 +175,7 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
     for(auto& anthill: anthills) {
-        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) )
+        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))
             //checks if the uids are equal and if the anthill is in the radius of perception of the ant
         {
             anthillptr = anthill;
@@ -312,15 +326,7 @@ void Environment::saveMap()
 
 }
 
-bool Environment::anthillStillAlive(const Anthill* a)
+bool Environment::isTemperatureExtreme()
 {
-    bool res(false);
-    for(auto& anthill:anthills)
-    {
-        if (anthill == a)
-        {
-            res = true;
-        }
-    }
-    return res;
+    return (getAppEnv().getTemperature()<COLD_TEMPERATURE or getAppEnv().getTemperature()<HOT_TEMPERATURE);
 }

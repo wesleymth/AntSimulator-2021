@@ -143,8 +143,16 @@ public:
      */
     void writeLine(std::ofstream &stream) const override;
 
-    void takeDamage(double damage);
+    /*!
+     *  @brief takes away healthpoints
+     */
+    void receiveDamage(double damage);
 
+    /*!
+     *  @brief checks if a given anthill is still alive
+     *
+     *  @return true if healthpoints>=0
+     */
     bool isDead() const;
 private:
     static int count;
@@ -153,7 +161,6 @@ private:
     Quantity foodStock;
     sf::Time timeLastSpawn;
     double healthPoints;
-    bool dead;
 
     /*!
      *  @brief generates an ant worker in the environment
@@ -177,7 +184,6 @@ private:
      *  @note uses uniform() from Random.hpp
      */
     void generateAnt();
-
 };
 
 #endif // ANTHILL_HPP

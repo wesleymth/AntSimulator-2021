@@ -17,5 +17,6 @@ using RotationProbs = std::pair<Intervals, Probs>;
 using Quantity   = double;
 using Quantities = std::vector<Quantity>;
 using Uid        = unsigned int; ///< Unique Identifier, @see createUid()
+using Temperature = double;
 #endif // INFOSV_TYPES_HPP
 

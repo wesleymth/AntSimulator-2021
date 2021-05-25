@@ -107,6 +107,10 @@ void Animal::update(sf::Time dt)
             lastFought = nullptr; //if the closest animal died or it is no longer in radius, lastFought becomes nullptr
         }
     }
+    if (getAppEnv().isTemperatureExtreme())
+    {
+        receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*TEMPERATURE_DAMAGE_RATE);
+    }
 }
 
 RotationProbs Animal::computeRotationProbs() const
