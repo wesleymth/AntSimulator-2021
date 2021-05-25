@@ -78,6 +78,8 @@ public:
      * @return quantity in Quantity form
      */
     Quantity getQuantity() const;
+
+    void evaporate(Quantity takeAway);
 private:
     Quantity quantity;
 };

@@ -81,5 +81,5 @@ void AntScout::saveTargetInfo(Anthill *victim)
         }
     }
     Animal::update(dt);
-}
-*/
+}*/
+
