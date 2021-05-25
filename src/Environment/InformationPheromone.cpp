@@ -44,3 +44,18 @@ void InformationPheromone::drawOn(sf::RenderTarget &target) const
     }
     */
 }
+
+Anthill* InformationPheromone::getEnemy() const
+{
+    return enemy;
+}
+
+ToricPosition InformationPheromone::getEnemeyPosition() const
+{
+    return enemyPosition;
+}
+
+Uid InformationPheromone::getAllowedReading() const
+{
+    return allowedReading;
+}

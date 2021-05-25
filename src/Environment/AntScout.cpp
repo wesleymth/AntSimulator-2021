@@ -2,6 +2,7 @@
 #include "../Utility/Constants.hpp"
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
+#include "InformationPheromone.hpp"
 
 int AntScout::count = 0;
 
@@ -25,7 +26,9 @@ AntScout::~AntScout()
 AntScout::AntScout(const ToricPosition& TP, Uid uid)
     :Ant::Ant(TP, ANT_SCOUT_HP, ANT_SCOUT_LIFE, uid),
       target(nullptr),
-      targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2)
+      targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2),
+      condition(Roam),
+      timeSpreadInpho(sf::Time::Zero)
 {
     ++count;
 }
@@ -54,32 +57,68 @@ bool AntScout::foundTarget() const
     return (target != nullptr);
 }
 
+bool AntScout::roaming() const
+{
+    return (condition == Roam);
+}
+
 void AntScout::saveTargetInfo(Anthill *victim)
 {
     target = victim;
     targetPosition = victim->getPosition();
 }
 
-/*void AntScout::update(sf::Time dt)
+void AntScout::update(sf::Time dt)
 {
-    AntKamikaze* closestKamikaze (getAppEnv().getClosestKamikazeForScout(this));
     Anthill* closestAnthill(getAppEnv().getClosestAnthillForAnt(this));
-    if (not foundTarget())
+    if (roaming())
     {
         if ((closestAnthill != nullptr and closestAnthill->getUid() != getAnthillUid()))
         {
             saveTargetInfo(closestAnthill);
             turnAround();
+            timeSpreadInpho = sf::seconds(ANT_SCOUT_SPREAD_INPHO_TIME);
+            condition = TargetAcquiered;
         }
     }
     else
     {
-        if (closestKamikaze != nullptr and not closestKamikaze->isEnemy(this))
+        if (timeSpreadInpho > sf::Time::Zero)
         {
-            closestKamikaze->receiveTargetInformation(target,targetPosition);
-            target = nullptr;
+            timeSpreadInpho -= dt;
+        }
+        else
+        {
+            condition = Roam;
         }
     }
     Animal::update(dt);
-}*/
+}
+
+void AntScout::spreadPheromones()
+{
+    double dist(toricDistance(getPosition(),getLastPheromone()));
+    Vec2d vect(getLastPheromone().toricVector(getPosition()));
+    if(dist*getAppConfig().ant_pheromone_density>=1) {
+        for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i) {
+            setLastPheromone(getLastPheromone()+(i*vect/(dist*getAppConfig().ant_pheromone_density)));
+            if (roaming())
+            {
+                getAppEnv().addPheromone(new Pheromone(getLastPheromone(),
+                                    getAppConfig().ant_pheromone_energy));
+            }
+            else
+            {
+                getAppEnv().addPheromone(new InformationPheromone(getLastPheromone(),
+                                                                  getAppConfig().ant_pheromone_energy,
+                                                                  getAnthillUid(),
+                                                                  target,
+                                                                  targetPosition));
+            }
+
+        }
+    }
+
+
+}
 

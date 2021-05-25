@@ -55,6 +55,16 @@ Uid Ant::getAnthillUid() const
     return anthillUid;
 }
 
+ToricPosition Ant::getLastPheromone() const
+{
+    return lastPheromone;
+}
+
+void Ant::setLastPheromone(const ToricPosition& newPosition)
+{
+    lastPheromone = newPosition;
+}
+
 void Ant::drawOn(sf::RenderTarget& target) const
 {
     Animal::drawOn(target);
@@ -69,11 +79,6 @@ void Ant::spreadPheromones()
     Vec2d vect(lastPheromone.toricVector(getPosition()));
     if(dist*getAppConfig().ant_pheromone_density>=1) {
         for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i) {
-            /*
-            getAppEnv().addPheromone(new Pheromone(lastPheromone.toVec2d()+i*vect/(dist*getAppConfig().ant_pheromone_density),
-                                                   getAppConfig().ant_pheromone_energy));
-            lastPheromone=getPosition();
-            */
             lastPheromone+=i*vect/(dist*getAppConfig().ant_pheromone_density);
             getAppEnv().addPheromone(new Pheromone(lastPheromone,
                                                    getAppConfig().ant_pheromone_energy));

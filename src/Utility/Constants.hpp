@@ -51,6 +51,9 @@ double const ANT_SCOUT_LIFE = 20;
 int const ANT_KAMAIKAZE_STRENGTH = 0;
 int const ANT_KAMAIKAZE_BLOW_UP_DAMAGE = 100;
 int const ANT_SCOUT_STRENGTH = 4;
+double const ANT_SCOUT_SPREAD_INPHO_TIME = 4;
+
+const std::string ANT_KAMAIKAZE_SPRITE = "green_ant.png";
 
 
 // Define resources location
