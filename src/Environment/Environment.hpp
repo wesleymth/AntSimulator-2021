@@ -84,7 +84,7 @@ public:
      *
      *  @return pointer on kamikaze
      */
-    //AntKamikaze *getClosestKamikazeForScout(AntScout * const &currentInstance);
+    //AntKamikaze* getClosestKamikazeForScout(AntScout * const &currentInstance);
 
     /*!
      *  @brief adds animal to current environment

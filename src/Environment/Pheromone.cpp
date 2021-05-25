@@ -28,7 +28,7 @@ Pheromone::Pheromone( const ToricPosition& TP, Quantity quant)
 
 void Pheromone::update(sf::Time dt)
 {
-    quantity-=dt.asSeconds()*getAppConfig().pheromone_evaporation_rate;
+    evaporate(dt.asSeconds()*getAppConfig().pheromone_evaporation_rate);
 }
 
 void Pheromone::drawOn(sf::RenderTarget &target) const
@@ -54,4 +54,9 @@ bool Pheromone::isNegligeable() const
 Quantity Pheromone::getQuantity() const
 {
     return quantity;
+}
+
+void Pheromone::evaporate(Quantity takeAway)
+{
+    quantity -= takeAway;
 }
