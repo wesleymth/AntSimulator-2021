@@ -139,9 +139,6 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
 {
     Food* foodptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
-    /*if (foods.size() != 0) {
-        compareDistance = (toricDistance(position, foods[0]->getPosition())); //sets the comparing distance to the distance between the first food and the position of the ant worker
-    }*/
     for(auto& food: foods) {
         if (toricDistance(position, food->getPosition()) < compareDistance) { //if the distance of the next food is lower than the distance of the last food
             compareDistance = toricDistance(position, food->getPosition()); //distance is then equal to the distance of the new food
@@ -192,9 +189,9 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
     {
         if ((toricDistance(currentInstance->getPosition(), anthill->getPosition()) < compareDistance))
         { //if the distance of the next anthill is lower than the distance of the last anthill
-            compareDistance = toricDistance(currentInstance->getPosition(), anthill->getPosition()); //distance is then equal to the distance of the new animal
+            compareDistance = toricDistance(currentInstance->getPosition(), anthill->getPosition()); //distance is then equal to the distance of the new anthill
             if (compareDistance <= getAppConfig().ant_max_perception_distance)
-            { //if the animal is in the sight distance of the given animal
+            { //if the anthill is in the sight distance of the given ant
                 anthillptr = anthill;
             }
         }
@@ -202,23 +199,23 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
     return anthillptr;
 }
 
-/*AntKamikaze* Environment::getClosestKamikazeForScout(AntScout * const &currentInstance)
+Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance)
 {
-    AntKamikaze* kamikazePtr(nullptr);
+    Pheromone* pheromoneptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
-    for(auto& animal: animals)
+    for(auto& pheromone: pheromones)
     {
-        if ((toricDistance(currentInstance->getPosition(), animal->getPosition()) < compareDistance) and (currentInstance != animal) and (animal->isKamikaze()))
-        { //if the distance of the next animal is lower than the distance of the last animal and the animal isn't itself and the animal is a kamikaze
-            compareDistance = toricDistance(currentInstance->getPosition(), animal->getPosition()); //distance is then equal to the distance of the new animal
-            if (compareDistance <= getAppConfig().animal_sight_distance)
-            { //if the animal is in the sight distance of the given animal
-                kamikazePtr = animal;
+        if ((toricDistance(currentInstance->getPosition(), pheromone->getPosition()) < compareDistance))
+        { //if the distance of the next pheromone is lower than the distance of the last pheromone
+            compareDistance = toricDistance(currentInstance->getPosition(), pheromone->getPosition()); //distance is then equal to the distance of the new pheromone
+            if (compareDistance <= getAppConfig().ant_max_perception_distance)
+            { //if the pheromone is in the sight distance of the given ant
+                pheromoneptr = pheromone;
             }
         }
     }
-    return kamikazePtr;
-}*/
+    return pheromoneptr;
+}
 
 void Environment::addPheromone(Pheromone* phero)
 {

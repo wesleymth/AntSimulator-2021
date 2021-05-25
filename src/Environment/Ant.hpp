@@ -93,6 +93,13 @@ public:
     Uid getAnthillUid() const;
 
     /*!
+     *  @brief gets the lastPheromone
+     *
+     *  @return ToricPosition lastPheromone
+     */
+    ToricPosition getLastPheromone() const;
+
+    /*!
      *  @brief draws ant
      *
      *  @note if debug on you can see a line representing the direction vector and HP value in red
@@ -105,7 +112,7 @@ public:
      *
      *  @note
      */
-    void spreadPheromones();
+    virtual void spreadPheromones();
 
     /*!
      *  @brief make ants move
@@ -163,6 +170,12 @@ public:
      */
     bool isEnemyDispatch(Ant const* other) const override;
 
+protected:
+
+    /*!
+     *  @brief sets new position of lastPheromone
+     */
+    void setLastPheromone(const ToricPosition& newPosition);
 
 private:
     Uid anthillUid;

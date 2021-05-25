@@ -16,11 +16,15 @@ double const EPSILON = 1e-8;            ///< a small epsilon value
 
 //DRAWING CONSTANTS
 double const DEFAULT_ANT_SIZE = 20.0;   ///< drawing constant for ants
-double const DEFAULT_ANIMAL_HP = 1.0;   ///<  constant for animals   ###ASK IF YOU CAN PUT IT IN APP.JSON INSTEAD###
-double const DEFAULT_ANIMAL_LIFE = 1.0; ///<  constant for animals
 double const DEFAULT_TERMITE_SIZE = 20.0;   ///<  constant for
 double const DEFAULT_ANTHILL_SIZE = 50;
 double const DEFAULT_FOOD_SIZE = 8;
+
+//ANIMAL
+double const DEFAULT_ANIMAL_HP = 1.0;   ///<  constant for animals
+double const DEFAULT_ANIMAL_LIFE = 1.0; ///<  constant for animals
+
+//FOOD
 double const DEFAULT_FOOD_QUANTITY = 0;
 
 //PHEROMONE
@@ -53,11 +57,16 @@ double const ANT_KAMAIKAZE_HP = 20;
 double const ANT_KAMAIKAZE_LIFE = 20;
 int const ANT_KAMAIKAZE_STRENGTH = 0;
 int const ANT_KAMAIKAZE_BLOW_UP_DAMAGE = 100;
+const std::string ANT_KAMAIKAZE_SPRITE = "green_ant.png";
 
 //ANT SCOUT
 int const ANT_SCOUT_STRENGTH = 4;
 double const ANT_SCOUT_HP = 20;
 double const ANT_SCOUT_LIFE = 20;
+double const ANT_SCOUT_SPREAD_INPHO_TIME = 4;
+
+\
+
 
 //TEMPERATURE
 int const COLD_TEMPERATURE = 0;

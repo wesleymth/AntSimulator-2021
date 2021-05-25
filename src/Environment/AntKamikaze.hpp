@@ -2,6 +2,8 @@
 #define ANTKAMIKAZE_HPP
 #include "Ant.hpp"
 #include "Anthill.hpp"
+#include "Pheromone.hpp"
+#include "InformationPheromone.hpp"
 
 enum KamikazeCondition {Wander,KillTarget};
 
@@ -91,7 +93,7 @@ public:
      *
      *  @note calls method receiveDamage from Animal class and takeDamage from Anthill class
      */
-    void explode();
+    void explode(Anthill* victim);
 
     /*!
      *  @brief bool if target is in perception distance
@@ -109,7 +111,16 @@ public:
      */
     void receiveTargetInformation(Anthill *anthill, const ToricPosition& position);
 
-    bool isKamikaze() const override;
+    /*!
+     *
+     */
+    bool interactWithPheromoneDispatch(Pheromone const* other);
+
+    /*!
+     *
+     */
+    bool interactWithPheromoneDispatch(InformationPheromone const* other);
+
 
 private:
     static int count;

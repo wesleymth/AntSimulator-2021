@@ -43,7 +43,11 @@ public:
      */
     void drawOn(sf::RenderTarget &target) const override;
 
+    Anthill* getEnemy() const;
 
+    ToricPosition getEnemeyPosition() const;
+
+    Uid getAllowedReading() const;
 
 private:
     Uid allowedReading;

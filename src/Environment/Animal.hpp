@@ -81,7 +81,7 @@ public:
     /*!
      *  @brief destructor of ToricPosition
      */
-    ~Animal();
+    virtual ~Animal();
 
     /*!
      *  @brief gets speed of animal

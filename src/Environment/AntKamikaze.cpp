@@ -42,7 +42,7 @@ sf::Sprite AntKamikaze::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
                        DEFAULT_ANT_SIZE,
-                       getAppTexture(getAppConfig().ant_soldier_texture), ///////// <<<<<<<<<< probleme
+                       getAppTexture(ANT_KAMAIKAZE_SPRITE), ///////// <<<<<<<<<< probleme
                        getDirection()/DEG_TO_RAD);
 }
 
@@ -82,24 +82,44 @@ void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition
     condition = KillTarget; //changes its condition so that the update can manage it differently
 }
 
-void AntKamikaze::explode()
+void AntKamikaze::explode(Anthill *victim)
 {
-    target->receiveDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
-    receiveDamage(getHP());
+    victim->receiveDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
+    kill();
 }
 
 void AntKamikaze::update(sf::Time dt)
 {
     if ((condition == KillTarget) and (targetInPerceptionDistance()))
     {
-
-
+        if(not target->isDead())
+        {
+            explode(target);
+        }
+        else
+        {
+            target = nullptr;
+            condition = Wander;
+        }
     }
     else
     {
-        if(getAppEnv().getClosestAnthillForAnt(this)->getUid() != getAnthillUid())
+        Anthill* closestAnthill(getAppEnv().getClosestAnthillForAnt(this));
+        Pheromone* closestPheromone (getAppEnv().getClosestPheromoneForAnt(this));
+        if (closestPheromone != nullptr)
         {
-            explode();
+            if (interactWithPheromoneDispatch(closestPheromone))
+            {
+                condition = KillTarget;
+            }
+        }
+
+        if(closestAnthill != nullptr)
+        {
+            if(closestAnthill->getUid() != getAnthillUid())
+            {
+                explode(closestAnthill);
+            }
         }
     }
     Animal::update(dt);
@@ -115,7 +135,17 @@ void AntKamikaze::drawOn(sf::RenderTarget& Target) const
     }
 }
 
-bool AntKamikaze::isKamikaze() const
+bool AntKamikaze::interactWithPheromoneDispatch(Pheromone const* other)
 {
-    return true;
+    return false;
+}
+
+bool AntKamikaze::interactWithPheromoneDispatch(InformationPheromone const* other)
+{
+    bool res(false);
+    if(other->getAllowedReading() == getAnthillUid())
+    {
+        receiveTargetInformation(other->getEnemy(),other->getEnemeyPosition());
+    }
+    return res;
 }

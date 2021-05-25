@@ -6,6 +6,8 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 
+enum ScoutCondition {TargetAcquiered,Roam};
+
 class AntScout : public Ant
 {
 public:
@@ -74,18 +76,29 @@ public:
     bool foundTarget() const;
 
     /*!
+     *  @brief bool if condition == roam
+     *
+     *  @return condition == roam
+     */
+    bool roaming() const;
+
+    /*!
      *  @brief if it found a target it saves alol info needed for a Kamikaze
      *
      *  @param victim Anthill*
      */
     void saveTargetInfo(Anthill *victim);
 
-    //void update(sf::Time dt) override;
+    void update(sf::Time dt) override;
+
+    void spreadPheromones() override;
 
 private:
     static int count;
     Anthill* target;
     ToricPosition targetPosition;
+    ScoutCondition condition;
+    sf::Time timeSpreadInpho;
 };
 
 #endif // ANTSCOUT_HPP
