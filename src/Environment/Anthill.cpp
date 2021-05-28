@@ -205,7 +205,6 @@ void Anthill::update(sf::Time dt)
         {
             receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*TEMPERATURE_DAMAGE_RATE);
         }*/
-
     }
 }
 
@@ -226,20 +225,29 @@ bool Anthill::uidIsEqual(Uid checkId) const
 
 void Anthill::generateAntWorker()
 {
-    getAppEnv().addAnimal(new AntWorker(getPosition(),uid)); //adds an ant worker to the current environment
-    consumeFood(ANT_WORKER_COST);
+    if(foodStock>=ANT_WORKER_COST)
+    {
+        getAppEnv().addAnimal(new AntWorker(getPosition(),uid)); //adds an ant worker to the current environment
+        consumeFood(ANT_WORKER_COST);
+    }
 }
 
 void Anthill::generateAntSoldier()
 {
-    getAppEnv().addAnimal(new AntSoldier(getPosition(),uid)); //adds an ant soldier to the current environment
-    consumeFood(ANT_SOLDIER_COST);
+    if(foodStock>=ANT_SOLDIER_COST)
+    {
+        getAppEnv().addAnimal(new AntSoldier(getPosition(),uid)); //adds an ant soldier to the current environment
+        consumeFood(ANT_SOLDIER_COST);
+    }
 }
 
 void Anthill::generateAntQueen()
 {
-    getAppEnv().addAnimal(new AntQueen(getPosition(),uid)); //adds an ant queen to the current environment
-    consumeFood(ANT_QUEEN_COST);
+    if(foodStock>=ANT_QUEEN_COST)
+    {
+        getAppEnv().addAnimal(new AntQueen(getPosition(),uid)); //adds an ant queen to the current environment
+        consumeFood(ANT_QUEEN_COST);
+    }
 }
 
 void Anthill::generateAntKamikaze()

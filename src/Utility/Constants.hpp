@@ -83,10 +83,9 @@ double const ANT_SCOUT_SPREAD_INPHO_TIME = 4;
 const std::string ANT_SCOUT_SPRITE = "grey_ant.png";
 
 //TEMPERATURE
-int const COLD_TEMPERATURE = 0;
-int const HOT_TEMPERATURE = 35;
-double const TEMPERATURE_DAMAGE_RATE = 1;
-double const TEMPERATURE_SIGMA = 0.2;
+double const COLD_TEMPERATURE = 0;
+double const HOT_TEMPERATURE = 40;
+double const TEMPERATURE_DAMAGE_RATE = 0.5;
 double const TEMPERATURE_SIN_FACTOR = 0.5;
 
 // Define resources location
