@@ -252,27 +252,39 @@ void Anthill::generateAntQueen()
 
 void Anthill::generateAntKamikaze()
 {
-    getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid)); //adds an ant kamikaze to the current environment
-    consumeFood(ANT_KAMIKAZE_COST);
+    if(foodStock>=ANT_KAMIKAZE_COST)
+    {
+        getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid)); //adds an ant kamikaze to the current environment
+        consumeFood(ANT_KAMIKAZE_COST);
+    }
 }
 
 
 void Anthill::generateAntScout()
 {
-    getAppEnv().addAnimal(new AntScout(getPosition(),uid)); //adds an ant scout to the current environment
-    consumeFood(ANT_SCOUT_COST);
+    if(foodStock>=ANT_SCOUT_COST)
+    {
+        getAppEnv().addAnimal(new AntScout(getPosition(),uid)); //adds an ant scout to the current environment
+        consumeFood(ANT_SCOUT_COST);
+    }
 }
 
 void Anthill::generateWarAntKamikaze()
 {
-    getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid, enemy, enemyPosition)); //adds an ant kamikaze to the current environment
-    consumeFood(ANT_KAMIKAZE_COST);
+    if(foodStock>=ANT_KAMIKAZE_COST)
+    {
+        getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid, enemy, enemyPosition)); //adds an ant kamikaze to the current environment
+        consumeFood(ANT_KAMIKAZE_COST);
+    }
 }
 
 void Anthill::generateWarAntSoldier()
 {
-    getAppEnv().addAnimal(new AntSoldier(getPosition(),uid,calculateAngle(Positionable(enemy->getPosition())))); //adds an ant soldier to the current environment
-    consumeFood(ANT_SOLDIER_COST);
+    if(foodStock>=ANT_SOLDIER_COST)
+    {
+        getAppEnv().addAnimal(new AntSoldier(getPosition(),uid,calculateAngle(Positionable(enemy->getPosition())))); //adds an ant soldier to the current environment
+        consumeFood(ANT_SOLDIER_COST);
+    }
 }
 
 void Anthill::generateAnt()
