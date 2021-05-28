@@ -156,6 +156,25 @@ public:
      *  @return true if healthpoints>=0
      */
     bool isDead() const;
+
+    /*!
+     *  @brief checks if enemy is found
+     *
+     *  @return enemy != nullptr
+     */
+    bool foundEnemy() const;
+
+    /*!
+     *  @brief checks if the time given for war is over
+     *
+     *  @return true if warTime >= DEFAULT_WAR_TIME from constants
+     */
+    bool warTimeOver() const;
+
+    /*!
+     *  @brief receives all the info fo enemy attribute to start a war
+     */
+    void receiveEnemyInfo(Anthill* newEnemy, const ToricPosition& newEnemyPos);
 private:
     static int count;
     Uid uid;
@@ -163,6 +182,9 @@ private:
     sf::Time timeLastSpawn;
     double healthPoints;
     AnthillState state;
+    Anthill* enemy;
+    ToricPosition enemyPosition;
+    sf::Time warTime;
 
     /*!
      *  @brief generates an ant worker in the environment
@@ -189,6 +211,19 @@ private:
      */
     void generateAntScout();
 
+    /*!
+     *  @brief generates an ant soldier made for war in the environment
+     *
+     *  @note sets its direction towards the enemy anthill
+     */
+    void generateWarAntSoldier();
+
+    /*!
+     *  @brief generates an ant kamikaze made for war in the environment
+     *
+     *  @note sets its condition to KillTarget
+     */
+    void generateWarAntKamikaze();
 
     /*!
      *  @brief generates an ant depending on a uinform law and the probability of getting a worker
@@ -196,6 +231,13 @@ private:
      *  @note uses uniform() from Random.hpp
      */
     void generateAnt();
+
+    /*!
+     *  @brief generates an army of kamikaze and soldier ants to destroy enemy anthill
+     *
+     *  @note spawns as much as possible
+     */
+    void generateSoldierKamikazePair();
 };
 
 #endif // ANTHILL_HPP

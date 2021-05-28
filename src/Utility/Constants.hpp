@@ -49,9 +49,13 @@ const double ANT_WORKER_COST = 10;
 const double ANT_SOLDIER_COST = 10;
 const double ANT_SCOUT_COST = 10;
 const double ANT_KAMIKAZE_COST = 10;
-const double HUNGER_DAMAGE_PER_TIME = 0;
+const double HUNGER_DAMAGE_PER_TIME = 0.1;
 const double DEFAULT_ANTHILL_HEALTHPOINTS = 100;
 const double DEFAULT_ANTHILL_REGENERATION = 1;
+const double ANTHILL_FOOD_COMSUMPTION = 0.5;
+const double FOOD_NEEDED_FOR_WAR = 100;
+const double DEFAULT_WAR_TIME = 5;
+const double DEFAULT_ANTHILL_TERRITORY = 500;
 
 //ANT GENERATION PROBABILITIES
 const double WAR_WORKER_PROB = 0.1;
@@ -59,10 +63,10 @@ const double WAR_SOLDIER_PROB = 0.4;
 const double WAR_SCOUT_PROB = 0.1;
 const double WAR_KAMIKAZE_PROB = 0.4;
 
-const double PROSPER_WORKER_PROB = 0.5;
-const double PROSPER_SOLDIER_PROB = 0.1;
-const double PROSPER_SCOUT_PROB = 0.3;
-const double PROSPER_KAMIKAZE_PROB = 0.1;
+const double PROSPER_WORKER_PROB = 0.4;
+const double PROSPER_SOLDIER_PROB = 0.0;
+const double PROSPER_SCOUT_PROB = 0.6;
+const double PROSPER_KAMIKAZE_PROB = 0.0;
 
 //ANT KAMIKAZE
 double const ANT_KAMAIKAZE_HP = 20;

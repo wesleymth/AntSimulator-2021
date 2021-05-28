@@ -40,6 +40,16 @@ public:
     AntKamikaze(const ToricPosition& TP, Uid uid);
 
     /*!
+     *  @brief constructor with a given enemy
+     *
+     *  @param TP position in ToricPosition form
+     *  @param uid of the corresponding anthill
+     *
+     *  @note calls AntKamikaze constructor
+     */
+    AntKamikaze(const ToricPosition& TP, Uid uid, Anthill* enemy, const ToricPosition& enemyPosition);
+
+    /*!
      *  @brief constructor with specific position and uid
      *
      *  @param pos position in Vec2d form

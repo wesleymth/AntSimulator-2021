@@ -92,6 +92,12 @@ void AntScout::update(sf::Time dt)
         {
             condition = Roam;
         }
+
+        if (closestAnthill != nullptr and closestAnthill->getUid() == getAnthillUid()
+                and toricDistance(closestAnthill->getPosition(),targetPosition) <= DEFAULT_ANTHILL_TERRITORY)
+        {
+            closestAnthill->receiveEnemyInfo(target,targetPosition);
+        }
     }
     Animal::update(dt);
 }

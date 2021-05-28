@@ -31,6 +31,15 @@ AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
     ++count;
 }
 
+AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid, Anthill* enemy, const ToricPosition& enemyPosition)
+    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid),
+      target(enemy),
+      targetPosition(enemyPosition),
+      condition(KillTarget)
+{
+    setDirection(calculateAngle(Positionable(targetPosition)));
+}
+
 AntKamikaze::AntKamikaze(const Vec2d& pos, Uid uid)
     :AntKamikaze(ToricPosition(pos),uid)
 {
