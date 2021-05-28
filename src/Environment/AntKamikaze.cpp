@@ -110,7 +110,7 @@ void AntKamikaze::update(sf::Time dt)
     {
         if (targetInPerceptionDistance())
         {
-            if(getAppEnv().anthi)
+            if(getAppEnv().anthillStillAlive(target))
             {
                 explode(target);
             }
@@ -130,7 +130,7 @@ void AntKamikaze::update(sf::Time dt)
 
         if(closestAnthill != nullptr)
         {
-            if((closestAnthill->getUid() != getAnthillUid()) and(not closestAnthill->isDead()))
+            if(closestAnthill->getUid() != getAnthillUid())
             {
                 explode(closestAnthill);
             }
