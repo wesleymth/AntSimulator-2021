@@ -139,6 +139,79 @@ public:
     const double termite_speed;
     const double termite_attack_delay;
     const std::string termite_texture;
+
+    //DRAWING CONSTANTS
+    double const DEFAULT_ANT_SIZE;
+    double const DEFAULT_TERMITE_SIZE;
+    double const DEFAULT_ANTHILL_SIZE;
+    double const DEFAULT_FOOD_SIZE;
+
+    //ANIMAL
+    double const DEFAULT_ANIMAL_HP;
+    double const DEFAULT_ANIMAL_LIFE;
+
+    //FOOD
+    double const DEFAULT_FOOD_QUANTITY;
+
+    //PHEROMONE
+    double const DEFAULT_PHEROMONE_QUANTITY;
+
+    //LOADER
+    const int ERROR_LOADER_INCORRECT_ARGUMENTS;
+
+    //QUEEN
+    double const DEFAULT_QUEEN_SIZE;
+    double const DEFAULT_QUEEN_STRENGTH;
+    double const DEFAULT_QUEEN_HP;
+    double const DEFAULT_QUEEN_LIFE;
+    const double ANT_QUEEN_COST;
+    double const DEFAULT_COLONY_DISTANCE;
+    double const DEFAULT_FOOD_COLONY;
+
+    //ANTHILLS
+    double const DEFAULT_UID;
+    const double ANT_WORKER_COST;
+    const double ANT_SOLDIER_COST;
+    const double ANT_SCOUT_COST;
+    const double ANT_KAMIKAZE_COST;
+    const double HUNGER_DAMAGE_PER_TIME;
+    const double DEFAULT_ANTHILL_HEALTHPOINTS;
+    const double DEFAULT_ANTHILL_REGENERATION;
+    const double ANTHILL_FOOD_COMSUMPTION;
+    const double FOOD_NEEDED_FOR_WAR;
+    const double DEFAULT_WAR_TIME;
+    const double DEFAULT_ANTHILL_TERRITORY;
+
+    //ANT GENERATION PROBABILITIES
+    const double WAR_WORKER_PROB;
+    const double WAR_SOLDIER_PROB;
+    const double WAR_SCOUT_PROB;
+    const double WAR_KAMIKAZE_PROB;
+    const double PROSPER_WORKER_PROB;
+    const double PROSPER_SOLDIER_PROB;
+    const double PROSPER_SCOUT_PROB;
+    const double PROSPER_KAMIKAZE_PROB;
+
+    //ANT KAMIKAZE
+    double const ANT_KAMAIKAZE_HP;
+    double const ANT_KAMAIKAZE_LIFE;
+    int const ANT_KAMAIKAZE_STRENGTH;
+    int const ANT_KAMAIKAZE_BLOW_UP_DAMAGE;
+    const std::string ANT_KAMAIKAZE_SPRITE;
+
+    //ANT SCOUT
+    int const ANT_SCOUT_STRENGTH;
+    double const ANT_SCOUT_HP;
+    double const ANT_SCOUT_LIFE;
+    double const ANT_SCOUT_SPREAD_INPHO_TIME ;
+    const std::string ANT_SCOUT_SPRITE;
+
+    //TEMPERATURE
+    double const COLD_TEMPERATURE;
+    double const HOT_TEMPERATURE;
+    double const TEMPERATURE_DAMAGE_RATE;
+    double const TEMPERATURE_SIN_FACTOR;
+
 };
 
 #endif // INFOSV_CONFIG_HPP

@@ -16,7 +16,7 @@ int AntSoldier::getCount()
 }
 
 AntSoldier::AntSoldier()
-    :AntSoldier(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
+    :AntSoldier(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), getAppConfig().DEFAULT_UID)
 {
     //Done
 }
@@ -47,7 +47,7 @@ AntSoldier::AntSoldier(const Vec2d& pos, Uid uid)
 sf::Sprite AntSoldier::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
-                       DEFAULT_ANT_SIZE,
+                       getAppConfig().DEFAULT_ANT_SIZE,
                        getAppTexture(getAppConfig().ant_soldier_texture),
                        getDirection()/DEG_TO_RAD);
 }

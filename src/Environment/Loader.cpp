@@ -48,28 +48,28 @@ void loadMap(std::string const& filepath)
                             {
                                 getAppEnv().addAnthill(new Anthill(Vec2d(std::stod(words[1]), std::stod(words[2]))));// *** A decommenter
                             } else {
-                                throw ERROR_LOADER_INCORRECT_ARGUMENTS;
+                                throw getAppConfig().ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
                         } else if (words[0]=="termite") {
                             if(words.size()==3)
                             {
                                 getAppEnv().addAnimal(new Termite(Vec2d(std::stod(words[1]), std::stod(words[2]))));//  *** A decommenter
                             } else {
-                                throw ERROR_LOADER_INCORRECT_ARGUMENTS;
+                                throw getAppConfig().ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
                         } else if (words[0]=="food") {
                             if(words.size()==4)
                             {
                                 getAppEnv().addFood(new Food(Vec2d(std::stod(words[1]), std::stod(words[2])), std::stod(words[3])));  // *** A decommenter
                             } else {
-                                throw ERROR_LOADER_INCORRECT_ARGUMENTS;
+                                throw getAppConfig().ERROR_LOADER_INCORRECT_ARGUMENTS;
                             }
                         } else {
                             std::cerr << "invalid argument provided for type"<< std::endl;
                         }
                     }
                     catch (int i) {
-                        if (i==ERROR_LOADER_INCORRECT_ARGUMENTS)
+                        if (i==getAppConfig().ERROR_LOADER_INCORRECT_ARGUMENTS)
                         {
                             std::cerr << "incorrect number of arguments provided for " << words[0] << " construction" << std::endl;
                         }

@@ -53,7 +53,7 @@ Anthill::Anthill(const ToricPosition& TP, Uid id)
       uid(id),
       foodStock(0.0),
       timeLastSpawn(sf::Time::Zero),
-      healthPoints(DEFAULT_ANTHILL_HEALTHPOINTS),
+      healthPoints(getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS),
       state(Prosper),
       enemy(nullptr),
       enemyPosition(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2)),
@@ -96,7 +96,7 @@ void Anthill::consumeFood(Quantity removed)
 void Anthill::drawOn(sf::RenderTarget& target) const
 { 
     auto const anthillSprite = buildSprite((getPosition()).toVec2d(),
-                                           DEFAULT_ANTHILL_SIZE,
+                                           getAppConfig().DEFAULT_ANTHILL_SIZE,
                                            getAppTexture(getAppConfig().anthill_texture));;
     target.draw(anthillSprite);
     if (isDebugOn()) { //if debug on you can see the current foodStock in black and the uid in magenta
@@ -132,31 +132,31 @@ void Anthill::update(sf::Time dt)
             generateAnt(); //randomly generates ant every anthill_spawn_delay
         }
 
-        foodStock -= dt.asSeconds()*ANTHILL_FOOD_COMSUMPTION;
+        foodStock -= dt.asSeconds()*getAppConfig().ANTHILL_FOOD_COMSUMPTION;
         if (foodStock <= 0.0)
         {
             foodStock = 0.0;
-            receiveDamage(HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
+            receiveDamage(getAppConfig().HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
         }
         else
         {
-            if (foodStock>=DEFAULT_FOOD_COLONY)
+            if (foodStock>=getAppConfig().DEFAULT_FOOD_COLONY)
             {
                 generateAntQueen();
             }
-            if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS)
+            if (healthPoints<getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS)
             {
-                healthPoints+=DEFAULT_ANTHILL_REGENERATION;
-                if (healthPoints>DEFAULT_ANTHILL_HEALTHPOINTS)
+                healthPoints+=getAppConfig().DEFAULT_ANTHILL_REGENERATION;
+                if (healthPoints>getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS)
                 {
-                    healthPoints=DEFAULT_ANTHILL_HEALTHPOINTS;
+                    healthPoints=getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS;
                 }
             }
 
         }
         if (state == Prosper)
         {
-            if (foundEnemy() and foodStock >= FOOD_NEEDED_FOR_WAR)
+            if (foundEnemy() and foodStock >= getAppConfig().FOOD_NEEDED_FOR_WAR)
             {
                 if (getAppEnv().anthillStillAlive(enemy))
                 {
@@ -188,7 +188,7 @@ bool Anthill::foundEnemy() const
 
 bool Anthill::warTimeOver() const
 {
-    return warTime >= sf::seconds(DEFAULT_WAR_TIME);
+    return warTime >= sf::seconds(getAppConfig().DEFAULT_WAR_TIME);
 }
 
 bool Anthill::uidIsEqual(Uid checkId) const
@@ -198,65 +198,65 @@ bool Anthill::uidIsEqual(Uid checkId) const
 
 void Anthill::generateAntWorker()
 {
-    if(foodStock>=ANT_WORKER_COST)
+    if(foodStock>=getAppConfig().ANT_WORKER_COST)
     {
         getAppEnv().addAnimal(new AntWorker(getPosition(),uid)); //adds an ant worker to the current environment
-        consumeFood(ANT_WORKER_COST);
+        consumeFood(getAppConfig().ANT_WORKER_COST);
     }
 }
 
 void Anthill::generateAntSoldier()
 {
-    if(foodStock>=ANT_SOLDIER_COST)
+    if(foodStock>=getAppConfig().ANT_SOLDIER_COST)
     {
         getAppEnv().addAnimal(new AntSoldier(getPosition(),uid)); //adds an ant soldier to the current environment
-        consumeFood(ANT_SOLDIER_COST);
+        consumeFood(getAppConfig().ANT_SOLDIER_COST);
     }
 }
 
 void Anthill::generateAntQueen()
 {
-    if(foodStock>=ANT_QUEEN_COST)
+    if(foodStock>=getAppConfig().ANT_QUEEN_COST)
     {
         getAppEnv().addAnimal(new AntQueen(getPosition(),uid)); //adds an ant queen to the current environment
-        consumeFood(ANT_QUEEN_COST);
+        consumeFood(getAppConfig().ANT_QUEEN_COST);
     }
 }
 
 void Anthill::generateAntKamikaze()
 {
-    if(foodStock>=ANT_KAMIKAZE_COST)
+    if(foodStock>=getAppConfig().ANT_KAMIKAZE_COST)
     {
         getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid)); //adds an ant kamikaze to the current environment
-        consumeFood(ANT_KAMIKAZE_COST);
+        consumeFood(getAppConfig().ANT_KAMIKAZE_COST);
     }
 }
 
 
 void Anthill::generateAntScout()
 {
-    if(foodStock>=ANT_SCOUT_COST)
+    if(foodStock>=getAppConfig().ANT_SCOUT_COST)
     {
         getAppEnv().addAnimal(new AntScout(getPosition(),uid)); //adds an ant scout to the current environment
-        consumeFood(ANT_SCOUT_COST);
+        consumeFood(getAppConfig().ANT_SCOUT_COST);
     }
 }
 
 void Anthill::generateWarAntKamikaze()
 {
-    if(foodStock>=ANT_KAMIKAZE_COST)
+    if(foodStock>=getAppConfig().ANT_KAMIKAZE_COST)
     {
         getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid, enemy, enemyPosition)); //adds an ant kamikaze to the current environment
-        consumeFood(ANT_KAMIKAZE_COST);
+        consumeFood(getAppConfig().ANT_KAMIKAZE_COST);
     }
 }
 
 void Anthill::generateWarAntSoldier()
 {
-    if(foodStock>=ANT_SOLDIER_COST)
+    if(foodStock>=getAppConfig().ANT_SOLDIER_COST)
     {
         getAppEnv().addAnimal(new AntSoldier(getPosition(),uid,calculateAngle(Positionable(enemy->getPosition())))); //adds an ant soldier to the current environment
-        consumeFood(ANT_SOLDIER_COST);
+        consumeFood(getAppConfig().ANT_SOLDIER_COST);
     }
 }
 
@@ -266,14 +266,14 @@ void Anthill::generateAnt()
 
     if(state == War)
     {
-        if ( (0 <= theta) and (theta <= WAR_WORKER_PROB) ) {
+        if ( (0 <= theta) and (theta <= getAppConfig().WAR_WORKER_PROB) ) {
             generateAntWorker();
         }
-        else if( (WAR_WORKER_PROB < theta) and (theta <= (WAR_WORKER_PROB + WAR_SOLDIER_PROB)) )
+        else if( (getAppConfig().WAR_WORKER_PROB < theta) and (theta <= (getAppConfig().WAR_WORKER_PROB + getAppConfig().WAR_SOLDIER_PROB)) )
         {
             generateWarAntSoldier();
         }
-        else if( ((WAR_WORKER_PROB + WAR_SOLDIER_PROB) < theta) and (theta <= (WAR_WORKER_PROB + WAR_SOLDIER_PROB + WAR_SCOUT_PROB)) )
+        else if( ((getAppConfig().WAR_WORKER_PROB + getAppConfig().WAR_SOLDIER_PROB) < theta) and (theta <= (getAppConfig().WAR_WORKER_PROB + getAppConfig().WAR_SOLDIER_PROB + getAppConfig().WAR_SCOUT_PROB)) )
         {
             generateAntScout();
         }
@@ -284,14 +284,14 @@ void Anthill::generateAnt()
     }
     else
     {
-        if ( (0 <= theta) and (theta <= PROSPER_WORKER_PROB) ) {
+        if ( (0 <= theta) and (theta <= getAppConfig().PROSPER_WORKER_PROB) ) {
             generateAntWorker();
         }
-        else if( (PROSPER_WORKER_PROB < theta) and (theta <= (PROSPER_WORKER_PROB + PROSPER_SOLDIER_PROB)) )
+        else if( (getAppConfig().PROSPER_WORKER_PROB < theta) and (theta <= (getAppConfig().PROSPER_WORKER_PROB + getAppConfig().PROSPER_SOLDIER_PROB)) )
         {
             generateAntSoldier();
         }
-        else if( ((PROSPER_WORKER_PROB + PROSPER_SOLDIER_PROB) < theta) and (theta <= (PROSPER_WORKER_PROB + PROSPER_SOLDIER_PROB + PROSPER_SCOUT_PROB)) )
+        else if( ((getAppConfig().PROSPER_WORKER_PROB + getAppConfig().PROSPER_SOLDIER_PROB) < theta) and (theta <= (getAppConfig().PROSPER_WORKER_PROB + getAppConfig().PROSPER_SOLDIER_PROB + getAppConfig().PROSPER_SCOUT_PROB)) )
         {
             generateAntScout();
         }
@@ -326,7 +326,7 @@ bool Anthill::isDead() const // a l'origine nous avions prevu de de pouvoir tuer
 
 void Anthill::generateSoldierKamikazePair()
 {
-    if (foodStock > (ANT_KAMIKAZE_COST + ANT_SOLDIER_COST))
+    if (foodStock > (getAppConfig().ANT_KAMIKAZE_COST + getAppConfig().ANT_SOLDIER_COST))
     {
         generateWarAntKamikaze();
         generateWarAntSoldier();

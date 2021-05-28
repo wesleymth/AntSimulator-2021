@@ -11,7 +11,7 @@ int AntKamikaze::getCount()
 }
 
 AntKamikaze::AntKamikaze()
-    :AntKamikaze(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID) //sets position to middle of the world
+    :AntKamikaze(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), getAppConfig().DEFAULT_UID) //sets position to middle of the world
 {
     //Done
 }
@@ -23,7 +23,7 @@ AntKamikaze::~AntKamikaze()
 }
 
 AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid),
+    :Ant::Ant(TP, getAppConfig().ANT_KAMAIKAZE_HP, getAppConfig().ANT_KAMAIKAZE_LIFE, uid),
       target(nullptr),
       targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2),
       condition(Wander)
@@ -32,7 +32,7 @@ AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
 }
 
 AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid, Anthill* enemy, const ToricPosition& enemyPosition)
-    :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid),
+    :Ant::Ant(TP, getAppConfig().ANT_KAMAIKAZE_HP, getAppConfig().ANT_KAMAIKAZE_LIFE, uid),
       target(enemy),
       targetPosition(enemyPosition),
       condition(KillTarget)
@@ -49,14 +49,14 @@ AntKamikaze::AntKamikaze(const Vec2d& pos, Uid uid)
 sf::Sprite AntKamikaze::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
-                       DEFAULT_ANT_SIZE,
-                       getAppTexture(ANT_KAMAIKAZE_SPRITE),
+                       getAppConfig().DEFAULT_ANT_SIZE,
+                       getAppTexture(getAppConfig().ANT_KAMAIKAZE_SPRITE),
                        getDirection()/DEG_TO_RAD);
 }
 
 int AntKamikaze::getStrength() const
 {
-    return ANT_KAMAIKAZE_STRENGTH;
+    return getAppConfig().ANT_KAMAIKAZE_STRENGTH;
 }
 
 Anthill* AntKamikaze::getTarget() const
@@ -99,7 +99,7 @@ void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition
 
 void AntKamikaze::explode(Anthill *victim)
 {
-    victim->receiveDamage(ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
+    victim->receiveDamage(getAppConfig().ANT_KAMAIKAZE_BLOW_UP_DAMAGE);
     kill();
 }
 

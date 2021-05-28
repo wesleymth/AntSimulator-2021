@@ -84,12 +84,12 @@ void Environment::update(sf::Time dt)
 
     if (temp==Normal)
     {
-        temperature=getAppConfig().temperature_initial+14*sin(TEMPERATURE_SIN_FACTOR*totalTime.asSeconds());
+        temperature=getAppConfig().temperature_initial+14*sin(getAppConfig().TEMPERATURE_SIN_FACTOR*totalTime.asSeconds());
     } else if (temp==Cold)
     {
-        temperature=COLD_TEMPERATURE;
+        temperature=getAppConfig().COLD_TEMPERATURE;
     } else {
-        temperature=HOT_TEMPERATURE;
+        temperature=getAppConfig().HOT_TEMPERATURE;
     }
 }
 
@@ -378,7 +378,7 @@ void Environment::saveMap() const
 
 bool Environment::isTemperatureExtreme() const
 {
-    return (getAppEnv().getTemperature()<=COLD_TEMPERATURE or getAppEnv().getTemperature()>=HOT_TEMPERATURE);
+    return (getAppEnv().getTemperature()<=getAppConfig().COLD_TEMPERATURE or getAppEnv().getTemperature()>=getAppConfig().HOT_TEMPERATURE);
 }
 
 void Environment::toggleTemp()

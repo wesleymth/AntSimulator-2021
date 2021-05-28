@@ -17,7 +17,7 @@ int AntWorker::getCount()
 }
 
 AntWorker::AntWorker()
-    :AntWorker(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
+    :AntWorker(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), getAppConfig().DEFAULT_UID)
 {
     //Done
 }
@@ -42,7 +42,7 @@ AntWorker::AntWorker(const Vec2d& pos, Uid id)
 sf::Sprite AntWorker::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
-                       DEFAULT_ANT_SIZE,
+                       getAppConfig().DEFAULT_ANT_SIZE,
                        getAppTexture(getAppConfig().ant_worker_texture),
                        getDirection()/DEG_TO_RAD);
 }

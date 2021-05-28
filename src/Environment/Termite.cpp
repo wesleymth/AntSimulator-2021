@@ -57,7 +57,7 @@ double Termite::getAttackDelay() const
 sf::Sprite Termite::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
-                       DEFAULT_TERMITE_SIZE,
+                       getAppConfig().DEFAULT_TERMITE_SIZE,
                        getAppTexture(getAppConfig().termite_texture),
                        getDirection()/DEG_TO_RAD);
 }

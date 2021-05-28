@@ -13,7 +13,7 @@ int AntScout::getCount()
 }
 
 AntScout::AntScout()
-    :AntScout(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
+    :AntScout(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), getAppConfig().DEFAULT_UID)
 {
     //Done
 }
@@ -25,7 +25,7 @@ AntScout::~AntScout()
 }
 
 AntScout::AntScout(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, ANT_SCOUT_HP, ANT_SCOUT_LIFE, uid),
+    :Ant::Ant(TP, getAppConfig().ANT_SCOUT_HP, getAppConfig().ANT_SCOUT_LIFE, uid),
       target(nullptr),
       targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2),
       condition(Roam),
@@ -43,14 +43,14 @@ AntScout::AntScout(const Vec2d& pos, Uid uid)
 sf::Sprite AntScout::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
-                       DEFAULT_ANT_SIZE,
-                       getAppTexture(ANT_SCOUT_SPRITE),
+                       getAppConfig().DEFAULT_ANT_SIZE,
+                       getAppTexture(getAppConfig().ANT_SCOUT_SPRITE),
                        getDirection()/DEG_TO_RAD);
 }
 
 int AntScout::getStrength() const
 {
-    return ANT_SCOUT_STRENGTH;
+    return getAppConfig().ANT_SCOUT_STRENGTH;
 }
 
 bool AntScout::foundTarget() const
@@ -78,7 +78,7 @@ void AntScout::update(sf::Time dt)
         {
             saveTargetInfo(closestAnthill);
             turnAround();
-            timeSpreadInpho = sf::seconds(ANT_SCOUT_SPREAD_INPHO_TIME);
+            timeSpreadInpho = sf::seconds(getAppConfig().ANT_SCOUT_SPREAD_INPHO_TIME);
             condition = TargetAcquiered;
         }
     }
@@ -94,7 +94,7 @@ void AntScout::update(sf::Time dt)
         }
 
         if (closestAnthill != nullptr and closestAnthill->getUid() == getAnthillUid()
-                and toricDistance(closestAnthill->getPosition(),targetPosition) <= DEFAULT_ANTHILL_TERRITORY)
+                and toricDistance(closestAnthill->getPosition(),targetPosition) <= getAppConfig().DEFAULT_ANTHILL_TERRITORY)
         {
             closestAnthill->receiveEnemyInfo(target,targetPosition);
         }

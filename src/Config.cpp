@@ -84,6 +84,80 @@ Config::Config(std::string path) : mConfig(j::readFromFile(path))
     , termite_attack_delay(mConfig["termite"]["attack delay"].toDouble())
 
     , termite_texture(mConfig["termite"]["texture"].toString())
+
+//DRAWING CONSTANTS
+    ,DEFAULT_ANT_SIZE(mConfig["ant"]["DEFAULT_ANT_SIZE"].toDouble())
+    ,DEFAULT_TERMITE_SIZE(mConfig["termite"]["DEFAULT_TERMITE_SIZE"].toDouble())
+    ,DEFAULT_ANTHILL_SIZE(mConfig["anthill"]["DEFAULT_ANTHILL_SIZE"].toDouble())
+    ,DEFAULT_FOOD_SIZE(mConfig["food"]["DEFAULT_FOOD_SIZE"].toDouble())
+
+  //ANIMAL
+    ,DEFAULT_ANIMAL_HP(mConfig["animal"]["DEFAULT_ANIMAL_HP"].toDouble())
+    ,DEFAULT_ANIMAL_LIFE(mConfig["animal"]["DEFAULT_ANIMAL_LIFE"].toDouble())
+
+  //FOOD
+    ,DEFAULT_FOOD_QUANTITY(mConfig["food"]["DEFAULT_FOOD_QUANTITY"].toDouble())
+
+  //PHEROMONE
+    ,DEFAULT_PHEROMONE_QUANTITY(mConfig["ant"]["pheromone"]["DEFAULT_PHEROMONE_QUANTITY"].toDouble())
+
+  //LOADER
+    ,ERROR_LOADER_INCORRECT_ARGUMENTS(mConfig["loader"]["ERROR_LOADER_INCORRECT_ARGUMENTS"].toInt())
+
+  //QUEEN
+    ,DEFAULT_QUEEN_SIZE(mConfig["ant"]["queen"]["DEFAULT_QUEEN_SIZE"].toDouble())
+    ,DEFAULT_QUEEN_STRENGTH(mConfig["ant"]["queen"]["DEFAULT_QUEEN_STRENGTH"].toDouble())
+    ,DEFAULT_QUEEN_HP(mConfig["ant"]["queen"]["DEFAULT_QUEEN_HP"].toDouble())
+    ,DEFAULT_QUEEN_LIFE(mConfig["ant"]["queen"]["DEFAULT_QUEEN_LIFE"].toDouble())
+    ,ANT_QUEEN_COST(mConfig["ant"]["queen"]["ANT_QUEEN_COST"].toDouble())
+    ,DEFAULT_COLONY_DISTANCE(mConfig["ant"]["queen"]["DEFAULT_COLONY_DISTANCE"].toDouble())
+    ,DEFAULT_FOOD_COLONY(mConfig["ant"]["queen"]["DEFAULT_FOOD_COLONY"].toDouble())
+
+  //ANTHILLS
+    ,DEFAULT_UID(mConfig["anthill"]["DEFAULT_UID"].toDouble())
+    ,ANT_WORKER_COST(mConfig["anthill"]["ANT_WORKER_COST"].toDouble())
+    ,ANT_SOLDIER_COST(mConfig["anthill"]["ANT_SOLDIER_COST"].toDouble())
+    ,ANT_SCOUT_COST(mConfig["anthill"]["ANT_SCOUT_COST"].toDouble())
+    ,ANT_KAMIKAZE_COST(mConfig["anthill"]["ANT_KAMIKAZE_COST"].toDouble())
+    ,HUNGER_DAMAGE_PER_TIME(mConfig["anthill"]["HUNGER_DAMAGE_PER_TIME"].toDouble())
+    ,DEFAULT_ANTHILL_HEALTHPOINTS(mConfig["anthill"]["DEFAULT_ANTHILL_HEALTHPOINTS"].toDouble())
+  ,DEFAULT_ANTHILL_REGENERATION(mConfig["anthill"]["DEFAULT_ANTHILL_REGENERATION"].toDouble())
+  ,ANTHILL_FOOD_COMSUMPTION(mConfig["anthill"]["ANTHILL_FOOD_COMSUMPTION"].toDouble())
+  ,FOOD_NEEDED_FOR_WAR(mConfig["anthill"]["FOOD_NEEDED_FOR_WAR"].toDouble())
+  ,DEFAULT_WAR_TIME(mConfig["anthill"]["DEFAULT_WAR_TIME"].toDouble())
+  ,DEFAULT_ANTHILL_TERRITORY(mConfig["anthill"]["DEFAULT_ANTHILL_TERRITORY"].toDouble())
+
+  //ANT GENERATION PROBABILITIES
+  ,WAR_WORKER_PROB(mConfig["anthill"]["generation probabilities"]["WAR_WORKER_PROB"].toDouble())
+  ,WAR_SOLDIER_PROB(mConfig["anthill"]["generation probabilities"]["WAR_SOLDIER_PROB"].toDouble())
+  ,WAR_SCOUT_PROB(mConfig["anthill"]["generation probabilities"]["WAR_SCOUT_PROB"].toDouble())
+  ,WAR_KAMIKAZE_PROB(mConfig["anthill"]["generation probabilities"]["WAR_KAMIKAZE_PROB"].toDouble())
+  ,PROSPER_WORKER_PROB(mConfig["anthill"]["generation probabilities"]["PROSPER_WORKER_PROB"].toDouble())
+  ,PROSPER_SOLDIER_PROB(mConfig["anthill"]["generation probabilities"]["PROSPER_SOLDIER_PROB"].toDouble())
+  ,PROSPER_SCOUT_PROB(mConfig["anthill"]["generation probabilities"]["PROSPER_SCOUT_PROB"].toDouble())
+  ,PROSPER_KAMIKAZE_PROB(mConfig["anthill"]["generation probabilities"]["PROSPER_KAMIKAZE_PROB"].toDouble())
+
+  //ANT KAMIKAZE
+  ,ANT_KAMAIKAZE_HP(mConfig["ant"]["kamikaze"]["ANT_KAMAIKAZE_HP"].toDouble())
+  ,ANT_KAMAIKAZE_LIFE(mConfig["ant"]["kamikaze"]["ANT_KAMAIKAZE_LIFE"].toDouble())
+  ,ANT_KAMAIKAZE_STRENGTH(mConfig["ant"]["kamikaze"]["ANT_KAMAIKAZE_STRENGTH"].toInt())
+  ,ANT_KAMAIKAZE_BLOW_UP_DAMAGE(mConfig["ant"]["kamikaze"]["ANT_KAMAIKAZE_BLOW_UP_DAMAGE"].toInt())
+  ,ANT_KAMAIKAZE_SPRITE(mConfig["ant"]["kamikaze"]["ANT_KAMAIKAZE_SPRITE"].toString())
+
+  //ANT SCOUT
+  ,ANT_SCOUT_STRENGTH(mConfig["ant"]["scout"]["ANT_SCOUT_STRENGTH"].toInt())
+  ,ANT_SCOUT_HP(mConfig["ant"]["scout"]["ANT_SCOUT_HP"].toDouble())
+  ,ANT_SCOUT_LIFE(mConfig["ant"]["scout"]["ANT_SCOUT_LIFE"].toDouble())
+  ,ANT_SCOUT_SPREAD_INPHO_TIME(mConfig["ant"]["scout"]["ANT_SCOUT_SPREAD_INPHO_TIME"].toDouble())
+  ,ANT_SCOUT_SPRITE(mConfig["ant"]["scout"]["ANT_SCOUT_SPRITE"].toString())
+
+  //TEMPERATURE
+  ,COLD_TEMPERATURE(mConfig["environment"]["COLD_TEMPERATURE"].toDouble())
+  ,HOT_TEMPERATURE(mConfig["environment"]["HOT_TEMPERATURE"].toDouble())
+  ,TEMPERATURE_DAMAGE_RATE(mConfig["environment"]["TEMPERATURE_DAMAGE_RATE"].toDouble())
+  ,TEMPERATURE_SIN_FACTOR(mConfig["environment"]["TEMPERATURE_SIN_FACTOR"].toDouble())
+
+
 { }
 
 

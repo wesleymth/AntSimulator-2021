@@ -5,8 +5,8 @@
 
 InformationPheromone::InformationPheromone()
     :InformationPheromone(ToricPosition(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2)),
-                          DEFAULT_PHEROMONE_QUANTITY,
-                          DEFAULT_UID,
+                          getAppConfig().DEFAULT_PHEROMONE_QUANTITY,
+                          getAppConfig().DEFAULT_UID,
                           nullptr,
                           ToricPosition(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2)))
 {

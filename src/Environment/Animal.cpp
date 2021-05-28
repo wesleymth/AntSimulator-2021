@@ -29,7 +29,7 @@ Animal::Animal(const Vec2d& pos, double HP, double LT)
 }
 
 Animal::Animal(const ToricPosition& TP)
-    :Animal(TP, DEFAULT_ANIMAL_HP, DEFAULT_ANIMAL_LIFE)
+    :Animal(TP, getAppConfig().DEFAULT_ANIMAL_HP, getAppConfig().DEFAULT_ANIMAL_LIFE)
 {
     //Done
 }
@@ -109,7 +109,7 @@ void Animal::update(sf::Time dt)
     }
     if (getAppEnv().isTemperatureExtreme())
     {
-        receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*TEMPERATURE_DAMAGE_RATE);
+        receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*getAppConfig().TEMPERATURE_DAMAGE_RATE);
     }
 }
 

@@ -32,7 +32,7 @@ double const DEFAULT_FOOD_QUANTITY = 0;
 double const DEFAULT_PHEROMONE_QUANTITY = 0;
 
 //LOADER
-const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699); ///random int
+const int ERROR_LOADER_INCORRECT_ARGUMENTS(1699); ///random int    /////PAS MIS
 
 //QUEEN
 double const DEFAULT_QUEEN_SIZE = 60.0;   ///< drawing constant

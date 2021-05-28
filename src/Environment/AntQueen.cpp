@@ -5,14 +5,14 @@
 
 
 AntQueen::AntQueen()
-    :AntQueen(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), DEFAULT_UID)
+    :AntQueen(Vec2d(getAppConfig().world_size/2,getAppConfig().world_size/2), getAppConfig().DEFAULT_UID)
 {
     //Done
 }
 
 
 AntQueen::AntQueen(const ToricPosition& TP, Uid uid)
-    :Ant::Ant(TP, DEFAULT_QUEEN_HP, DEFAULT_QUEEN_LIFE, uid), anthillPosition(TP)
+    :Ant::Ant(TP, getAppConfig().DEFAULT_QUEEN_HP, getAppConfig().DEFAULT_QUEEN_LIFE, uid), anthillPosition(TP)
 {
     //Done
 }
@@ -26,20 +26,20 @@ AntQueen::AntQueen(const Vec2d& pos, Uid uid)
 sf::Sprite AntQueen::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
-                       DEFAULT_QUEEN_SIZE,
+                       getAppConfig().DEFAULT_QUEEN_SIZE,
                        getAppTexture(getAppConfig().ant_worker_texture),
                        getDirection()/DEG_TO_RAD);
 }
 
 int AntQueen::getStrength() const
 {
-    return DEFAULT_QUEEN_STRENGTH;
+    return getAppConfig().DEFAULT_QUEEN_STRENGTH;
 }
 
 void AntQueen::update(sf::Time dt)
 {
     Animal::update(dt);
-    if (toricDistance(anthillPosition, getPosition())>DEFAULT_COLONY_DISTANCE)
+    if (toricDistance(anthillPosition, getPosition())>getAppConfig().DEFAULT_COLONY_DISTANCE)
     {
         colonise();
     }
