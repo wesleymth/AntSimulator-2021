@@ -49,7 +49,7 @@ std::ostream& Positionable::display(std::ostream& out)
     return out << *this; //uses the external operator<< above
 }
 
-double Positionable::calculateAngle(const Positionable& other)
+double Positionable::calculateAngle(const Positionable& other) const
 {
     double x(other.getPosition().x() - getPosition().x());
     double y(other.getPosition().y() - getPosition().y());

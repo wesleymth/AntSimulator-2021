@@ -216,10 +216,6 @@ public:
      *  @note intentionally does nothing but is redefined for termite
      */
     virtual void writeLine(std::ofstream& stream) const;
-
-    virtual bool isKamikaze() const;
-
-
 protected:
     /*!
      *  @brief sets direction angle

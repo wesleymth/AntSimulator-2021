@@ -31,6 +31,7 @@ Anthill::Anthill()
 
 Anthill::~Anthill()
 {
+    getAppEnv().StatsNeedReset();
     --count;
 }
 
@@ -54,7 +55,8 @@ Anthill::Anthill(const ToricPosition& TP, Uid id)
       healthPoints(DEFAULT_ANTHILL_HEALTHPOINTS),
       state(Prosper)
 {
-    generateAnt(); //Generates an ant at the creation of an anthill
+    getAppEnv().StatsNeedReset();
+    generateAntWorker(); //Generates an ant at the creation of an anthill
     ++count;
 }
 

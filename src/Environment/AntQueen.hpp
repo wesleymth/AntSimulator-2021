@@ -60,6 +60,13 @@ public:
      */
     RotationProbs computeRotationProbs() const override;
 
+    /*!
+     *  @brief creates a new Anthill
+     *
+     *  @return RotationProbs
+     *
+     *  @note calls Animal::computeRotationProbs(), There is no reason for a Queen to follow pheromones
+     */
     void colonise();
 
 private:

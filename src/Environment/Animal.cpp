@@ -165,11 +165,6 @@ void Animal::writeLine(std::ofstream& stream) const
     //done
 }
 
-bool Animal::isKamikaze() const
-{
-    return false;
-}
-
 void Animal::kill()
 {
     lifetime=0;

@@ -40,6 +40,7 @@ private:
     Temperature temperature;
     sf::Time totalTime;
     Temp temp;
+    bool resetStatsNeeded;
 public:
     /*!
      *  @brief default constructor
@@ -60,7 +61,7 @@ public:
      *
      * @return temperature in temperature form
      */
-    Temperature getTemperature();
+    Temperature getTemperature() const;
 
 
     /*!
@@ -68,37 +69,37 @@ public:
      *
      *  @return pointer on closest food
      */
-    Food* getClosestFoodForAnt(ToricPosition const& position);
+    Food* getClosestFoodForAnt(ToricPosition const& position) const;
 
     /*!
      *  @brief returns pointer on closest animal if it is in the sight radius
      *
      *  @return pointer on closest animal
      */
-    Animal* getClosestAnimalForAnimal(const Animal* currentInstance);
+    Animal* getClosestAnimalForAnimal(const Animal* currentInstance) const;
 
     /*!
      *  @brief returns pointer on anthill with the specific uid if it is in the perception radius
      *
      *  @return pointer on anthill
      */
-    Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillUid);
+    Anthill* getAnthillForAnt(ToricPosition const& position, Uid anthillUid) const;
 
     /*!
      *  @brief returns pointer on the closest anthill if it is in the perception radius
      *
      *  @return pointer on anthill
      */
-    Anthill* getClosestAnthillForAnt(Ant * const &currentInstance);
+    Anthill* getClosestAnthillForAnt(Ant * const &currentInstance) const;
 
     /*!
      *  @brief returns pointer on the closest pheromone if it is in the perception radius
      *
      *  @return pointer on pheromone
      */
-    Pheromone* getClosestPheromoneForAnt(Ant * const &currentInstance);
+    Pheromone* getClosestPheromoneForAnt(Ant * const &currentInstance) const;
 
-    bool getPheromoneInfo(AntKamikaze* const &currentInstance);
+    bool getPheromoneInfo(AntKamikaze* const &currentInstance) const;
 
     /*!
      *  @brief adds animal to current environment
@@ -191,12 +192,36 @@ public:
     /*!
      *  @brief creates file containing information to recreate current enironment with loadMap function
      */
-    void saveMap();
+    void saveMap() const;
 
-    bool isTemperatureExtreme();
+    /*!
+     *  @brief indicator of temperature
+     *
+     *  @return bool, true if temperature is outside of normal temperature
+     */
+    bool isTemperatureExtreme() const;
 
+    /*!
+     *  @brief Toggles between cold, normal and hot state for temperature
+     */
     void toggleTemp();
 
+    /*!
+     *  @brief sets bool attribute resetsStatsNeeded to true
+     */
+    void StatsNeedReset();
+
+    /*!
+     *  @brief sets bool attribute resetsStatsNeeded to false
+     */
+    void StatsReset();
+
+    /*!
+     *  @brief getter for bool attribute resetsStatsNeeded
+     *
+     *  @return bool attribute resetsStatsNeeded
+     */
+    bool getStatsStatus() const;
 };
 
 
