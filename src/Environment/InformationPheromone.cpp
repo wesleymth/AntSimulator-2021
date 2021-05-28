@@ -36,13 +36,13 @@ void InformationPheromone::drawOn(sf::RenderTarget &target) const
     couleur.a=couleur.a/4;
     auto const pheroCircle = buildCircle((getPosition()).toVec2d(), 5, couleur);
     target.draw(pheroCircle);
-    /*
-    if (isDebugOn()) //if debug on you can see the quantity of pheromones
+
+    if (isDebugOn()) //if debug on you can see the target's uid
     {
-        auto const text = buildText(to_nice_string(quantity), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        auto const text = buildText(to_nice_string(enemy->getUid()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
         target.draw(text); //shows quantity via a text
     }
-    */
+
 }
 
 Anthill* InformationPheromone::getEnemy() const
@@ -50,7 +50,7 @@ Anthill* InformationPheromone::getEnemy() const
     return enemy;
 }
 
-ToricPosition InformationPheromone::getEnemeyPosition() const
+ToricPosition InformationPheromone::getEnemyPosition() const
 {
     return enemyPosition;
 }
@@ -58,4 +58,9 @@ ToricPosition InformationPheromone::getEnemeyPosition() const
 Uid InformationPheromone::getAllowedReading() const
 {
     return allowedReading;
+}
+
+bool InformationPheromone::interact() const
+{
+    return true;
 }

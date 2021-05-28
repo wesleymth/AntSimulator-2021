@@ -3,7 +3,6 @@
 #include "Ant.hpp"
 #include "Anthill.hpp"
 #include "Pheromone.hpp"
-#include "InformationPheromone.hpp"
 
 enum KamikazeCondition {Wander,KillTarget};
 
@@ -66,6 +65,8 @@ public:
      */
     int getStrength() const override;
 
+    Anthill* getTarget() const;
+
     /*!
      *  @brief makes kamikaze move using Animal::move(sf::Time dt) except if condition = KillTarget in which case Kamikaze goes straigth to targetted anthill
      */
@@ -114,12 +115,16 @@ public:
     /*!
      *
      */
-    bool interactWithPheromoneDispatch(Pheromone const* other);
+    bool interactWithPheromone(Pheromone const* other);
 
-    /*!
-     *
-     */
-    bool interactWithPheromoneDispatch(InformationPheromone const* other);
+
+
+
+
+    void setTarget (Anthill* newTarget);
+
+    void setTargetPosition (const ToricPosition & newTargetPosition);
+
 
 
 private:

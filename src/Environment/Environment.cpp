@@ -73,7 +73,7 @@ void Environment::update(sf::Time dt)
         }
         foods.erase(std::remove(foods.begin(), foods.end(), nullptr), foods.end());
     }
-
+    /*
     temperature+=normal(0, TEMPERATURE_SIGMA);
     if(temperature>getAppConfig().temperature_max)
     {
@@ -83,6 +83,7 @@ void Environment::update(sf::Time dt)
         temperature=getAppConfig().temperature_min;
     }
     std::cout << temperature << std::endl;
+    */
 }
 
 void Environment::drawOn(sf::RenderTarget& targetWindow) const
@@ -190,7 +191,7 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
         if ((toricDistance(currentInstance->getPosition(), anthill->getPosition()) < compareDistance))
         { //if the distance of the next anthill is lower than the distance of the last anthill
             compareDistance = toricDistance(currentInstance->getPosition(), anthill->getPosition()); //distance is then equal to the distance of the new anthill
-            if (compareDistance <= getAppConfig().ant_max_perception_distance)
+            if ((compareDistance <= getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))
             { //if the anthill is in the sight distance of the given ant
                 anthillptr = anthill;
             }
@@ -215,6 +216,30 @@ Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance)
         }
     }
     return pheromoneptr;
+}
+
+bool Environment::getPheromoneInfo(AntKamikaze* const &currentInstance)
+{
+    //bool res(false);
+
+    for(auto& pheromone: pheromones)
+    {
+        if ((toricDistance(currentInstance->getPosition(), pheromone->getPosition()) < getAppConfig().ant_max_perception_distance))
+        { //if the distance of the next pheromone is lower than the distance of the last pheromone
+            if(pheromone->interact())
+            {
+                //currentInstance->setTarget(pheromone->getEnemy());
+                //currentInstance->setTargetPosition(pheromone->getEnemyPosition());
+                if (currentInstance->getTarget() != pheromone->getEnemy())
+                {
+                    currentInstance->receiveTargetInformation(pheromone->getEnemy(),pheromone->getEnemyPosition());
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 void Environment::addPheromone(Pheromone* phero)

@@ -93,6 +93,8 @@ public:
 
     void spreadPheromones() override;
 
+    void drawOn(sf::RenderTarget& target) const override;
+
 private:
     static int count;
     Anthill* target;

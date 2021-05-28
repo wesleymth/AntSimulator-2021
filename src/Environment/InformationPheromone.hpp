@@ -2,6 +2,7 @@
 #define INFORMATIONPHEROMONE_HPP
 #include "Pheromone.hpp"
 #include "Anthill.hpp"
+#include "AntKamikaze.hpp"
 
 class InformationPheromone : public Pheromone
 {
@@ -43,11 +44,16 @@ public:
      */
     void drawOn(sf::RenderTarget &target) const override;
 
-    Anthill* getEnemy() const;
+    Anthill* getEnemy() const override;
 
-    ToricPosition getEnemeyPosition() const;
+    ToricPosition getEnemyPosition() const override;
 
     Uid getAllowedReading() const;
+
+    /*!
+     *
+     */
+    bool interact() const override;
 
 private:
     Uid allowedReading;

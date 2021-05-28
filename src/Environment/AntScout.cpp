@@ -3,6 +3,7 @@
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
 #include "InformationPheromone.hpp"
+#include "RegularPheromone.hpp"
 
 int AntScout::count = 0;
 
@@ -43,7 +44,7 @@ sf::Sprite AntScout::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
                        DEFAULT_ANT_SIZE,
-                       getAppTexture(getAppConfig().ant_soldier_texture), ///////// <<<<<<<<<< probleme
+                       getAppTexture(ANT_SCOUT_SPRITE),
                        getDirection()/DEG_TO_RAD);
 }
 
@@ -104,7 +105,7 @@ void AntScout::spreadPheromones()
             setLastPheromone(getLastPheromone()+(i*vect/(dist*getAppConfig().ant_pheromone_density)));
             if (roaming())
             {
-                getAppEnv().addPheromone(new Pheromone(getLastPheromone(),
+                getAppEnv().addPheromone(new RegularPheromone(getLastPheromone(),
                                     getAppConfig().ant_pheromone_energy));
             }
             else
@@ -120,5 +121,18 @@ void AntScout::spreadPheromones()
     }
 
 
+}
+
+void AntScout::drawOn(sf::RenderTarget& target) const
+{
+    Ant::drawOn(target);
+    if (isDebugOn()) { //if debug on you can see the uid in magenta
+        auto const uidText = buildText(to_nice_string(getAnthillUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(uidText); //shows anthill uid via a text
+        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
+        auto const targetText = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
+                                          getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(targetText); //shows anthill uid via a text
+    }
 }
 

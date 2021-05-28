@@ -51,5 +51,8 @@ std::ostream& Positionable::display(std::ostream& out)
 
 double Positionable::calculateAngle(const Positionable& other)
 {
-    return atan((other.getPosition().x() - getPosition().x())/(other.getPosition().y()-getPosition().y()));
+    double x(other.getPosition().x() - getPosition().x());
+    double y(other.getPosition().y() - getPosition().y());
+    return atan2(y,x);
 }
+

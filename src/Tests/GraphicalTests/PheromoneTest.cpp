@@ -97,7 +97,7 @@ void PheromoneTest::onEvent(sf::Event event, sf::RenderWindow&)
             auto const nb_steps = direction.length() * NB_STEPS_PER_PIXEL;
             auto const step = direction / nb_steps;
             for (int i = 0; i < nb_steps; ++i) {
-                getAppEnv().addPheromone(new Pheromone(start + i * step, 5.0));
+                //getAppEnv().addPheromone(new Pheromone(start + i * step, 5.0));
             }
 
             // If shift key pressed then link the segment's start with this one's end.

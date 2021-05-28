@@ -48,13 +48,13 @@ const double ANT_WORKER_COST = 10;
 const double ANT_SOLDIER_COST = 10;
 const double ANT_SCOUT_COST = 10;
 const double ANT_KAMIKAZE_COST = 10;
-const double HUNGER_DAMAGE_PER_TIME = 1;
+const double HUNGER_DAMAGE_PER_TIME = 0;
 const double DEFAULT_ANTHILL_HEALTHPOINTS = 100;
 const double DEFAULT_ANTHILL_REGENERATION = 100;
 
 //ANT KAMIKAZE
 double const ANT_KAMAIKAZE_HP = 20;
-double const ANT_KAMAIKAZE_LIFE = 20;
+double const ANT_KAMAIKAZE_LIFE = 10000;
 int const ANT_KAMAIKAZE_STRENGTH = 0;
 int const ANT_KAMAIKAZE_BLOW_UP_DAMAGE = 100;
 const std::string ANT_KAMAIKAZE_SPRITE = "green_ant.png";
@@ -62,8 +62,9 @@ const std::string ANT_KAMAIKAZE_SPRITE = "green_ant.png";
 //ANT SCOUT
 int const ANT_SCOUT_STRENGTH = 4;
 double const ANT_SCOUT_HP = 20;
-double const ANT_SCOUT_LIFE = 20;
+double const ANT_SCOUT_LIFE = 10000;
 double const ANT_SCOUT_SPREAD_INPHO_TIME = 4;
+const std::string ANT_SCOUT_SPRITE = "grey_ant.png";
 
 \
 
@@ -71,8 +72,8 @@ double const ANT_SCOUT_SPREAD_INPHO_TIME = 4;
 //TEMPERATURE
 int const COLD_TEMPERATURE = 0;
 int const HOT_TEMPERATURE = 40;
-double const TEMPERATURE_DAMAGE_RATE = 0.1;
-double const TEMPERATURE_SIGMA = 0.4;
+double const TEMPERATURE_DAMAGE_RATE = 0;
+double const TEMPERATURE_SIGMA = 0;
 
 // Define resources location
 std::string const RES_LOCATION = "../res/";

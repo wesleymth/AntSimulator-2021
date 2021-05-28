@@ -7,7 +7,7 @@
 #include "Ant.hpp"
 #include "../Application.hpp"
 #include "../Utility/Utility.hpp"
-#include "Pheromone.hpp"
+#include "RegularPheromone.hpp"
 #include "Environment.hpp"
 
 Ant::Ant()
@@ -80,7 +80,7 @@ void Ant::spreadPheromones()
     if(dist*getAppConfig().ant_pheromone_density>=1) {
         for(int i(1); i<=dist*getAppConfig().ant_pheromone_density; ++i) {
             lastPheromone+=i*vect/(dist*getAppConfig().ant_pheromone_density);
-            getAppEnv().addPheromone(new Pheromone(lastPheromone,
+            getAppEnv().addPheromone(new RegularPheromone(lastPheromone,
                                                    getAppConfig().ant_pheromone_energy));
         }
     }

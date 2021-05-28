@@ -94,6 +94,8 @@ public:
      */
     Pheromone* getClosestPheromoneForAnt(Ant * const &currentInstance);
 
+    bool getPheromoneInfo(AntKamikaze* const &currentInstance);
+
     /*!
      *  @brief adds animal to current environment
      *

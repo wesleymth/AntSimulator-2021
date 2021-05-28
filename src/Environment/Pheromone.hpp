@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
 #include "./Interface/Updatable.hpp"
+#include "Anthill.hpp"
 
 //Cette façon simple de modéliser la phéromone sera potentiellement gourmande en ressources.
 //Vous pourrez proposer des alternatives plus efficaces dans la partie « extensions » du projet.
@@ -80,6 +81,14 @@ public:
     Quantity getQuantity() const;
 
     void evaporate(Quantity takeAway);
+
+    virtual bool interact() const=0;
+
+    virtual Anthill* getEnemy() const=0;
+
+    virtual ToricPosition getEnemyPosition() const=0;
+
+
 private:
     Quantity quantity;
 };
