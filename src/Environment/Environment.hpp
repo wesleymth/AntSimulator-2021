@@ -197,6 +197,8 @@ public:
 
     void toggleTemp();
 
+    bool anthillStillAlive(Anthill* currentInstance);
+
 };
 
 

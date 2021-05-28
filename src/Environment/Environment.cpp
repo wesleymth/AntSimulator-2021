@@ -220,6 +220,8 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
     return anthillptr;
 }
 
+
+
 Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance)
 {
     Pheromone* pheromoneptr(nullptr);
@@ -386,6 +388,18 @@ void Environment::toggleTemp()
     } else {
         temp=Cold;
     }
+}
+
+bool Environment::anthillStillAlive(Anthill* currentInstance)
+{
+    bool res(false);
+    for(auto& anthill: anthills) {
+        if (anthill == currentInstance)
+        {
+            res = true;
+        }
+    }
+    return res;
 }
 
 
