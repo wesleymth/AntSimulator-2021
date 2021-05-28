@@ -50,6 +50,16 @@ public:
     AntSoldier(const ToricPosition& TP, Uid uid);
 
     /*!
+     *  @brief constructor with specific position, uid and direction angle
+     *
+     *  @param TP position in ToricPosition form
+     *  @param uid of the corresponding anthill
+     *
+     *  @note calls above AntSoldier constructo
+     */
+    AntSoldier(const ToricPosition& TP, Uid uid, Angle notRandomAngle);
+
+    /*!
      *  @brief constructor with specific position and uid
      *
      *  @param pos position in Vec2d form

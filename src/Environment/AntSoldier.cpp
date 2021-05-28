@@ -32,6 +32,12 @@ AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid)
     ++count;
 }
 
+AntSoldier::AntSoldier(const ToricPosition& TP, Uid uid, Angle notRandomAngle)
+    :AntSoldier(TP,uid)
+{
+    setDirection(notRandomAngle);
+}
+
 AntSoldier::AntSoldier(const Vec2d& pos, Uid uid)
     :AntSoldier(ToricPosition(pos),uid)
 {
