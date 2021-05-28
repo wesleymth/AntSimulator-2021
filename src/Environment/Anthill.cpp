@@ -158,7 +158,7 @@ void Anthill::update(sf::Time dt)
         {
             if (foundEnemy() and foodStock >= FOOD_NEEDED_FOR_WAR)
             {
-                if (not enemy->isDead())
+                if (getAppEnv().anthillStillAlive(enemy))
                 {
                     state = War;
                     generateSoldierKamikazePair();
@@ -172,16 +172,11 @@ void Anthill::update(sf::Time dt)
         else
         {
             warTime += dt;
-            if (enemy->isDead() or warTimeOver())
+            if (not getAppEnv().anthillStillAlive(enemy) or warTimeOver())
             {
                 state = Prosper;
                 warTime = sf::Time::Zero;
             }
-        }
-
-        if (healthPoints==0) ///////A CHANGERRRRR
-        {
-            foodStock=0;
         }
     }
 }

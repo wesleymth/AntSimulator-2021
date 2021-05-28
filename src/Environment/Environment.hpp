@@ -222,6 +222,10 @@ public:
      *  @return bool attribute resetsStatsNeeded
      */
     bool getStatsStatus() const;
+
+
+    bool anthillStillAlive(Anthill* currentInstance);
+
 };
 
 

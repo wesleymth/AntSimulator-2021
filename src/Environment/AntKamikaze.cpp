@@ -110,7 +110,7 @@ void AntKamikaze::update(sf::Time dt)
     {
         if (targetInPerceptionDistance())
         {
-            if(not target->isDead())
+            if(getAppEnv().anthi)
             {
                 explode(target);
             }
