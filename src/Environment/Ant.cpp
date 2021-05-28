@@ -68,8 +68,15 @@ void Ant::setLastPheromone(const ToricPosition& newPosition)
 void Ant::drawOn(sf::RenderTarget& target) const
 {
     Animal::drawOn(target);
-    if(getAppConfig().getProbaDebug()) {
+    if(getAppConfig().getProbaDebug())
+    {
         drawPheromoneAngles(target);
+    }
+    if (isDebugOn())
+    {
+        auto const uidText = buildText(to_nice_string(getAnthillUid()), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Magenta); //if debug on you can see the uid in magenta
+        target.draw(uidText); //shows corresponding anthill uid via a text
+        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 1)); //draws a ring around ant representing the smelling distance capability for pheromones
     }
 }
 

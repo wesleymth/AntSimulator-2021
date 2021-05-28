@@ -85,7 +85,7 @@ public:
     /*!
      *  @brief draws an ant worker
      *
-     *  @note calls Ant::drawOn(target) and if debug on you can see carriedFood in black and anthillUid in magenta
+     *  @note calls Ant::drawOn(target) and if debug on you can see carriedFood in black
      */
     void drawOn(sf::RenderTarget& target) const override;
 

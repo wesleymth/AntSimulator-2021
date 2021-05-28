@@ -81,14 +81,8 @@ void AntWorker::drawOn(sf::RenderTarget& target) const
 {
     Ant::drawOn(target);
     if (isDebugOn())
-    { //if debug on you can see the current foodStock in black and the uid in magenta
-        auto const carriedFoodText = buildText(to_nice_string(carriedFood), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Black);
+    { //if debug on you can see the current foodStock in black
+        auto const carriedFoodText = buildText(to_nice_string(carriedFood), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Black);
         target.draw(carriedFoodText); //shows quantity of carried food via a text
-
-        auto const uidText = buildText(to_nice_string(getAnthillUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
-        target.draw(uidText); //shows anthill uid via a text
-
-
-        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
     }
 }

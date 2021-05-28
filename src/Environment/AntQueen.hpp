@@ -52,13 +52,6 @@ public:
     void update(sf::Time dt) override;
 
     /*!
-     *  @brief draws an ant queen
-     *
-     *  @note calls Ant::drawOn(target)
-     */
-    void drawOn(sf::RenderTarget& target) const override;
-
-    /*!
      *  @brief computes rotation probs
      *
      *  @return RotationProbs

@@ -138,26 +138,12 @@ void AntKamikaze::drawOn(sf::RenderTarget& Target) const
     {
         if (condition == KillTarget)
         {
-            auto const targetText = buildText("TARGET UID: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Red);
+            auto const targetText = buildText("TARGET UID: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
             Target.draw(targetText);
+            auto const targetPos = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
+                                              getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
+            Target.draw(targetPos); //shows target anthill's uid via a text
         }
-        auto const uidText = buildText(to_nice_string(getAnthillUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
-        Target.draw(uidText); //shows anthill uid via a text
-        Target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
-        auto const targetPos = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
-                                          getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
-        Target.draw(targetPos); //shows anthill uid via a text
     }
-     //if debug on you can see the uid in magenta
-}
-
-void AntKamikaze::setTarget (Anthill* newTarget)
-{
-    target = newTarget;
-}
-
-void AntKamikaze::setTargetPosition (const ToricPosition & newTargetPosition)
-{
-    targetPosition = newTargetPosition;
 }
 

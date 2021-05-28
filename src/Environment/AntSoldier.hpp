@@ -77,13 +77,6 @@ public:
      */
     int getStrength() const override;
 
-    /*!
-     *  @brief draws an ant soldier
-     *
-     *  @note calls Ant::drawOn(target);
-     */
-    void drawOn(sf::RenderTarget& target) const override;
-
 private:
     static int count;
 };

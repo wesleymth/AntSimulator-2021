@@ -7,6 +7,7 @@
 #define INFOSV_CONSTANTS_HPP
 
 #include <string>
+#include <unordered_map>
 
 // Numerical constants
 double const DEG_TO_RAD = 0.0174532925; ///< Degree to Radian conversion constant
@@ -51,6 +52,17 @@ const double ANT_KAMIKAZE_COST = 10;
 const double HUNGER_DAMAGE_PER_TIME = 0;
 const double DEFAULT_ANTHILL_HEALTHPOINTS = 100;
 const double DEFAULT_ANTHILL_REGENERATION = 1;
+
+//ANT GENERATION PROBABILITIES
+const double WAR_WORKER_PROB = 0.1;
+const double WAR_SOLDIER_PROB = 0.4;
+const double WAR_SCOUT_PROB = 0.1;
+const double WAR_KAMIKAZE_PROB = 0.4;
+
+const double PROSPER_WORKER_PROB = 0.5;
+const double PROSPER_SOLDIER_PROB = 0.1;
+const double PROSPER_SCOUT_PROB = 0.3;
+const double PROSPER_KAMIKAZE_PROB = 0.1;
 
 //ANT KAMIKAZE
 double const ANT_KAMAIKAZE_HP = 20;

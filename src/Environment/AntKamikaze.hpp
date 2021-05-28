@@ -112,20 +112,6 @@ public:
      */
     void receiveTargetInformation(Anthill *anthill, const ToricPosition& position);
 
-    /*!
-     *
-     */
-    bool interactWithPheromone(Pheromone const* other);
-
-
-
-
-
-    void setTarget (Anthill* newTarget);
-
-    void setTargetPosition (const ToricPosition & newTargetPosition);
-
-
 private:
     static int count;
     Anthill* target;

@@ -152,10 +152,11 @@ void Animal::drawOn(sf::RenderTarget& target) const
     if (isDebugOn()) { //if debug on you can see the healthPoints
         sf::VertexArray line(sf::PrimitiveType::Lines, 2);
         line[0] = { getPosition().toVec2d(), sf::Color::Black };
-        line[1] = { getPosition().toVec2d()+200*Vec2d::fromAngle(getDirection()), sf::Color::Black };
+        line[1] = { getPosition().toVec2d()+30*Vec2d::fromAngle(getDirection()), sf::Color::Black };
         target.draw(line);  //draws line
         auto const text = buildText(to_nice_string(getHP()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
         target.draw(text); //shows healthPoints via a text
+        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().animal_sight_distance, sf::Color::Red, 1)); //draws a ring around ant representing the sight distance
     }
 }
 

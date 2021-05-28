@@ -13,6 +13,7 @@
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 #include "AntQueen.hpp"
+#include "AntScout.hpp"
 
 
 int Anthill::count = 0;
@@ -46,7 +47,12 @@ Anthill::Anthill(const Vec2d& pos)
 }
 
 Anthill::Anthill(const ToricPosition& TP, Uid id)
-    :Positionable(TP), uid(id), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(DEFAULT_ANTHILL_HEALTHPOINTS)
+    :Positionable(TP),
+      uid(id),
+      foodStock(0.0),
+      timeLastSpawn(sf::Time::Zero),
+      healthPoints(DEFAULT_ANTHILL_HEALTHPOINTS),
+      state(Prosper)
 {
     generateAnt(); //Generates an ant at the creation of an anthill
     ++count;
@@ -93,13 +99,13 @@ void Anthill::drawOn(sf::RenderTarget& target) const
                                                getAppTexture(getAppConfig().anthill_texture));;
         target.draw(anthillSprite);
         if (isDebugOn()) { //if debug on you can see the current foodStock in black and the uid in magenta
-            auto const foodStockText = buildText(to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+            auto const foodStockText = buildText("FOOD: " + to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
             target.draw(foodStockText); //shows quantity of foodStock via a text
 
-            auto const uidText = buildText(to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+            auto const uidText = buildText("UID: " + to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Magenta);
             target.draw(uidText); //shows anthill's uid via a text
 
-            auto const healthPointsText = buildText(to_nice_string(healthPoints), getPosition().toVec2d()+Vec2d(0,80), getAppFont(), 15, sf::Color::Red);
+            auto const healthPointsText = buildText("HP: " + to_nice_string(healthPoints), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
             target.draw(healthPointsText); //shows anthill's healthpoints
         }
     } else {
@@ -176,13 +182,58 @@ void Anthill::generateAntQueen()
     consumeFood(ANT_QUEEN_COST);
 }
 
+void Anthill::generateAntKamikaze()
+{
+    getAppEnv().addAnimal(new AntKamikaze(getPosition(),uid)); //adds an ant kamikaze to the current environment
+    consumeFood(ANT_KAMIKAZE_COST);
+}
+
+
+void Anthill::generateAntScout()
+{
+    getAppEnv().addAnimal(new AntScout(getPosition(),uid)); //adds an ant scout to the current environment
+    consumeFood(ANT_SCOUT_COST);
+}
+
 void Anthill::generateAnt()
 {
     double theta(uniform(0.0,1.0)); //gets a random double between 0.0 and 1.0
-    if ( (0 <= theta) and (theta <= getWorkerProb())) {
-        generateAntWorker();
-    } else {
-        generateAntSoldier();
+
+    if(state == War)
+    {
+        if ( (0 <= theta) and (theta <= WAR_WORKER_PROB) ) {
+            generateAntWorker();
+        }
+        else if( (WAR_WORKER_PROB < theta) and (theta <= (WAR_WORKER_PROB + WAR_SOLDIER_PROB)) )
+        {
+            generateAntSoldier();
+        }
+        else if( ((WAR_WORKER_PROB + WAR_SOLDIER_PROB) < theta) and (theta <= (WAR_WORKER_PROB + WAR_SOLDIER_PROB + WAR_SCOUT_PROB)) )
+        {
+            generateAntScout();
+        }
+        else
+        {
+            generateAntKamikaze();
+        }
+    }
+    else
+    {
+        if ( (0 <= theta) and (theta <= PROSPER_WORKER_PROB) ) {
+            generateAntWorker();
+        }
+        else if( (PROSPER_WORKER_PROB < theta) and (theta <= (PROSPER_WORKER_PROB + PROSPER_SOLDIER_PROB)) )
+        {
+            generateAntSoldier();
+        }
+        else if( ((PROSPER_WORKER_PROB + PROSPER_SOLDIER_PROB) < theta) and (theta <= (PROSPER_WORKER_PROB + PROSPER_SOLDIER_PROB + PROSPER_SCOUT_PROB)) )
+        {
+            generateAntScout();
+        }
+        else
+        {
+            generateAntKamikaze();
+        }
     }
 }
 

@@ -126,13 +126,10 @@ void AntScout::spreadPheromones()
 void AntScout::drawOn(sf::RenderTarget& target) const
 {
     Ant::drawOn(target);
-    if (isDebugOn()) { //if debug on you can see the uid in magenta
-        auto const uidText = buildText(to_nice_string(getAnthillUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
-        target.draw(uidText); //shows anthill uid via a text
-        target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
+    if (isDebugOn() and foundTarget()) {
         auto const targetText = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
-                                          getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
-        target.draw(targetText); //shows anthill uid via a text
+                                          getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(targetText); //shows target anthill's uid via a text
     }
 }
 

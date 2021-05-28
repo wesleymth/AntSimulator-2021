@@ -322,6 +322,8 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
             {"worker ants", AntWorker::getCount()},
             {"soldier ants", AntSoldier::getCount()},
             {"termites", Termite::getCount()},
+            {"termites", AntScout::getCount()},
+            {"termites", AntKamikaze::getCount()},
             {"temperature", temperature}
         };
     } else if (title == "food")

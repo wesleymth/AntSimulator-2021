@@ -12,6 +12,8 @@
 #include "../Interface/Updatable.hpp"
 #include "../Interface/Savable.hpp"
 
+enum AnthillState {Prosper,War};
+
 /*!
  * @class Anthill
  *
@@ -160,6 +162,7 @@ private:
     Quantity foodStock;
     sf::Time timeLastSpawn;
     double healthPoints;
+    AnthillState state;
 
     /*!
      *  @brief generates an ant worker in the environment
@@ -175,6 +178,16 @@ private:
      *  @brief generates an ant queen in the environment
      */
     void generateAntQueen();
+
+    /*!
+     *  @brief generates an ant kamikaze in the environment
+     */
+    void generateAntKamikaze();
+
+    /*!
+     *  @brief generates an ant scout in the environment
+     */
+    void generateAntScout();
 
 
     /*!
