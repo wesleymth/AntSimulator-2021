@@ -71,7 +71,7 @@ public:
      *
      * @return angle between the two
      */
-    double calculateAngle(const Positionable& other);
+    double calculateAngle(const Positionable& other) const;
 
 private:
     ToricPosition position;

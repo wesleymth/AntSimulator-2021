@@ -18,7 +18,7 @@
 
 Environment::Environment()
     :animals(), foods(), anthills(), pheromones(), foodGenerator(),
-     showPheromones(), temperature(getAppConfig().temperature_initial), temp(Normal)
+     showPheromones(), temperature(getAppConfig().temperature_initial), temp(Normal), resetStatsNeeded(false)
 {
     //Done
 }
@@ -58,6 +58,11 @@ void Environment::update(sf::Time dt)
 
     for(auto& anthill: anthills) {
         anthill->update(dt); //in charge of updating the anthills
+        if (anthill->isDead()) { //gets rid of the animal in the attribute of the environement if the animal is dead
+            delete anthill;
+            anthill = nullptr;
+        }
+        anthills.erase(std::remove(anthills.begin(), anthills.end(), nullptr), anthills.end());
     }
 
     for(auto& phero: pheromones) {
@@ -152,12 +157,12 @@ void Environment::reset()
     pheromones.clear();
 }
 
-Temperature Environment::getTemperature()
+Temperature Environment::getTemperature() const
 {
     return temperature;
 }
 
-Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
+Food* Environment::getClosestFoodForAnt(ToricPosition const& position) const
 {
     Food* foodptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
@@ -172,7 +177,7 @@ Food* Environment::getClosestFoodForAnt(ToricPosition const& position)
     return foodptr;
 }
 
-Animal* Environment::getClosestAnimalForAnimal(const Animal* currentInstance)
+Animal* Environment::getClosestAnimalForAnimal(const Animal* currentInstance) const
 {
     Animal* animalptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
@@ -190,11 +195,11 @@ Animal* Environment::getClosestAnimalForAnimal(const Animal* currentInstance)
     return animalptr;
 }
 
-Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillUid)
+Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthillUid) const
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
     for(auto& anthill: anthills) {
-        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))//checks if the uids are equal and if the anthill is in the radius of perception of the ant
+        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance))//checks if the uids are equal and if the anthill is in the radius of perception of the ant
         {
             anthillptr = anthill;
         }
@@ -202,7 +207,7 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
     return anthillptr;
 }
 
-Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
+Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance) const
 {
     Anthill* anthillptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
@@ -211,7 +216,7 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
         if ((toricDistance(currentInstance->getPosition(), anthill->getPosition()) < compareDistance))
         { //if the distance of the next anthill is lower than the distance of the last anthill
             compareDistance = toricDistance(currentInstance->getPosition(), anthill->getPosition()); //distance is then equal to the distance of the new anthill
-            if ((compareDistance <= getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))
+            if ((compareDistance <= getAppConfig().ant_max_perception_distance))
             { //if the anthill is in the sight distance of the given ant
                 anthillptr = anthill;
             }
@@ -220,9 +225,13 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance)
     return anthillptr;
 }
 
+<<<<<<< HEAD
+Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance) const
+=======
 
 
 Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance)
+>>>>>>> c3741dd2cdb5ce880170a11c7d6beb4aac0c3d28
 {
     Pheromone* pheromoneptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
@@ -240,7 +249,7 @@ Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance)
     return pheromoneptr;
 }
 
-bool Environment::getPheromoneInfo(AntKamikaze* const &currentInstance)
+bool Environment::getPheromoneInfo(AntKamikaze* const &currentInstance) const
 {
     //bool res(false);
 
@@ -349,7 +358,7 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
 
 
 
-void Environment::saveMap()
+void Environment::saveMap() const
 {
 
     std::string fileName;
@@ -372,7 +381,7 @@ void Environment::saveMap()
 
 }
 
-bool Environment::isTemperatureExtreme()
+bool Environment::isTemperatureExtreme() const
 {
     return (getAppEnv().getTemperature()<=COLD_TEMPERATURE or getAppEnv().getTemperature()>=HOT_TEMPERATURE);
 }
@@ -390,6 +399,16 @@ void Environment::toggleTemp()
     }
 }
 
+void Environment::StatsNeedReset()
+{
+    resetStatsNeeded=true;
+}
+
+void Environment::StatsReset()
+{
+    resetStatsNeeded=false;
+}
+
 bool Environment::anthillStillAlive(Anthill* currentInstance)
 {
     bool res(false);
@@ -403,3 +422,7 @@ bool Environment::anthillStillAlive(Anthill* currentInstance)
 }
 
 
+bool Environment::getStatsStatus() const
+{
+    return resetStatsNeeded;
+}

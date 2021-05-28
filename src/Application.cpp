@@ -255,7 +255,6 @@ void Application::run()
 				getStats().update(dt);
                 onUpdate(dt);
 				--nbCycles;
-
             }
         }
 
