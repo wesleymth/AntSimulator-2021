@@ -79,7 +79,7 @@ void Environment::update(sf::Time dt)
 
     if (temp==Normal)
     {
-        temperature=getAppConfig().temperature_initial+normal(14, TEMPERATURE_SIGMA)*sin(TEMPERATURE_SIN_FACTOR*totalTime.asSeconds());
+        temperature=getAppConfig().temperature_initial+14*sin(TEMPERATURE_SIN_FACTOR*totalTime.asSeconds());
     } else if (temp==Cold)
     {
         temperature=COLD_TEMPERATURE;

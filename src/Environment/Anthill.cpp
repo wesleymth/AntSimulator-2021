@@ -147,15 +147,15 @@ void Anthill::update(sf::Time dt)
         if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS and foodStock>0)
         {
             healthPoints+=foodStock*DEFAULT_ANTHILL_REGENERATION;
-            if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS)
-            {
-                healthPoints=DEFAULT_ANTHILL_HEALTHPOINTS;
-            }
         }
-        /*if (getAppEnv().isTemperatureExtreme())
+        if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS)
+        {
+            healthPoints=DEFAULT_ANTHILL_HEALTHPOINTS;
+        }
+        if (getAppEnv().isTemperatureExtreme())
         {
             receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*TEMPERATURE_DAMAGE_RATE);
-        }*/
+        }
     }
 }
 
@@ -166,20 +166,29 @@ bool Anthill::uidIsEqual(Uid checkId) const
 
 void Anthill::generateAntWorker()
 {
-    getAppEnv().addAnimal(new AntWorker(getPosition(),uid)); //adds an ant worker to the current environment
-    consumeFood(ANT_WORKER_COST);
+    if(foodStock>=ANT_WORKER_COST)
+    {
+        getAppEnv().addAnimal(new AntWorker(getPosition(),uid)); //adds an ant worker to the current environment
+        consumeFood(ANT_WORKER_COST);
+    }
 }
 
 void Anthill::generateAntSoldier()
 {
-    getAppEnv().addAnimal(new AntSoldier(getPosition(),uid)); //adds an ant soldier to the current environment
-    consumeFood(ANT_SOLDIER_COST);
+    if(foodStock>=ANT_SOLDIER_COST)
+    {
+        getAppEnv().addAnimal(new AntSoldier(getPosition(),uid)); //adds an ant soldier to the current environment
+        consumeFood(ANT_SOLDIER_COST);
+    }
 }
 
 void Anthill::generateAntQueen()
 {
-    getAppEnv().addAnimal(new AntQueen(getPosition(),uid)); //adds an ant queen to the current environment
-    consumeFood(ANT_QUEEN_COST);
+    if(foodStock>=ANT_QUEEN_COST)
+    {
+        getAppEnv().addAnimal(new AntQueen(getPosition(),uid)); //adds an ant queen to the current environment
+        consumeFood(ANT_QUEEN_COST);
+    }
 }
 
 void Anthill::generateAntKamikaze()
