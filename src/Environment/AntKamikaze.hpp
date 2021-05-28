@@ -126,12 +126,10 @@ public:
     void setTargetPosition (const ToricPosition & newTargetPosition);
 
 
-
 private:
     static int count;
     Anthill* target;
     ToricPosition targetPosition;
-    Angle targetAngle;
     KamikazeCondition condition;
 
 };

@@ -156,7 +156,6 @@ public:
     bool isDead() const;
 private:
     static int count;
-
     Uid uid;
     Quantity foodStock;
     sf::Time timeLastSpawn;

@@ -26,7 +26,6 @@ AntKamikaze::AntKamikaze(const ToricPosition& TP, Uid uid)
     :Ant::Ant(TP, ANT_KAMAIKAZE_HP, ANT_KAMAIKAZE_LIFE, uid),
       target(nullptr),
       targetPosition(getAppConfig().world_size/2,getAppConfig().world_size/2),
-      targetAngle(0),
       condition(Wander)
 {
     ++count;
@@ -40,20 +39,10 @@ AntKamikaze::AntKamikaze(const Vec2d& pos, Uid uid)
 
 sf::Sprite AntKamikaze::getSprite() const
 {
-    if (condition == Wander)
-    {
-        return buildSprite((getPosition()).toVec2d(),
-                           DEFAULT_ANT_SIZE,
-                           getAppTexture(ANT_KAMAIKAZE_SPRITE),
-                           getDirection()/DEG_TO_RAD);
-    }
-    else
-    {
-        return buildSprite((getPosition()).toVec2d(),
-                           DEFAULT_ANT_SIZE,
-                           getAppTexture(ANT_KAMAIKAZE_SPRITE),
-                           targetAngle/DEG_TO_RAD);
-    }
+    return buildSprite((getPosition()).toVec2d(),
+                       DEFAULT_ANT_SIZE,
+                       getAppTexture(ANT_KAMAIKAZE_SPRITE),
+                       getDirection()/DEG_TO_RAD);
 }
 
 int AntKamikaze::getStrength() const
@@ -75,7 +64,7 @@ void AntKamikaze::move(sf::Time dt)
 {
     if (condition == KillTarget)
     {
-        auto dx = (getSpeed()*Vec2d::fromAngle(targetAngle)) * dt.asSeconds(); //targetAngle doesn't change
+        auto dx = (getSpeed()*Vec2d::fromAngle(getDirection()) * dt.asSeconds()); //targetAngle doesn't change
         setPosition(getPosition().toVec2d() + dx); //makes animal move by dx
         spreadPheromones();
     }
@@ -94,7 +83,7 @@ void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition
 {
     target = anthill; //gets the target
     targetPosition = position; //it's position
-    targetAngle = calculateAngle(Positionable(targetPosition)); //clalculates the angle it has to follow to go straigth towrds it
+    setDirection(calculateAngle(Positionable(targetPosition))); //clalculates the angle it has to follow to go straigth towrds it
     condition = KillTarget; //changes its condition so that the update can manage it differently
 
 }
@@ -108,15 +97,18 @@ void AntKamikaze::explode(Anthill *victim)
 void AntKamikaze::update(sf::Time dt)
 {
     //std::cerr << getPosition() << std::endl;
-    if ((condition == KillTarget) and (targetInPerceptionDistance()))
+    if (condition == KillTarget)
     {
-        if(not target->isDead())
+        if (targetInPerceptionDistance())
         {
-            explode(target);
-        }
-        else
-        {
-            condition = Wander;
+            if(not target->isDead())
+            {
+                explode(target);
+            }
+            else
+            {
+                condition = Wander;
+            }
         }
     }
     else //if wandering
@@ -129,13 +121,14 @@ void AntKamikaze::update(sf::Time dt)
 
         if(closestAnthill != nullptr)
         {
-            if(closestAnthill->getUid() != getAnthillUid())
+            if((closestAnthill->getUid() != getAnthillUid()) and(not closestAnthill->isDead()))
             {
                 explode(closestAnthill);
             }
         }
     }
     Animal::update(dt);
+
 }
 
 void AntKamikaze::drawOn(sf::RenderTarget& Target) const

@@ -69,7 +69,7 @@ Quantity Anthill::getFoodStock() const
 
 void Anthill::receiveFood(Quantity received)
 {
-    if (isDead())
+    if (not isDead())
     {
         if (received > 0) { //doesn't do anything for negative received
             foodStock += received;
@@ -138,9 +138,13 @@ void Anthill::update(sf::Time dt)
         {
             foodStock=0;
         }
-        if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS and foodStock>=0)
+        if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS and foodStock>0)
         {
             healthPoints+=foodStock*DEFAULT_ANTHILL_REGENERATION;
+            if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS)
+            {
+                healthPoints=DEFAULT_ANTHILL_HEALTHPOINTS;
+            }
         }
         /*if (getAppEnv().isTemperatureExtreme())
         {
