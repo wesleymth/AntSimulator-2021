@@ -42,7 +42,7 @@ sf::Sprite AntKamikaze::getSprite() const
 {
     return buildSprite((getPosition()).toVec2d(),
                        DEFAULT_ANT_SIZE,
-                       getAppTexture(ANT_KAMAIKAZE_SPRITE), ///////// <<<<<<<<<< probleme
+                       getAppTexture(ANT_KAMAIKAZE_SPRITE),
                        getDirection()/DEG_TO_RAD);
 }
 
@@ -65,7 +65,7 @@ void AntKamikaze::move(sf::Time dt)
     }
     else
     {
-        Animal::move(dt);
+        Ant::move(dt);
     }
 }
 
@@ -105,10 +105,10 @@ void AntKamikaze::update(sf::Time dt)
     else
     {
         Anthill* closestAnthill(getAppEnv().getClosestAnthillForAnt(this));
-        Pheromone* closestPheromone (getAppEnv().getClosestPheromoneForAnt(this));
-        if (closestPheromone != nullptr)
+        //Pheromone* closestPheromone (getAppEnv().getClosestPheromoneForAnt(this));
+        if (getAppEnv().getClosestPheromoneForAnt(this) != nullptr)
         {
-            if (interactWithPheromoneDispatch(closestPheromone))
+            if (interactWithPheromoneDispatch(getAppEnv().getClosestPheromoneForAnt(this)))
             {
                 condition = KillTarget;
             }
@@ -116,7 +116,7 @@ void AntKamikaze::update(sf::Time dt)
 
         if(closestAnthill != nullptr)
         {
-            if(closestAnthill->getUid() != getAnthillUid())
+            if((closestAnthill->getUid() != getAnthillUid()) and(not closestAnthill->isDead()))
             {
                 explode(closestAnthill);
             }
@@ -128,11 +128,21 @@ void AntKamikaze::update(sf::Time dt)
 void AntKamikaze::drawOn(sf::RenderTarget& Target) const
 {
     Ant::drawOn(Target);
-    if (isDebugOn() and foundTarget())
-    { //if debug on and foundTarget true you can see the target's uid in red
-        auto const targetText = buildText(to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Red);
-        Target.draw(targetText);
+    if (isDebugOn())
+    {
+        if (foundTarget())
+        {
+            auto const targetText = buildText("TARGET UID: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Red);
+            Target.draw(targetText);
+        }
+        auto const uidText = buildText(to_nice_string(getAnthillUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
+        Target.draw(uidText); //shows anthill uid via a text
+        Target.draw(buildAnnulus(getPosition().toVec2d(), getAppConfig().ant_smell_max_distance, sf::Color::Blue, 5)); //draws a ring around animal representing the perception distance
+        auto const targetPos = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
+                                          getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
+        Target.draw(targetPos); //shows anthill uid via a text
     }
+     //if debug on you can see the uid in magenta
 }
 
 bool AntKamikaze::interactWithPheromoneDispatch(Pheromone const* other)
@@ -143,9 +153,9 @@ bool AntKamikaze::interactWithPheromoneDispatch(Pheromone const* other)
 bool AntKamikaze::interactWithPheromoneDispatch(InformationPheromone const* other)
 {
     bool res(false);
-    if(other->getAllowedReading() == getAnthillUid())
-    {
+    //if(other->getAllowedReading() == getAnthillUid())
+    //{
         receiveTargetInformation(other->getEnemy(),other->getEnemeyPosition());
-    }
+    //}
     return res;
 }

@@ -3,20 +3,22 @@
  * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
  * @group: 76
  */
-
+#include "../Utility/Utility.hpp"
 #include "Environment.hpp"
 #include "../Application.hpp"
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
 #include "AntQueen.hpp"
 #include "Termite.hpp"
+#include "AntScout.hpp"
 #include <iostream>
 #include <string>
 #include <unordered_map>
 #include "Random/Random.hpp"
 
 Environment::Environment()
-    :animals(), foods(), anthills(), pheromones(), foodGenerator(), showPheromones(), temperature(getAppConfig().temperature_initial)
+    :animals(), foods(), anthills(), pheromones(), foodGenerator(),
+     showPheromones(), temperature(getAppConfig().temperature_initial), temp(Normal)
 {
     //Done
 }
@@ -42,6 +44,7 @@ void Environment::addAnthill(Anthill* anthill)
 
 void Environment::update(sf::Time dt)
 {
+    totalTime+=dt;
     foodGenerator.update(dt); //operator overload: uses update method of FoodGenerator class
 
     for(auto& animal: animals) {
@@ -74,16 +77,17 @@ void Environment::update(sf::Time dt)
         foods.erase(std::remove(foods.begin(), foods.end(), nullptr), foods.end());
     }
 
-    temperature+=normal(0, TEMPERATURE_SIGMA);
-    if(temperature>getAppConfig().temperature_max)
+    if (temp==Normal)
     {
-        temperature=getAppConfig().temperature_max;
-    } else if(temperature<getAppConfig().temperature_min)
+        temperature=getAppConfig().temperature_initial+normal(14, TEMPERATURE_SIGMA)*sin(TEMPERATURE_SIN_FACTOR*totalTime.asSeconds());
+    } else if (temp==Cold)
     {
-        temperature=getAppConfig().temperature_min;
+        temperature=COLD_TEMPERATURE;
+    } else {
+        temperature=HOT_TEMPERATURE;
     }
-    std::cout << temperature << std::endl;
 }
+
 
 void Environment::drawOn(sf::RenderTarget& targetWindow) const
 {
@@ -103,6 +107,24 @@ void Environment::drawOn(sf::RenderTarget& targetWindow) const
         for(auto& pheromone: pheromones) {
             pheromone->drawOn(targetWindow); //operator overload: uses drawOn method of Pheromone class
         }
+    }
+    if (isDebugOn())
+    {
+        if (temp==Cold)
+        {
+            auto const text = buildText("COLD", Vec2d(1,1), getAppFont(), 15, sf::Color::Blue);
+            targetWindow.draw(text); //shows temp via a text
+        } else if (temp==Normal)
+        {
+            auto const text = buildText("NORMAL", Vec2d(1,1), getAppFont(), 15, sf::Color::Black);
+            targetWindow.draw(text); //shows temp via a text
+        } else {
+            auto const text = buildText("HOT", Vec2d(1,1), getAppFont(), 15, sf::Color::Red);
+            targetWindow.draw(text); //shows temp via a text
+        }
+        auto const text = buildText(to_nice_string(temperature),  Vec2d(1,15), getAppFont(), 15, sf::Color::Red);
+        targetWindow.draw(text); //shows healthPoints via a text
+
     }
 }
 
@@ -172,8 +194,7 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
     for(auto& anthill: anthills) {
-        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))
-            //checks if the uids are equal and if the anthill is in the radius of perception of the ant
+        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))//checks if the uids are equal and if the anthill is in the radius of perception of the ant
         {
             anthillptr = anthill;
         }
@@ -325,5 +346,20 @@ void Environment::saveMap()
 
 bool Environment::isTemperatureExtreme()
 {
-    return (getAppEnv().getTemperature()<COLD_TEMPERATURE or getAppEnv().getTemperature()<HOT_TEMPERATURE);
+    return (getAppEnv().getTemperature()<=COLD_TEMPERATURE or getAppEnv().getTemperature()>=HOT_TEMPERATURE);
 }
+
+void Environment::toggleTemp()
+{
+    if (temp==Cold)
+    {
+        temp=Normal;
+    } else if (temp==Normal)
+    {
+        temp=Hot;
+    } else {
+        temp=Cold;
+    }
+}
+
+

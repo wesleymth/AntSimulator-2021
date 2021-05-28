@@ -46,7 +46,7 @@ Anthill::Anthill(const Vec2d& pos)
 }
 
 Anthill::Anthill(const ToricPosition& TP, Uid id)
-    :Positionable(TP), uid(id), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(2)
+    :Positionable(TP), uid(id), foodStock(0.0), timeLastSpawn(sf::Time::Zero), healthPoints(0)
 {
     generateAnt(); //Generates an ant at the creation of an anthill
     ++count;
@@ -69,7 +69,7 @@ Quantity Anthill::getFoodStock() const
 
 void Anthill::receiveFood(Quantity received)
 {
-    if (isDead())
+    if (not isDead())
     {
         if (received > 0) { //doesn't do anything for negative received
             foodStock += received;
@@ -138,9 +138,13 @@ void Anthill::update(sf::Time dt)
         {
             foodStock=0;
         }
-        if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS and foodStock>=0)
+        if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS and foodStock>0)
         {
             healthPoints+=foodStock*DEFAULT_ANTHILL_REGENERATION;
+            if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS)
+            {
+                healthPoints=DEFAULT_ANTHILL_HEALTHPOINTS;
+            }
         }
         if (getAppEnv().isTemperatureExtreme())
         {
@@ -202,5 +206,5 @@ void Anthill::receiveDamage(double damage)
 
 bool Anthill::isDead() const // a l'origine nous avions prevu de de pouvoir tuer les anthill mais il y a eu un conflit avec le code fourni dans Graph
 {
-    return healthPoints>0;
+    return healthPoints<=0;
 }

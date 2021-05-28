@@ -19,6 +19,8 @@
 #include <fstream>
 #include "AntKamikaze.hpp"
 
+enum Temp {Cold, Normal, Hot};
+
 /*!
  * @class Environment
  *
@@ -36,6 +38,8 @@ private:
     FoodGenerator foodGenerator;
     bool showPheromones;
     Temperature temperature;
+    sf::Time totalTime;
+    Temp temp;
 public:
     /*!
      *  @brief default constructor
@@ -188,6 +192,9 @@ public:
     void saveMap();
 
     bool isTemperatureExtreme();
+
+    void toggleTemp();
+
 };
 
 

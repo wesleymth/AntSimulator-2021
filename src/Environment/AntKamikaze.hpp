@@ -121,6 +121,10 @@ public:
      */
     bool interactWithPheromoneDispatch(InformationPheromone const* other);
 
+    void setTarget (Anthill* newTarget);
+
+    void setTargetPosition (const ToricPosition & newTargetPosition);
+
 
 private:
     static int count;
