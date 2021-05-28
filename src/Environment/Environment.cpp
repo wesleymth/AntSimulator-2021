@@ -199,7 +199,7 @@ Anthill* Environment::getAnthillForAnt(ToricPosition const& position, Uid anthil
 {
     Anthill* anthillptr(nullptr); //if it doesn't find an anthill with the given anthillId, it will return nullptr
     for(auto& anthill: anthills) {
-        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))//checks if the uids are equal and if the anthill is in the radius of perception of the ant
+        if ((anthill->uidIsEqual(anthillUid)) and (toricDistance(position, anthill->getPosition()) < getAppConfig().ant_max_perception_distance))//checks if the uids are equal and if the anthill is in the radius of perception of the ant
         {
             anthillptr = anthill;
         }
@@ -216,7 +216,7 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance) const
         if ((toricDistance(currentInstance->getPosition(), anthill->getPosition()) < compareDistance))
         { //if the distance of the next anthill is lower than the distance of the last anthill
             compareDistance = toricDistance(currentInstance->getPosition(), anthill->getPosition()); //distance is then equal to the distance of the new anthill
-            if ((compareDistance <= getAppConfig().ant_max_perception_distance) and (not anthill->isDead()))
+            if ((compareDistance <= getAppConfig().ant_max_perception_distance))
             { //if the anthill is in the sight distance of the given ant
                 anthillptr = anthill;
             }
@@ -406,9 +406,4 @@ void Environment::StatsReset()
 bool Environment::getStatsStatus() const
 {
     return resetStatsNeeded;
-}
-
-void Environment::toggleSpeed()
-{
-    doubleSpeed=not doubleSpeed;
 }

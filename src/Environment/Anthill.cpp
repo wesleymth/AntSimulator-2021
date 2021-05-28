@@ -81,11 +81,8 @@ Quantity Anthill::getFoodStock() const
 
 void Anthill::receiveFood(Quantity received)
 {
-    if (not isDead())
-    {
-        if (received > 0) { //doesn't do anything for negative received
-            foodStock += received;
-        }
+    if (received > 0) { //doesn't do anything for negative received
+        foodStock += received;
     }
 }
 
@@ -97,41 +94,25 @@ void Anthill::consumeFood(Quantity removed)
 }
 
 void Anthill::drawOn(sf::RenderTarget& target) const
-{
-    if (not isDead())
-    {
-        auto const anthillSprite = buildSprite((getPosition()).toVec2d(),
-                                               DEFAULT_ANTHILL_SIZE,
-                                               getAppTexture(getAppConfig().anthill_texture));;
-        target.draw(anthillSprite);
-        if (isDebugOn()) { //if debug on you can see the current foodStock in black and the uid in magenta
-            auto const foodStockText = buildText("FOOD: " + to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
-            target.draw(foodStockText); //shows quantity of foodStock via a text
+{ 
+    auto const anthillSprite = buildSprite((getPosition()).toVec2d(),
+                                           DEFAULT_ANTHILL_SIZE,
+                                           getAppTexture(getAppConfig().anthill_texture));;
+    target.draw(anthillSprite);
+    if (isDebugOn()) { //if debug on you can see the current foodStock in black and the uid in magenta
+        auto const foodStockText = buildText("FOOD: " + to_nice_string(foodStock), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
+        target.draw(foodStockText); //shows quantity of foodStock via a text
 
-            auto const uidText = buildText("UID: " + to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Magenta);
-            target.draw(uidText); //shows anthill's uid via a text
+        auto const uidText = buildText("UID: " + to_nice_string(uid), getPosition().toVec2d()+Vec2d(0,20), getAppFont(), 15, sf::Color::Magenta);
+        target.draw(uidText); //shows anthill's uid via a text
 
-            auto const healthPointsText = buildText("HP: " + to_nice_string(healthPoints), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
-            target.draw(healthPointsText); //shows anthill's healthpoints
-        }
-    } else {
-        if (isDebugOn())  // Makes a cross on position of dead anthill
+        auto const healthPointsText = buildText("HP: " + to_nice_string(healthPoints), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
+        target.draw(healthPointsText); //shows anthill's healthpoints
+        if(state == War)
         {
-            sf::VertexArray line1(sf::PrimitiveType::Lines, 2);
-            line1[0] = { getPosition().toVec2d() + Vec2d(5, 5), sf::Color::Red };
-            line1[1] = { getPosition().toVec2d() + Vec2d(-5, -5), sf::Color::Red };
-            sf::VertexArray line2(sf::PrimitiveType::Lines, 2);
-            line2[0] = { getPosition().toVec2d() + Vec2d(-5, 5), sf::Color::Red };
-            line2[1] = { getPosition().toVec2d() + Vec2d(5, -5), sf::Color::Red };
-            target.draw(line1);  //draws line
-            target.draw(line2);  //draws line
-
-            if(state == War)
-            {
-                auto const targetText = buildText("WAR :"+ to_nice_string(enemy->getUid()),
-                                                  getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
-                target.draw(targetText); //shows target anthill's uid via a text
-            }
+            auto const targetText = buildText("WAR :"+ to_nice_string(enemy->getUid()),
+                                              getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
+            target.draw(targetText); //shows target anthill's uid via a text
         }
     }
 }
@@ -144,7 +125,6 @@ void Anthill::receiveEnemyInfo(Anthill* newEnemy, const ToricPosition& newEnemyP
 
 void Anthill::update(sf::Time dt)
 {
-    if (not isDead()) ///////A CHANGERRRRRRRR
     {
         timeLastSpawn+=dt;
         if (timeLastSpawn >= sf::seconds(getAppConfig().anthill_spawn_delay)) {
@@ -203,10 +183,6 @@ void Anthill::update(sf::Time dt)
         {
             foodStock=0;
         }
-        /*if (getAppEnv().isTemperatureExtreme())
-        {
-            receiveDamage(abs(getAppEnv().getTemperature()-getAppConfig().temperature_initial)*dt.asSeconds()*TEMPERATURE_DAMAGE_RATE);
-        }*/
     }
 }
 
@@ -321,7 +297,6 @@ void Anthill::generateAnt()
 
 void Anthill::writeLine(std::ofstream &stream) const
 {
-    if (not isDead())
     {
         stream << "anthill " << getPosition().x() << " " << getPosition().y() << std::endl;
     }
