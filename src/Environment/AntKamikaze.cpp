@@ -85,7 +85,7 @@ void AntKamikaze::move(sf::Time dt)
 
 bool AntKamikaze::targetInPerceptionDistance() const
 {
-    return (toricDistance(getPosition(), target->getPosition()) <= getAppConfig().ant_max_perception_distance);
+    return (toricDistance(getPosition(), targetPosition) <= getAppConfig().ant_max_perception_distance);
 }
 
 void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition& position)
@@ -147,11 +147,16 @@ void AntKamikaze::drawOn(sf::RenderTarget& Target) const
     {
         if (condition == KillTarget)
         {
-            auto const targetText = buildText("TARGET UID: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
-            Target.draw(targetText);
-            auto const targetPos = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
-                                              getPosition().toVec2d()+Vec2d(0,60), getAppFont(), 15, sf::Color::Magenta);
-            Target.draw(targetPos); //shows target anthill's uid via a text
+            if(getAppEnv().anthillStillAlive(target))
+            {
+                auto const targetText = buildText("TARGET: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
+                Target.draw(targetText);
+            }
+            else
+            {
+                auto const targetText = buildText("TARGET: DEAD", getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
+                Target.draw(targetText);
+            }
         }
     }
 }

@@ -39,8 +39,16 @@ void InformationPheromone::drawOn(sf::RenderTarget &target) const
 
     if (isDebugOn()) //if debug on you can see the target's uid
     {
-        auto const text = buildText(to_nice_string(enemy->getUid()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Black);
-        target.draw(text); //shows quantity via a text
+        if(getAppEnv().anthillStillAlive(enemy))
+        {
+            auto const targetText = buildText(to_nice_string(enemy->getUid()), getPosition().toVec2d(), getAppFont(), 15, sf::Color::Red);
+            target.draw(targetText);
+        }
+        else
+        {
+            auto const targetText = buildText("DEAD", getPosition().toVec2d(), getAppFont(), 5, sf::Color::Red);
+            target.draw(targetText);
+        }
     }
 
 }

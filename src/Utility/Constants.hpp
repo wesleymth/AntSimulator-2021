@@ -45,13 +45,13 @@ double const DEFAULT_FOOD_COLONY = 200; ///<  constant for
 
 //ANTHILLS
 double const DEFAULT_UID = 0;
-const double ANT_WORKER_COST = 10;
+const double ANT_WORKER_COST = 0;
 const double ANT_SOLDIER_COST = 10;
-const double ANT_SCOUT_COST = 10;
+const double ANT_SCOUT_COST = 5;
 const double ANT_KAMIKAZE_COST = 10;
-const double HUNGER_DAMAGE_PER_TIME = 0.1;
+const double HUNGER_DAMAGE_PER_TIME = 1;
 const double DEFAULT_ANTHILL_HEALTHPOINTS = 100;
-const double DEFAULT_ANTHILL_REGENERATION = 1;
+const double DEFAULT_ANTHILL_REGENERATION = 0.1;
 const double ANTHILL_FOOD_COMSUMPTION = 0.5;
 const double FOOD_NEEDED_FOR_WAR = 100;
 const double DEFAULT_WAR_TIME = 5;

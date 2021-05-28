@@ -129,13 +129,21 @@ void AntScout::spreadPheromones()
 
 }
 
-void AntScout::drawOn(sf::RenderTarget& target) const
+void AntScout::drawOn(sf::RenderTarget& Target) const
 {
-    Ant::drawOn(target);
-    if (isDebugOn() and foundTarget()) {
-        auto const targetText = buildText("TARGET POS ("+ to_nice_string(targetPosition.x()) +"," + to_nice_string(targetPosition.y()) + ")",
-                                          getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Magenta);
-        target.draw(targetText); //shows target anthill's uid via a text
+    Ant::drawOn(Target);
+    if (isDebugOn() and foundTarget())
+    {
+        if(getAppEnv().anthillStillAlive(target))
+        {
+            auto const targetText = buildText("TARGET: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
+            Target.draw(targetText);
+        }
+        else
+        {
+            auto const targetText = buildText("TARGET: DEAD", getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
+            Target.draw(targetText);
+        }
     }
 }
 

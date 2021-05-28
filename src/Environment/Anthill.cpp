@@ -60,7 +60,7 @@ Anthill::Anthill(const ToricPosition& TP, Uid id)
       warTime(sf::Time::Zero)
 {
     getAppEnv().StatsNeedReset();
-    generateAntWorker(); //Generates an ant at the creation of an anthill
+    generateAntWorker(); //Generates an antWorker at the creation of an anthill because it does'nt cost anything and will get food for the anthill
     ++count;
 }
 
@@ -146,7 +146,7 @@ void Anthill::update(sf::Time dt)
             }
             if (healthPoints<DEFAULT_ANTHILL_HEALTHPOINTS)
             {
-                healthPoints+=foodStock*DEFAULT_ANTHILL_REGENERATION;
+                healthPoints+=DEFAULT_ANTHILL_REGENERATION;
                 if (healthPoints>DEFAULT_ANTHILL_HEALTHPOINTS)
                 {
                     healthPoints=DEFAULT_ANTHILL_HEALTHPOINTS;

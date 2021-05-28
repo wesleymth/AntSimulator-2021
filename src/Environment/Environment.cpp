@@ -225,13 +225,8 @@ Anthill* Environment::getClosestAnthillForAnt(Ant* const& currentInstance) const
     return anthillptr;
 }
 
-<<<<<<< HEAD
+
 Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance) const
-=======
-
-
-Pheromone* Environment::getClosestPheromoneForAnt(Ant * const &currentInstance)
->>>>>>> c3741dd2cdb5ce880170a11c7d6beb4aac0c3d28
 {
     Pheromone* pheromoneptr(nullptr);
     double compareDistance(getAppConfig().world_size); //sets the distance to compare to a very large number
