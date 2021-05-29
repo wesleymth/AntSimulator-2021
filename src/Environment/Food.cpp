@@ -47,9 +47,12 @@ Quantity Food::takeQuantity(Quantity wantTake)
     } else {
         if (quantity>wantTake) {
             quantity -= wantTake;
+            count -= wantTake;
             taken = wantTake;
         } else {
+            count -= quantity;
             quantity = 0.0; //cannot take anything more than what is available
+
         }
     }
     return taken;
@@ -78,5 +81,7 @@ void Food::writeLine(std::ofstream& stream) const
 
 void Food::update(sf::Time dt) //unused paramter normal
 {
-    quantity -= getAppConfig().FOOD_DRYING_CONSTANT*getAppEnv().getTemperature();
+    double dried(getAppConfig().FOOD_DRYING_CONSTANT*getAppEnv().getTemperature());
+    quantity -= dried;
+    count -= dried;
 }

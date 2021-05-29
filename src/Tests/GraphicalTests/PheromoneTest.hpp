@@ -8,7 +8,7 @@
 #include <Application.hpp>
 #include <Environment/Environment.hpp>
 #include <Environment/AntWorker.hpp>
-#include <Environment/Pheromone.hpp>
+#include <Environment/RegularPheromone.hpp>
 #include "Utility/Utility.hpp"
 
 class Ant;

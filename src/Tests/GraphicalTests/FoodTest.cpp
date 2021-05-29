@@ -33,7 +33,6 @@ void FoodTest::onEvent(sf::Event event, sf::RenderWindow& window)
 {
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        // UNCOMMENT WHEN CLASS FOOD IS CODED
 
         lastCreated = new Food(getCursorPositionInView(), 50);
         getAppEnv().addFood(lastCreated);
@@ -47,7 +46,6 @@ void FoodTest::onEvent(sf::Event event, sf::RenderWindow& window)
             break;
 
         case sf::Keyboard::T:
-            // UNCOMMENT WHEN CLASS FOOD IS CODED
 
             if (lastCreated != nullptr)
                 lastCreated->takeQuantity(15);
