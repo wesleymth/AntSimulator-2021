@@ -1,8 +1,22 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef INFORMATIONPHEROMONE_HPP
 #define INFORMATIONPHEROMONE_HPP
 #include "Pheromone.hpp"
 #include "Anthill.hpp"
 #include "AntKamikaze.hpp"
+
+/*!
+ * @class InformationPheromone
+ *
+ * @inherits Pheromone
+ *
+ * @brief Represents an InformationPheromone which can give informations to ants
+ */
 
 class InformationPheromone : public Pheromone
 {

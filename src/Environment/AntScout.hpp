@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANTSCOUT_HPP
 #define ANTSCOUT_HPP
 #include "Ant.hpp"
@@ -5,6 +11,14 @@
 #include "AntKamikaze.hpp"
 #include "AntSoldier.hpp"
 #include "AntWorker.hpp"
+
+/*!
+ * @class AntScout
+ *
+ * @brief Represents and manages the aspects of an ant scout, which can specifically interact with anthills and kamikazes
+ *
+ * @inherits Ant
+ */
 
 enum ScoutCondition {TargetAcquiered,Roam};
 

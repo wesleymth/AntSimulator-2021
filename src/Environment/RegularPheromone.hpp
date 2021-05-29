@@ -1,7 +1,21 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef REGULARPHEROMONE_HPP
 #define REGULARPHEROMONE_HPP
 #include "Pheromone.hpp"
 #include "AntKamikaze.hpp"
+
+/*!
+ * @class RegularPheromone
+ *
+ * @inherits Pheromone
+ *
+ * @brief Represents a RegularPheromone
+ */
 
 class RegularPheromone : public Pheromone
 {

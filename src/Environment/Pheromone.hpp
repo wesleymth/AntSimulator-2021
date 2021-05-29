@@ -14,15 +14,14 @@
 #include "./Interface/Updatable.hpp"
 #include "Anthill.hpp"
 
-//Cette façon simple de modéliser la phéromone sera potentiellement gourmande en ressources.
-//Vous pourrez proposer des alternatives plus efficaces dans la partie « extensions » du projet.
-
 /*!
  * @class Pheromone
  *
  * @inherits Positionable, Drawable, Updatable
  *
  * @brief Represents a Pheromone
+ *
+ * @note abstract class
  */
 class Pheromone: public Positionable, public Drawable, public Updatable
 {

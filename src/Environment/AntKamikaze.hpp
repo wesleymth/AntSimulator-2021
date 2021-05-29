@@ -1,8 +1,22 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #ifndef ANTKAMIKAZE_HPP
 #define ANTKAMIKAZE_HPP
 #include "Ant.hpp"
 #include "Anthill.hpp"
 #include "Pheromone.hpp"
+
+/*!
+ * @class AntKamikaze
+ *
+ * @brief Represents and manages the aspects of an ant kamikaze, which can specifically kill anthills and interact with information pheromones
+ *
+ * @inherits Ant
+ */
 
 enum KamikazeCondition {Wander,KillTarget};
 

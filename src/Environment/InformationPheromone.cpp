@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #include "InformationPheromone.hpp"
 #include "../Application.hpp"
 #include "../Utility/Constants.hpp"

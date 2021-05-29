@@ -1,3 +1,9 @@
+/*
+ * POOSV 2020-21
+ * @authors: BELISSENT Guillaume, MONTEITH-FINAS Wesley
+ * @group: 76
+ */
+
 #include "AntScout.hpp"
 #include "../Utility/Constants.hpp"
 #include "../Application.hpp"
