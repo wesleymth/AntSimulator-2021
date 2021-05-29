@@ -78,11 +78,11 @@ void AntScout::update(sf::Time dt)
         {
             saveTargetInfo(closestAnthill);
             turnAround();
-            timeSpreadInpho = sf::seconds(getAppConfig().ANT_SCOUT_SPREAD_INPHO_TIME);
+            timeSpreadInpho = sf::seconds(getAppConfig().ANT_SCOUT_SPREAD_INPHO_TIME); //spreads information pheromones for kamikaze
             condition = TargetAcquiered;
         }
     }
-    else
+    else //if target has been acquired
     {
         if (timeSpreadInpho > sf::Time::Zero)
         {
@@ -95,11 +95,12 @@ void AntScout::update(sf::Time dt)
 
         if (closestAnthill != nullptr and closestAnthill->getUid() == getAnthillUid()
                 and toricDistance(closestAnthill->getPosition(),targetPosition) <= getAppConfig().DEFAULT_ANTHILL_TERRITORY)
+            //if it goes back to it's anthill having just discovered an enemy, within its territory
         {
-            closestAnthill->receiveEnemyInfo(target,targetPosition);
+            closestAnthill->receiveEnemyInfo(target,targetPosition); //it gives all information needed to start a war
         }
     }
-    Animal::update(dt);
+    Animal::update(dt); //updates the animal to be able to fight normally
 }
 
 void AntScout::spreadPheromones()
@@ -121,6 +122,7 @@ void AntScout::spreadPheromones()
                                                                   getAnthillUid(),
                                                                   target,
                                                                   targetPosition));
+                //if it has a target in mind it drops behing special pheromones with enemy information in them for kamikazes to pick up on
             }
 
         }
@@ -139,7 +141,7 @@ void AntScout::drawOn(sf::RenderTarget& Target) const
             auto const targetText = buildText("TARGET: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
             Target.draw(targetText);
         }
-        else
+        else //if the target is dead but it does'nt know it yet
         {
             auto const targetText = buildText("TARGET: DEAD", getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
             Target.draw(targetText);

@@ -97,6 +97,7 @@ Config::Config(std::string path) : mConfig(j::readFromFile(path))
 
   //FOOD
     ,DEFAULT_FOOD_QUANTITY(mConfig["food"]["DEFAULT_FOOD_QUANTITY"].toDouble())
+    ,FOOD_DRYING_CONSTANT(mConfig["food"]["FOOD_DRYING_CONSTANT"].toDouble())
 
   //PHEROMONE
     ,DEFAULT_PHEROMONE_QUANTITY(mConfig["ant"]["pheromone"]["DEFAULT_PHEROMONE_QUANTITY"].toDouble())
@@ -126,6 +127,7 @@ Config::Config(std::string path) : mConfig(j::readFromFile(path))
   ,FOOD_NEEDED_FOR_WAR(mConfig["anthill"]["FOOD_NEEDED_FOR_WAR"].toDouble())
   ,DEFAULT_WAR_TIME(mConfig["anthill"]["DEFAULT_WAR_TIME"].toDouble())
   ,DEFAULT_ANTHILL_TERRITORY(mConfig["anthill"]["DEFAULT_ANTHILL_TERRITORY"].toDouble())
+  ,DEFAULT_ANTHILL_FOODSTOCK(mConfig["anthill"]["DEFAULT_ANTHILL_FOODSTOCK"].toDouble())
 
   //ANT GENERATION PROBABILITIES
   ,WAR_WORKER_PROB(mConfig["anthill"]["generation probabilities"]["WAR_WORKER_PROB"].toDouble())

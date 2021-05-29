@@ -33,7 +33,7 @@ public:
      *
      *  @param dt time interval
      *
-     *  @note
+     *  @note make it last longer than a regular pheromone
      */
     void update(sf::Time dt) override;
 
@@ -44,14 +44,33 @@ public:
      */
     void drawOn(sf::RenderTarget &target) const override;
 
+    /*!
+     * @brief get enemy to give to other ants
+     *
+     * @return enemy
+     */
     Anthill* getEnemy() const override;
 
+    /*!
+     * @brief get enemyPosition to give to other ants
+     *
+     * @return enemyPosition
+     */
     ToricPosition getEnemyPosition() const override;
 
+    /*!
+     * @brief get the uid of the ants that are able to read the information
+     *
+     * @return allowedReading
+     */
     Uid getAllowedReading() const;
 
     /*!
+     * @brief to know if animals can interact with this type of pheromone
      *
+     * @return true
+     *
+     * @note (a type testing but we didn't find a way to make it work otherwise)
      */
     bool interact() const override;
 

@@ -28,12 +28,22 @@ public:
     RegularPheromone(const ToricPosition &vect, Quantity quant);
 
     /*!
+     * @brief to know if ants can intercat with the pheromone
      *
+     * @return false because a regular pheromone
+     *
+     * @note (we know this is type testing and not recommended but we didn't find a way otherwise)
      */
     bool interact() const override;
 
+    /*!
+     * @return nullptr
+     */
     Anthill* getEnemy() const override;
 
+    /*!
+     * @return default ToricPosition
+     */
     ToricPosition getEnemyPosition() const override;
 };
 

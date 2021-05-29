@@ -64,7 +64,7 @@ public:
     /*!
      *  @brief gets strength of an ant scout
      *
-     *  @return ANT_SCOUT_STRENGTH
+     *  @return getAppConfig().ANT_SCOUT_STRENGTH
      */
     int getStrength() const override;
 
@@ -83,16 +83,34 @@ public:
     bool roaming() const;
 
     /*!
-     *  @brief if it found a target it saves alol info needed for a Kamikaze
+     *  @brief if it found a target it saves all info needed for a Kamikaze or an Anthill
      *
      *  @param victim Anthill*
      */
     void saveTargetInfo(Anthill *victim);
 
+    /*!
+     *  @brief updates the scout: makes it able to give enemy information to its anthill
+     *  or to it's anthill's kamikazes via information pheromones
+     *
+     *  @param dt sf::Time
+     *
+     *  @note calls Animal::update(dt)
+     */
     void update(sf::Time dt) override;
 
+    /*!
+     *  @brief resembles Ant::spreadPheromones except that it can spread information pheromones as well
+     */
     void spreadPheromones() override;
 
+    /*!
+     *  @brief Ant::drawOn(target) with a debug option showing the target's uid
+     *
+     *  @param target
+     *
+     *  @note if the target is dead but the scout does'nt know it will say "UID: DEAD"
+     */
     void drawOn(sf::RenderTarget& target) const override;
 
 private:

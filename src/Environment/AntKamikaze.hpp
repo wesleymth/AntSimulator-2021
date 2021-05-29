@@ -71,24 +71,31 @@ public:
     /*!
      *  @brief gets strength of an ant kamikaze
      *
-     *  @return ANT_KAMIKAZE_STRENGTH
+     *  @return getAppConfig().ANT_KAMAIKAZE_STRENGTH;
      */
     int getStrength() const override;
 
+    /*!
+     *  @brief gets target of an ant kamikaze
+     *
+     *  @return target
+     */
     Anthill* getTarget() const;
 
     /*!
      *  @brief makes kamikaze move using Animal::move(sf::Time dt) except if condition = KillTarget in which case Kamikaze goes straigth to targetted anthill
+     *
+     *  @note always spreads pheromones
      */
     void move(sf::Time dt) override;
 
     /*!
-     *  @brief updates kamaikaze using Animal::update(sf::Time dt) plus manages the kamikaze's explosion
+     *  @brief updates kamaikaze using Animal::update(sf::Time dt) plus manages the kamikaze's attacks on other anthills
      */
     void update(sf::Time dt) override;
 
     /*!
-     *  @brief draws kamaikaze using Ant::update(sf::Time dt) and if debug on you can see it's target if it has one
+     *  @brief draws kamaikaze using Ant::update(sf::Time dt) and if debug on you can see it's target's uid if it has one
      */
     void drawOn(sf::RenderTarget& Target) const override;
 
@@ -102,7 +109,7 @@ public:
     /*!
      *  @brief makes the kamikaze explode onto an anthill
      *
-     *  @note calls method receiveDamage from Animal class and takeDamage from Anthill class
+     *  @note calls method kill from Animal class and takeDamage from Anthill class
      */
     void explode(Anthill* victim);
 

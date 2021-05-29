@@ -109,8 +109,6 @@ public:
 
     /*!
      *  @brief places pheromones from last placed pheromone to current position
-     *
-     *  @note
      */
     virtual void spreadPheromones();
 

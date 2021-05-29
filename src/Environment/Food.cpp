@@ -68,10 +68,15 @@ void Food::drawOn(sf::RenderTarget& target) const
 
 bool Food::zeroQuantity() const
 {
-    return (quantity == 0);
+    return (quantity <= 0);
 }
 
 void Food::writeLine(std::ofstream& stream) const
 {
     stream << "food " << getPosition().x() << " " << getPosition().y() << " " << quantity << std::endl;
+}
+
+void Food::update(sf::Time dt) //unused paramter normal
+{
+    quantity -= getAppConfig().FOOD_DRYING_CONSTANT*getAppEnv().getTemperature();
 }

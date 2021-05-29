@@ -68,11 +68,12 @@ void AntWorker::update(sf::Time dt)
         }
     }
 
-    if (getAppEnv().getAnthillForAnt(getPosition(),getAnthillUid()) != nullptr)
+    if (getAppEnv().getAnthillForAnt(getPosition(),getAnthillUid()) != nullptr and carriedFood != 0.0)
     {
         getAppEnv().getAnthillForAnt(getPosition(),getAnthillUid())->receiveFood(carriedFood);
         carriedFood = 0.0;
-        //if the ant can see the anthill and the position of the ant is the same as the anthill then it drops its carried food to the anthill
+        turnAround();
+        //if the ant can see the anthill and the position of the ant is the same as the anthill then it drops its carried food to the anthill and tries to go back
     }
 
 }

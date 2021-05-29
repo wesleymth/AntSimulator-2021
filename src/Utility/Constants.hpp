@@ -27,6 +27,7 @@ double const DEFAULT_ANIMAL_LIFE = 1.0; ///<  constant for animals
 
 //FOOD
 double const DEFAULT_FOOD_QUANTITY = 0;
+double const FOOD_DRYING_CONSTANT = 0.01;
 
 //PHEROMONE
 double const DEFAULT_PHEROMONE_QUANTITY = 0;
@@ -110,6 +111,8 @@ std::string const TERMITES     = "termites";
 std::string const ANTHILLS     = "anthills";
 std::string const FOOD         = "food";
 std::string const TEMPERATURE  = "temperature";
+std::string const SCOUT_ANTS      = "scout ants";
+std::string const KAMIKAZE_ANTS  = "kamikaze ants";
 } // s
 
 #endif // INFOSV_CONSTANTS_HPP

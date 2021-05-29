@@ -152,6 +152,7 @@ public:
 
     //FOOD
     double const DEFAULT_FOOD_QUANTITY;
+    double const FOOD_DRYING_CONSTANT;
 
     //PHEROMONE
     double const DEFAULT_PHEROMONE_QUANTITY;
@@ -181,6 +182,7 @@ public:
     const double FOOD_NEEDED_FOR_WAR;
     const double DEFAULT_WAR_TIME;
     const double DEFAULT_ANTHILL_TERRITORY;
+    const double DEFAULT_ANTHILL_FOODSTOCK;
 
     //ANT GENERATION PROBABILITIES
     const double WAR_WORKER_PROB;

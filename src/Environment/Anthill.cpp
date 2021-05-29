@@ -51,7 +51,7 @@ Anthill::Anthill(const Vec2d& pos)
 Anthill::Anthill(const ToricPosition& TP, Uid id)
     :Positionable(TP),
       uid(id),
-      foodStock(0.0),
+      foodStock(getAppConfig().DEFAULT_ANTHILL_FOODSTOCK),
       timeLastSpawn(sf::Time::Zero),
       healthPoints(getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS),
       state(Prosper),
@@ -132,49 +132,56 @@ void Anthill::update(sf::Time dt)
             generateAnt(); //randomly generates ant every anthill_spawn_delay
         }
 
-        foodStock -= dt.asSeconds()*getAppConfig().ANTHILL_FOOD_COMSUMPTION;
+        foodStock -= dt.asSeconds()*getAppConfig().ANTHILL_FOOD_COMSUMPTION; //decrements foodStock
         if (foodStock <= 0.0)
         {
+            if (state != Decay)
+            {
+                state = Decay;
+            }
             foodStock = 0.0;
-            receiveDamage(getAppConfig().HUNGER_DAMAGE_PER_TIME*dt.asSeconds());
+            receiveDamage(getAppConfig().HUNGER_DAMAGE_PER_TIME*dt.asSeconds()); //if anthill is in decay it loses healthpoints
         }
         else
         {
+            if (state == Decay)
+            {
+                state = Prosper;
+            }
             if (foodStock>=getAppConfig().DEFAULT_FOOD_COLONY)
             {
-                generateAntQueen();
+                generateAntQueen(); //once it has enough food it will create a new ant queen
             }
-            if (healthPoints<getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS)
+            if (healthPoints<getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS and not isDead())
             {
-                healthPoints+=getAppConfig().DEFAULT_ANTHILL_REGENERATION;
+                healthPoints+=getAppConfig().DEFAULT_ANTHILL_REGENERATION; //if anthill is in prosper state, it will regenerate its hp to the max
                 if (healthPoints>getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS)
                 {
                     healthPoints=getAppConfig().DEFAULT_ANTHILL_HEALTHPOINTS;
                 }
             }
-
         }
-        if (state == Prosper)
+        if (not (state == War))
         {
-            if (foundEnemy() and foodStock >= getAppConfig().FOOD_NEEDED_FOR_WAR)
+            if (foundEnemy() and foodStock >= getAppConfig().FOOD_NEEDED_FOR_WAR) //if it has an enemy and sufficient food to create an army
             {
-                if (getAppEnv().anthillStillAlive(enemy))
+                if (getAppEnv().anthillStillAlive(enemy)) //if the enemy is still alive
                 {
                     state = War;
-                    generateSoldierKamikazePair();
+                    generateSoldierKamikazePair(); //generates a kamikaze and a soldier at once to attack fast
                 }
                 else
                 {
-                    enemy = nullptr;
+                    enemy = nullptr; //if the enemy is dead there is no need to go to war
                 }
             }
         }
         else
         {
             warTime += dt;
-            if (not getAppEnv().anthillStillAlive(enemy) or warTimeOver())
+            if (not getAppEnv().anthillStillAlive(enemy) or warTimeOver()) //if the enemy is dead or they have been fighting too long
             {
-                state = Prosper;
+                state = Prosper; //goes back toa state of prosperity
                 warTime = sf::Time::Zero;
             }
         }
@@ -271,18 +278,18 @@ void Anthill::generateAnt()
         }
         else if( (getAppConfig().WAR_WORKER_PROB < theta) and (theta <= (getAppConfig().WAR_WORKER_PROB + getAppConfig().WAR_SOLDIER_PROB)) )
         {
-            generateWarAntSoldier();
+            generateWarAntSoldier(); //made to attack the enemy
         }
         else if( ((getAppConfig().WAR_WORKER_PROB + getAppConfig().WAR_SOLDIER_PROB) < theta) and (theta <= (getAppConfig().WAR_WORKER_PROB + getAppConfig().WAR_SOLDIER_PROB + getAppConfig().WAR_SCOUT_PROB)) )
         {
             generateAntScout();
         }
-        else
+        else //all probabilities sum up to 1
         {
-            generateWarAntKamikaze();
+            generateWarAntKamikaze(); //made to attack the enemy
         }
     }
-    else
+    else if (state == Prosper)
     {
         if ( (0 <= theta) and (theta <= getAppConfig().PROSPER_WORKER_PROB) ) {
             generateAntWorker();
@@ -295,10 +302,14 @@ void Anthill::generateAnt()
         {
             generateAntScout();
         }
-        else
+        else //all probabilities sum up to 1
         {
             generateAntKamikaze();
         }
+    }
+    else if(state == Decay) //if decaying the priority is to find food
+    {
+        generateAntWorker();
     }
 }
 
@@ -319,7 +330,7 @@ void Anthill::receiveDamage(double damage)
     }
 }
 
-bool Anthill::isDead() const // a l'origine nous avions prevu de de pouvoir tuer les anthill mais il y a eu un conflit avec le code fourni dans Graph
+bool Anthill::isDead() const
 {
     return healthPoints<=0;
 }

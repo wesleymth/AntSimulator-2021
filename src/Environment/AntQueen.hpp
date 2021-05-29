@@ -40,7 +40,7 @@ public:
     /*!
      *  @brief gets strength of an ant queen
      *
-     *  @return
+     *  @return queen strength
      */
     int getStrength() const override;
 

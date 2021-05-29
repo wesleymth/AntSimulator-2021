@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Interface/Drawable.hpp"
 #include "../Interface/Savable.hpp"
+#include "../Interface/Updatable.hpp"
 
 /*!
  * @class Food
@@ -20,7 +21,7 @@
  * @inherits Positionable, Drawable
  */
 
-class Food : public Positionable, public Drawable, public Savable
+class Food : public Positionable, public Drawable, public Savable, public Updatable
 {
 public:
     /*!
@@ -102,6 +103,15 @@ public:
      *  @note In addition to position and type writes food
      */
     void writeLine(std::ofstream &stream) const override;
+
+    /*!
+     *  @brief updates the food which becomes drier and loses quantity
+     *
+     *  @param dt sf::Time
+     *
+     *  @note depends on the environment's temperature
+     */
+    void update(sf::Time dt) override;
 private:
     static Quantity count;
     Quantity quantity;

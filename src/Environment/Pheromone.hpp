@@ -80,12 +80,30 @@ public:
      */
     Quantity getQuantity() const;
 
+    /*!
+     * @brief makes the pheromone evaporate
+     */
     void evaporate(Quantity takeAway);
 
+    /*!
+     * @brief can an ant interact with the pheromone
+     *
+     * @return true of false
+     */
     virtual bool interact() const=0;
 
+    /*!
+     * @brief gets the enemy if it is an info pheromone
+     *
+     * @return nullptr or enemy
+     */
     virtual Anthill* getEnemy() const=0;
 
+    /*!
+     * @brief gets the enemy's position if it is an info pheromone
+     *
+     * @return default ToricPosition or enemyPosition
+     */
     virtual ToricPosition getEnemyPosition() const=0;
 
 

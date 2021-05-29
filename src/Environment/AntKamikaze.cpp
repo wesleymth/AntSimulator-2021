@@ -92,7 +92,7 @@ void AntKamikaze::receiveTargetInformation(Anthill* anthill, const ToricPosition
 {
     target = anthill; //gets the target
     targetPosition = position; //it's position
-    setDirection(calculateAngle(Positionable(targetPosition))); //clalculates the angle it has to follow to go straigth towrds it
+    setDirection(calculateAngle(Positionable(targetPosition))); //clalculates the angle it has to follow to go straigth towards it
     condition = KillTarget; //changes its condition so that the update can manage it differently
 
 }
@@ -112,18 +112,18 @@ void AntKamikaze::update(sf::Time dt)
         {
             if(getAppEnv().anthillStillAlive(target))
             {
-                explode(target);
+                explode(target); //inflicts explosion damage upon target
             }
             else
             {
-                condition = Wander;
+                condition = Wander; //once it is at the reported target's position, if it is dead it goes back to wandering
             }
         }
     }
     else //if wandering
     {
         Anthill* closestAnthill(getAppEnv().getClosestAnthillForAnt(this));
-        if (getAppEnv().getPheromoneInfo(this))
+        if (getAppEnv().getPheromoneInfo(this)) //if it can take information from the information pheromone
         {
             condition = KillTarget;
         }
@@ -132,7 +132,7 @@ void AntKamikaze::update(sf::Time dt)
         {
             if(closestAnthill->getUid() != getAnthillUid())
             {
-                explode(closestAnthill);
+                explode(closestAnthill); //if it stumbles upon an anthill it will explode on it
             }
         }
     }
@@ -145,14 +145,14 @@ void AntKamikaze::drawOn(sf::RenderTarget& Target) const
     Ant::drawOn(Target);
     if (isDebugOn())
     {
-        if (condition == KillTarget)
+        if (condition == KillTarget) //shows target's uid
         {
             if(getAppEnv().anthillStillAlive(target))
             {
                 auto const targetText = buildText("TARGET: " + to_nice_string(target->getUid()), getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
                 Target.draw(targetText);
             }
-            else
+            else //if the target is dead but it does'nt know it yet
             {
                 auto const targetText = buildText("TARGET: DEAD", getPosition().toVec2d()+Vec2d(0,40), getAppFont(), 15, sf::Color::Red);
                 Target.draw(targetText);

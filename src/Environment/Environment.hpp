@@ -99,7 +99,19 @@ public:
      */
     Pheromone* getClosestPheromoneForAnt(Ant * const &currentInstance) const;
 
+    /*!
+     *  @brief gives information of the closest pheromone that the kamikaze can interact with
+     *
+     *  @return bool if it was able to take any information
+     */
     bool getPheromoneInfo(AntKamikaze* const &currentInstance) const;
+
+    /*!
+     *  @brief checks if the anthill still exists
+     *
+     *  @return true if the anthill is still in the environment
+     */
+    bool anthillStillAlive(Anthill* currentInstance) const;
 
     /*!
      *  @brief adds animal to current environment
@@ -185,8 +197,22 @@ public:
             Angle direction_rad,
             const Intervals &angles);
 
+    /*!
+     *  @brief fetches data for stats
+     *
+     *  @param title of the wanted graph
+     *
+     *  @return unordered map of information
+     */
     std::unordered_map<std::string, double> fetchData(const std::string &title);
 
+    /*!
+     *  @brief gets all the environments anthill's
+     *
+     *  @param title of the wanted graph
+     *
+     *  @return a vector with "anthill#..." of the envrionment
+     */
     std::vector<std::string> getAnthillsIds() const;
 
     /*!
@@ -222,9 +248,6 @@ public:
      *  @return bool attribute resetsStatsNeeded
      */
     bool getStatsStatus() const;
-
-
-    bool anthillStillAlive(Anthill* currentInstance);
 
 };
 

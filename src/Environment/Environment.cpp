@@ -57,7 +57,7 @@ void Environment::update(sf::Time dt)
     }
 
     for(auto& anthill: anthills) {
-        anthill->update(dt); //in charge of updating the anthills
+    anthill->update(dt); //in charge of updating the anthills
         if (anthill->isDead()) { //gets rid of the animal in the attribute of the environement if the animal is dead
             delete anthill;
             anthill = nullptr;
@@ -75,6 +75,7 @@ void Environment::update(sf::Time dt)
     }
 
     for(auto& food: foods) {
+        food->update(dt);
         if (food->zeroQuantity()) { //gets rid of the food in the attribute of the environement if its quantity equals 0
             delete food;
             food = nullptr;
@@ -328,8 +329,8 @@ std::unordered_map<std::string, double> Environment::fetchData(const std::string
             {"worker ants", AntWorker::getCount()},
             {"soldier ants", AntSoldier::getCount()},
             {"termites", Termite::getCount()},
-            {"termites", AntScout::getCount()},
-            {"termites", AntKamikaze::getCount()},
+            {"scout ants", AntScout::getCount()},
+            {"kamikaze ants", AntKamikaze::getCount()},
             {"temperature", temperature}
         };
     } else if (title == "food")
@@ -404,10 +405,11 @@ void Environment::StatsReset()
     resetStatsNeeded=false;
 }
 
-bool Environment::anthillStillAlive(Anthill* currentInstance)
+bool Environment::anthillStillAlive(Anthill* currentInstance) const
 {
     bool res(false);
-    for(auto& anthill: anthills) {
+    for(auto& anthill: anthills)
+    {
         if (anthill == currentInstance)
         {
             res = true;
